@@ -1,0 +1,232 @@
+body{
+    width: 100%;
+    margin: 0px;
+}
+
+.calendar-container{
+    width:85%;
+}
+
+#header-logos{
+    float: left;
+    color: transparent;!important;
+    background-image: url("Logo.png");
+    background-size: contain;
+    margin-left: 1%;
+    width: 200px;
+    height: 200px;
+
+    margin-top: 0px;
+    background-repeat: no-repeat
+}
+.homeheader{
+    width: 100%;
+    background-color: white;
+    height: 75px;
+    position: fixed;
+    top:0px;
+}
+
+#homepage-container{
+    margin-top: 15%;
+    margin-left: 25%;
+    text-align: center;
+    height: 500px;
+    width: 50%;
+    background-color: transparent;
+}
+#newprofile{
+    margin-top: 15%;
+    margin-left: 25%;
+    text-align: center;
+    height: 500px;
+    width: 50%;
+    background-color: rgba(53, 50, 51, 0.5);
+}
+
+#homepage{
+margin: 0px;
+background-image: url("nice.jpg");
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+
+#login-header{
+    margin-bottom: 40px;
+text-transform: uppercase;
+color: white;
+font-family: "Miso Light";
+letter-spacing: 1px;
+}
+
+.settings-container{
+    float: left;
+     margin-left: -500px;
+    /*uncomment that ^ in order to move it off screen*/
+    margin-top: 0px;
+    position: absolute;
+    height: 100%;
+    width: 17%;
+    background-color: aqua;
+    margin-top: 75px;
+}
+
+
+
+
+
+
+
+
+.navbar-items{
+    display: inline;
+
+}
+
+
+
+#navbar_classname{
+    text-align: center;
+    /* margin-left: 10%; */
+    position: absolute;
+    right:40%;
+    top:30%;
+}
+
+#navbar_settings{
+    float: left;
+    color: transparent;!important;
+    background-image: url("menuButton.png");
+    background-size: contain;
+    margin-left: 1%;
+    width: 50px;
+    height: 50px;
+    margin-top: 20px;
+}
+
+
+#navbar{
+    background-color: #2a2527;
+    width: 110%;
+    height: 70px;
+    color: white;
+    position: relative;
+    top: -8px;
+    left: -8px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    text-align: center;
+    padding-top: 20px;
+}
+
+#navbar_range,#navbar_scoolyear{
+    padding-bottom: 0px;
+    padding-left: 0px;
+    top:47%;
+    position: absolute;
+}
+#navbar_range{
+    right: 15%;
+}
+
+#navbar_scoolyear{
+    right: 10%;
+}
+
+
+
+.daysOfWeek{
+    display: block;
+    float: left;
+    width: 14.2857142857%;
+    padding: 5px;
+    padding-bottom: 0px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin-right: -1px;
+    margin-bottom: -1px;
+    text-align: center;
+
+}
+
+#weekdays-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    clear: both;
+    width: 100%;
+    /* position: absolute; */
+    /*  */
+    margin-top: -20px;
+}
+.weekdates_items{
+    display: block;
+    float: left;
+    width: 14.2857142857%;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin-right: -1px;
+    margin-bottom: -1px;
+    text-align: center;
+    height:140px;
+}
+
+#logout{
+	padding: 15px;
+	float: right;
+	width: 50px;
+    height: 20px;
+}
+
+#logoutb{
+    background-color: red;
+	width: 50px;
+    height: 20px;
+}
+
+#resetform{
+	padding: 15px;
+	float: right;
+	width: 250px;
+    height: 20px;
+}
+
+#reset{
+    background-color: red;
+	width: 150px;
+    height: 20px;
+}
+
+#greetings{
+	float: center;
+}
+
+.weekdatesclass{
+    padding: 0px;
+    margin-top: 5px;
+}
+
+
+
+.date{
+    text-align:center;
+	margin-bottom:5px;
+	padding:5px;
+	background:#333;
+	color:#fff;
+	width:25px;
+	border-radius:50%;
+	float:right;
+}
+
+
+@media (max-width: 960px) {
+    #navbar_range{
+        top:27%;
+        right:10%;
+    }
+
+}

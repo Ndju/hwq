@@ -1,0 +1,61 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="css/style.css" type="text/css">
+
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js">
+	
+</script>
+
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js">
+	
+</script>
+
+<script type="text/javascript" class="init">
+	$(document).ready(function() {
+		$('#submissions').DataTable({
+			"order" : [ [ 0, "desc" ] ],
+			"lengthMenu" : [ 100, 50, 25 ]
+		});
+	});
+</script>
+<title><%= title %></title>
+</head>
+<body>
+	<table id="submissions"  class="cell-border"  cellspacing="0" width="100%">
+        <thead>
+			<tr>
+			<td>Date Submitted</td>
+			<td>IP Address</td>
+			<td>Name.first</td>
+			<td>Name.last</td>
+			<td>Assignment Title</td>
+			<td>Upload File 1</td>
+			<td>Upload File 2</td>
+			<td>Upload File 3</td>
+			</tr>
+        </thead>
+
+		<tbody>
+
+
+		<% submissions.forEach(function(submission){ %>
+			<tr>
+				<td><%= submission[0] %></td>
+				<td><%= submission[1] %></td>
+				<td><%= submission[2] %></td>
+				<td><%= submission[3] %></td>
+				<td><%= submission[4] %></td>
+				<td><%- submission[5] %></td>
+				<td><%- submission[6] %></td>
+				<td><%- submission[7] %></td>
+			</tr>
+		<% }) %>
+		</table>
+	
+	
+</body>
+</html>
