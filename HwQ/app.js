@@ -13,9 +13,9 @@ var express = require('express')
 ,uuid = require('node-uuid');
 
 
-console.log( "......"+process.env.NODE_ENV );
-
-
+/**
+ * Initialize express .
+ */
 var app = express();
 
 app.use(express.static('public'));
@@ -33,6 +33,14 @@ app.configure(function(){
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
+
+
+/**
+ * Initialize connections to mysql database depending on the NODE_ENV.
+ */
+
+console.log( "Starting in " + process.env.NODE_ENV );
+
 
 app.configure('development', function() {
   console.log('Using development settings.');
@@ -53,8 +61,15 @@ app.configure('production', function() {
     port: process.env.RDS_PORT}));
 });
 
+
+
+/**
+ * Setup the mapping between the URL and the routes in Java Script objects.
+ */
+
 function init() {
   app.post('/login', user.login);
+  app.post('/logout', user.logout); //TODO
   app.get('/query', submissions.query);
 
   http.createServer(app).listen(app.get('port'), function(){
@@ -63,8 +78,8 @@ function init() {
 }
 
 
+// WHAT Is this anyway?
 var client = app.get('connection');
-
 async.series([
   function connect(callback) {
     client.connect(callback);
