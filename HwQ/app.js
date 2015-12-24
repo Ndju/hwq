@@ -91,9 +91,13 @@ function init() {
   });
 }
 
+//Debug: print env vars
+console.log(process.env);
 
-// WHAT Is this anyway?
+//Test MySQL connection
 var client = app.get('connection');
+console.log( "Connecting to MySql=====> :  "+ client.config.user + "@" + client.config.host  );
+
 async.series([
   function connect(callback) {
     client.connect(callback);
