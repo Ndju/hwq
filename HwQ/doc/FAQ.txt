@@ -1,0 +1,132 @@
+* What is the purpose of this application? What problem you are trying to solve?
+
+
+
+
+* What is programming language?
+- Node.js, javascript
+
+* What is the development environment ?
+Eclipse, Node.js, Mysql, Express
+
+
+* What is the back end web technology used in the project?
+- Node.js
+- Express
+- EJS template engine which supports expression language
+
+
+* What is Node.js
+
+
+
+* What is express ?
+
+
+
+* How do you start a Node.js web application?
+
+
+
+* What is the /routes folder for?
+* What is the /views folder for?
+* What is the /routes folder for?
+* What is the /node_modules folder for?
+* What is the app.js
+
+* What are these calls for?
+  app.post('/login', user.login);
+  app.get('/query', submissions.query);
+
+* What is exports.login=... in user.js ?
+
+
+
+* Where is user.login define
+
+
+* How does login router store the username and password?
+
+
+
+* Where is static HTML files stored in Node.js web app?
+
+
+
+* How do you access MySQL from Node.js?
+
+
+
+
+* What is a HTTP request object, how do you access it in Node.js?
+
+
+
+* How do you forward to a EJS from Node.js?
+
+
+
+* Why do you need EJS to display result?
+
+
+* What is the NODE_ENV env variable for?
+
+
+
+-------------------------------------------------------------------------------------
+
+
+* What is MySQL ?
+MySQL is a database that uses user friendly code to help organize large quantities of information.
+
+* What is Github?
+Github is the "google drive" of coding, it allows multiple users to edit and access the same code.
+* How do you setup access to GitHub in Eclipse?
+go to window, show view, git repositories, click the 3rd to the left icon, and enter the URL of the Github you would like access to.
+
+* What is the front end technology used in the project?
+ HTML / CSS / JQuery
+DataTable Javascript library to support the filtering of data in table
+
+* What happen when you click the Login button in login page? 
+The button submits the values of the form action to the url indicated by "action" 
+
+* How do you invoke a server side action from HTML?
+action = ("URL")
+
+* What is form action?
+the values of the form action
+
+* How to display a Button in HTML?
+<type input = submit value = 'change'>
+
+* How do you change location/color/padding of an HTML button?
+CSS
+
+
+
+
+* Where do you store the username/password? How do you check the username and password?
+In the database called MySQL, MySQl will store the values and you can call them using executeQuery
+
+
+* Where do you retrieve the homework submission data? Where is it store?
+The homework submisison data is retrieved from 3rd party web site in CSV file format
+
+
+* What happen if the data needs to be updated if students turn in new homework?
+
+
+* How does the filtering of the entries work? Is it on client side or server side?
+client side, data table javascript library
+
+
+* How does logout work?
+log out clears your session and forwards you back to login page.
+
+
+* Where is the web application hosted?
+- Amazon AWS (Amazon Web Service) ElasticBeanStalk with Node.js
+- Aamzon AWS MySQL database service
+- Amazon S3 storage service
+
