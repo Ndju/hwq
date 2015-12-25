@@ -22,9 +22,21 @@
 		});
 	});
 </script>
-<title><%= title %></title>
+<title><%= user %></title>
 </head>
 <body>
+	<h1>
+		<div id="logout">
+			<form class="homepage-loginform" method="post" action="logout">
+				<input id="logoutb" type="submit" value="Logout">
+			</form>
+		</div>
+		<div id="resetform">
+			<form class="reset-form" method="get" action="change-password.html">
+				<input id="reset" type="submit" value="Reset Password">
+			</form>
+		</div>
+	</h1>
 	<table id="submissions"  class="cell-border"  cellspacing="0" width="100%">
         <thead>
 			<tr>

@@ -10,6 +10,7 @@
 
 ## Developing
 
+Need to make logout button, change password, and make interface more user friendly (e.g. better looking)
 
 
 ### Tools

@@ -17,7 +17,7 @@ var express = require('express')
  * Initialize express .
  */
 var app = express();
-
+//allows static files to be expressed by typing the file name after url.
 app.use(express.static('public'));
 
 app.configure(function(){
@@ -27,6 +27,7 @@ app.configure(function(){
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
+  //initializes cookie parser settings
   app.use(express.cookieParser('S3CRE7'));
   app.use(express.cookieSession());
   app.use(express.methodOverride());
@@ -62,6 +63,15 @@ app.configure('production', function() {
 });
 
 
+function checkAuth(req, res, next) {
+	if (!req.session.user) {
+		console.log( "Require authorization." );
+		res.redirect("/");
+	} else {
+		next();
+	}
+}
+
 
 /**
  * Setup the mapping between the URL and the routes in Java Script objects.
@@ -70,7 +80,8 @@ app.configure('production', function() {
 function init() {
   app.post('/login', user.login);
   app.post('/logout', user.logout); //TODO
-  app.get('/query', submissions.query);
+  app.get('/query', checkAuth, submissions.query);
+  app.post('/reset', checkAuth, user.reset);
 
   http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
