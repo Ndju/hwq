@@ -2,6 +2,9 @@ body{
     width: 100%;
     margin: 0px;
     font-family: "Miso Light";
+    background-image: url("http://williambeem.com/wp-content/uploads/2011/04/Artsy-Fartsy-Shit.jpg");
+    background-repeat: no-repeat;
+background-size: cover;
 }
 
 .calendar-container{
@@ -12,7 +15,7 @@ form.homepage-loginform{
 	padding-left: 50px;
 padding-top: 0px;
 float: none;
-margin-left: 75%;
+margin-left: 70%;
 background-color: #333;
 margin-top: 10px;
 padding-top: 20px;
@@ -63,7 +66,7 @@ box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.6);
 
 #homepage{
 margin: 0px;
-background-image: url("nice.jpg");
+
 background-repeat: no-repeat;
 background-size: cover;
 }
@@ -75,6 +78,44 @@ text-transform: uppercase;
 color: white;
 font-family: "Miso Light";
 letter-spacing: 1px;
+}
+
+#id_username{
+	background: none;
+border: none;
+border-bottom: 2px solid white;
+font-size: small;
+overflow: auto;
+width: 60%;
+float:left;
+}
+
+#id_password{
+	background: none;
+border: none;
+border-bottom: 2px solid white;
+font-size: small;
+overflow: auto;
+width: 80%;
+float:left;
+}
+
+#loginbutton{
+text-transform: uppercase;
+background-color: rgba(131, 100, 171, 1.0);
+border: none;
+padding: 10px 30px;
+color: white;
+overflow: auto;
+font-family: "nexa_lightregular";
+font-size: 10px;
+letter-spacing: 1px;
+margin-left: -15px;
+margin-top: 50px;
+}
+
+#loginbutton:hover{
+	cursor:pointer;
 }
 
 .settings-container{
