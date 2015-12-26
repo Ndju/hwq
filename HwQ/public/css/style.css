@@ -1,3 +1,43 @@
+@font-face {
+    font-family: 'Miso Light';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Miso Light'), url('miso-light.woff') format('woff');
+
+
+}
+
+
+@font-face {
+    font-family: 'Miso';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Miso'), url('miso.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Miso Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Miso Bold'), url('miso-bold.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'nexa_lightregular';
+    src: url('Nexa_Free_Light-webfont.eot');
+    src: url('Nexa_Free_Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Nexa_Free_Light-webfont.woff2') format('woff2'),
+         url('Nexa_Free_Light-webfont.woff') format('woff'),
+         url('Nexa_Free_Light-webfont.ttf') format('truetype'),
+         url('Nexa_Free_Light-webfont.svg#nexa_lightregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
 body{
     width: 100%;
     margin: 0px;
@@ -13,6 +53,7 @@ background-size: cover;
 
 form.homepage-loginform{
 	padding-left: 50px;
+	text-align:left;
 padding-top: 0px;
 float: none;
 margin-left: 70%;
@@ -110,7 +151,7 @@ overflow: auto;
 font-family: "nexa_lightregular";
 font-size: 10px;
 letter-spacing: 1px;
-margin-left: -15px;
+
 margin-top: 50px;
 }
 
