@@ -13,7 +13,7 @@ exports.getData = function( callback ){
 		    csv.fromString(body, {headers: false})
 		    //only reads when there is data
 		    .on("data", function(data){
-				if (data[0] !== "Date Submitted") {
+				if (data[0] !== "Date Submitted" && (data[5] !== "" || data[6]!=="" || data[7] !=="")) {
 					//the first line on weebly's submission csv file is the column headers, only pushes if not header
 					rows.push( data );
 				}

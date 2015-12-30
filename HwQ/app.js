@@ -42,7 +42,7 @@ app.configure(function(){
 
 console.log( "Starting in " + process.env.NODE_ENV );
 
-
+//goes to environment variables and initializes either the test database or the mysql database
 app.configure('development', function() {
   console.log('Using development settings.');
   app.set('connection', mysql.createConnection({
@@ -78,6 +78,7 @@ function checkAuth(req, res, next) {
  */
 
 function init() {
+	// if the url route is chosen, calls the function (the static file posts to the url)
   app.post('/login', user.login);
   app.post('/logout', user.logout); //TODO
   app.get('/query', checkAuth, submissions.query);

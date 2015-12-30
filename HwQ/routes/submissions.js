@@ -27,7 +27,7 @@ exports.query = function(req, res) {
 				
 		//sends the results under the name "submissions" to the subLists.ejs file
 		res.render('subList', {
-			user : req.session.user,
+			user : req.session.user.split("."),
 			submissions : results,
 		});
 
