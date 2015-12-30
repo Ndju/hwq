@@ -8,6 +8,9 @@
 	src="http://code.jquery.com/jquery-1.11.3.min.js">
 	
 </script>
+<script type="text/javascript" src="http://github.com/malsup/corner/raw/master/jquery.corner.js?v2.11"></script>
+<script>$('logout').corner();</script>
+<script>$('reset').corner();</script>
 
 <script type="text/javascript"
 	src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js">
@@ -17,28 +20,33 @@
 	$(document).ready(function() {
 		$('#submissions').DataTable({
 			"order" : [ [ 0, "desc" ] ],
-			"lengthMenu" : [ 100, 50, 25 ]
+			"lengthMenu" : [ 100, 50, 25 ],
+			"scrollY": '50vh',
+        	"scrollCollapse": true,
+       	 	"paging": false
 		});
 	});
 </script>
-<title><%= user[0] + " " + user [1] %></title>
+<title><%= user[0] + " " + user[1] %></title>
 </head>
 <body style="background-image: none;">
-	<h1>
+<h1>Welcome <%= " " + user[0] + " " + user[1] %></h1>
+<hr/>
+	<h2>
 			<form class="query-logoutform" method="post" action="logout">
 				<input id="logout" type="submit" value="Logout">
 			</form>
 			<form class="reset-form" method="get" action="change-password.html">
 				<input id="reset" type="submit" value="Reset Password">
 			</form>
-	</h1>
+	</h2>
 	<table id="submissions"  class="hover stripe order-column" cellspacing="0" width="100%">
         <thead>
 			<tr>
 			<td>Date Submitted</td>
 			<td>IP Address</td>
-			<td>Name.first</td>
-			<td>Name.last</td>
+			<td>First Name</td>
+			<td>Last Name</td>
 			<td>Assignment Title</td>
 			<td>Upload File 1</td>
 			<td>Upload File 2</td>

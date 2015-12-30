@@ -113,6 +113,7 @@ background-size: cover;
 }
 
 
+
 #homepage-LoginHeader{
 margin-bottom: 40px;
 text-transform: uppercase;
@@ -131,28 +132,27 @@ width: 60%;
 float:left;
 }
 
-#id_password{
+#id_password {
 	background: none;
-border: none;
-border-bottom: 2px solid white;
-font-size: small;
-overflow: auto;
-width: 80%;
-float:left;
+	border: none;
+	border-bottom: 2px solid white;
+	font-size: small;
+	overflow: auto;
+	width: 80%;
+	float: left;
 }
 
-#loginbutton{
-text-transform: uppercase;
-background-color: rgba(131, 100, 171, 1.0);
-border: none;
-padding: 10px 30px;
-color: white;
-overflow: auto;
-font-family: "nexa_lightregular";
-font-size: 10px;
-letter-spacing: 1px;
-
-margin-top: 50px;
+#loginbutton {
+	text-transform: uppercase;
+	background-color: rgba(131, 100, 171, 1.0);
+	border: none;
+	padding: 10px 30px;
+	color: white;
+	overflow: auto;
+	font-family: "nexa_lightregular";
+	font-size: 10px;
+	letter-spacing: 1px;
+	margin-top: 50px;
 }
 
 #loginbutton:hover{
@@ -272,32 +272,51 @@ margin-top: 50px;
     text-align: center;
     height:140px;
 }
+h1{
+	padding-top: 10px;
+	padding-bottom: 0px;
+}
 
 #logout{
 	padding-top: 5px;
     padding-right: 7.5px;
     padding-bottom: 5px;
     padding-left: 7.5px;
-    background-color: red;
+    background-color: #20bcfb;
     float: right;
     display: inline-block;
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 10px;
+    border-color: blue;
+
 }
 #logout:hover{
-	background-color: green;
-}
+	background-color: #2195d9;
+	border-style: solid;
+    border-width: 1.5px;
+    border-color: #220efe;
+    }
 
 #reset{
 	padding-top: 5px;
     padding-right: 7.5px;
     padding-bottom: 5px;
     padding-left: 7.5px;
-    background-color: red;  
+    background-color: #20bcfb;  
     float: right;  
     display: inline-block;
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 10px;
+    border-color: blue;
     
 }
 #reset:hover{
-	background-color: green;
+	background-color: #2195d9;
+	border-style: solid;
+    border-width: 1.5px;
+    border-color: #220efe;
 }
 
 #greetings{
