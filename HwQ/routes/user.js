@@ -8,6 +8,8 @@ exports.login = function(req, res){
 	    	  res.redirect('/login-failure.html');
 	      } else {
 	    	  //if password is incorrect then there will be 0 rows returned, hence the rows.length will equal 0
+	    	 //console.log(rows);
+		     //console.log(fields);
 		     if( rows.length === 0 ){
 		    	 res.redirect('/login-failure.html');	         
 		     }else{
