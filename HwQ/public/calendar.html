@@ -46,20 +46,51 @@
 		 					
 		 					
 		 				},
+		 				{
+		 					title: 'Long Event',
+		 					start: '2015-12-31', /* start date */
+		 					end: '2015-12-31T16:00:00', /* due date */ 
+		 					description: 'https://www.google.com', //change
+		 					url: 'https://www.google.com',
+		 					
+		 					
+		 				},
+		 				
 		 				],
 		 		
 		    });
-
-
 		    var slotDate;
-
+		    var clientEvents = $('#calendar').fullCalendar('clientEvents');
+		    
+		    
+		    
+		    
 		    function dayClickCallback(date) {
+		    	var dayTitles = []
+		    	clickDate = date.date();
+		    	clickMonth = date.month()+1;
+		    	clickYear = date.year();
+		    	for (var i = 0; i<clientEvents.length;i++){
+		    		
+			    	var clientMonth = (clientEvents[i]["start"].month()+1);
+				    var clientDate = (clientEvents[i]["start"].date());
+				    var clientYear = (clientEvents[i]["start"].year());
+				    if ((clickDate === clientDate) && (clickMonth === clientMonth) && (clickYear === clientYear)){
+				    	dayTitles.push(clientEvents[i]["title"]);
+				    	$('#daySchedUL').append('<li>' + clientEvents[i]["title"] + '</li>');
+				    	
+				    }
+				    
+				    
+			    }
+		    	alert(dayTitles);
+		    	/* console.log(date.date()); */
 		        slotDate = date;
 		        $("#calendar").on("mousemove", forgetSlot);  
+		      	
 		    } 
 		    
 		    function eventRenderCallback(event,element){
-	        
 		      element.on("dblclick",function(){
 		            dblClickFunction(event.start)          
 	        	});   
@@ -72,6 +103,7 @@
 		      	$("#eventContent").dialog({ modal: true, title: event.title, width:350});
 		        });
 		    }
+		    
 		    
 		    
 		    function forgetSlot(){
@@ -212,6 +244,13 @@
     End: <span id="endTime"></span><br><br>
     <p id="eventInfo"></p>
     <p><strong><a id="eventLink" href="" target="_blank">Read More</a></strong></p>
+	</div>
+	
+	
+	<div class = "daySchedule">
+		<ul id = "daySchedUL">
+			
+		</ul>
 	</div>
 
 	<script>
