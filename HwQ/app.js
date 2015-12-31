@@ -5,6 +5,7 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
+  , calendar = require('./routes/calendar')
   , submissions = require('./routes/submissions')
   , http = require('http')
   , path = require('path')
@@ -81,6 +82,7 @@ function init() {
 	// if the url route is chosen, calls the function (the static file posts to the url)
   app.post('/login', user.login);
   app.post('/logout', user.logout); //TODO
+  app.post('/calendar', calendar.cal);
   app.get('/query', checkAuth, submissions.query);
   app.post('/reset', checkAuth, user.reset);
 
