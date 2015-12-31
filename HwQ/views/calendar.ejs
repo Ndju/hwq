@@ -40,14 +40,16 @@
 		        editable: true,
 		        eventLimit: true, // allow "more" link when too many events
 		        events: [
+		        <% assignmentList.forEach(function(assignmentInfo){ %>
 		 				{
-		 					title: 'Long Event',
-		 					start: '2015-12-31', /* start date */
-		 					end: '2015-12-31T16:00:00', /* due date */
-		 					description: 'www.google.com',
+		 					title: '<%= assignmentInfo.title%>',
+		 					start: '<%= assignmentInfo.assigned_date%>', /* start date */
+		 					end: '<%= assignmentInfo.due_date%>', /* due date */
+		 					description: '<%= assignmentInfo.description%>',
 		 					
 		 				},
-		 				],
+		 		<% }) %>
+		        ],
 		 				
 		 				
 		        
@@ -113,12 +115,12 @@
 <body style="background-image: none;">
 	<div class="everythingButNewFileForm">
 		<div class="settings-container">
-			<form class="settings-form">
+			<form class="settings-form" method='post' action='/assignments'>
 				<h2 id="classes-header">Select Classes.</h2>
 
 
 		<% classList.forEach(function(classInfo){ %>
-			<input type="checkbox" name= <%= classInfo.period_id %> id="classselection1"
+			<input type="checkbox" name=classperiodid value=<%= classInfo.period_id %> id="classselection1"
 					class="classroomclass">Period <%= classInfo.period + " " + classInfo.class_name%><br>
 
 		<% }) %>
@@ -129,8 +131,8 @@
 					class="classroomclass" value="period2">Period 2<br> <input
 					type="checkbox" name="class3" id="classselection3"
 					class="classroomclass" value="period3">Period 3<br> -->
-				<button type="submit" name="changepassword" value="changepassword"
-					id="changepassword_button">Change Password.</button>
+				<button type="submit" name="select_class" value="select_class"
+					id="selectbutton">Select Class</button>
 			</form>
 		</div>
 

@@ -82,9 +82,10 @@ function init() {
 	// if the url route is chosen, calls the function (the static file posts to the url)
   app.post('/login', user.login);
   app.post('/logout', user.logout); //TODO
-  app.get('/calendar', calendar.cal);
+  app.get('/calendar',checkAuth, calendar.cal);
   app.get('/query', checkAuth, submissions.query);
   app.post('/reset', checkAuth, user.reset);
+  app.post('/assignments',checkAuth,calendar.assignments);
 
   http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
