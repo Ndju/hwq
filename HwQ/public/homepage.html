@@ -1,0 +1,117 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>Teach Cal</title>
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<script src="jquery-1.8.2.min.js"></script>
+</head>
+<body id="homepage">
+	<div class="homeheader">
+		<div id="homeheaderdiv">
+			<h4 id="header-logos">Aye</h4>
+		</div>
+	</div>
+	<div id="homepage-container">
+		<form class="homepage-loginform" method="post"
+			action="/Teaching-Calendar/signin">
+			<h1 id="homepage-LoginHeader">Sign in</h1>
+			<div class="homepage-loginitems" id="homepage-username">
+				<input placeholder="username" id="id_username" maxlength="254"
+					name="username" type="text" required>
+			</div>
+			<div class="homepage-loginitems" id="homepage-password">
+				<input placeholder="password" id="id_password" name="password"
+					type="password" required>
+			</div>
+			<input type="submit" value="Log in"> <a id="createprofile"
+				href="#newprofile">Create New Profile</a>
+		</form>
+
+	</div>
+
+
+
+	<div id="newprofile">
+		<form class="newprofile-form" method="post"
+			action="/Teaching-Calendar/signup">
+			<h1 id="newprofile-header">Create New Profile.</h1>
+			<div class="newprofile-items" id="newprofile-firstname">
+				<input placeholder="First Name" id="newprofile_firstname"
+					maxlength="254" name="firstname" type="text" required>
+			</div>
+			<div class="newprofile-items" id="newprofile-lastname">
+				<input placeholder="Last Name" id="newprofile_lastname"
+					maxlength="254" name="lastname" type="text" required>
+			</div>
+			<div class="newprofile-items" id="newprofile-email">
+				<input placeholder="email" id="newprofile_id_email" maxlength="254"
+					name="email" type="email" required>
+			</div>
+			<div class="newprofile-items" id="newprofile-username">
+				<input placeholder="username" id="newprofile_id_username"
+					maxlength="254" name="username" type="text" required>
+			</div>
+			<div class="newprofile-items" id="newprofile-password">
+				<input placeholder="password" id="newprofile_id_password"
+					name="password" type="password" required>
+			</div>
+			<div class="newprofile-items" id="newprofile-studentbool">
+				<input type="radio" id="newprofile_student_bool"
+					name="studentboolean">Student <br>
+				</button>w
+				<input type="radio" id="newprofile_teacher_bool"
+					name="studentboolean">Teacher
+				</button>
+			</div>
+
+
+			<input id="newprofilebutton" type="submit" value="Create New Profile">
+			<a id="profileexists" href="#homepage-container">I already have a
+				profile.</a>
+		</form>
+
+
+	</div>
+	<script>
+//    <!--Home script for showing stuff for either new user or whatever-->
+    $(document).ready(function() {
+       $('#newprofile').hide();
+        $('#createprofile').bind('click touchstart',function(e){
+            $('#homepage-container').hide();
+            $('#newprofile').show();
+        });
+        $('#profileexists').bind('click touchstart',function(e){
+            $('#newprofile').hide();
+            $('#homepage-container').show();
+        })
+    });
+</script>
+
+	<script>
+    $(document).ready(function(){
+        var first;
+        var last;
+        var email;
+        var username;
+        var password;
+        $('#newprofilebutton').bind('click touchstart', function(e){
+            first = $('#newprofile_firstname').val();
+            last = $('#newprofile_lastname').val();
+            email = $('#newprofile_id_email').val();
+            username = $('#newprofile_id_username').val();
+            password = $('#newprofile_id_password').val();
+
+        });
+    })
+
+</script>
+
+
+
+
+
+</body>
+</html>
