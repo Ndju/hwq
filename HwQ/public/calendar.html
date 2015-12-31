@@ -20,11 +20,7 @@
 			var m = date.getMonth();
 			var d = date.getDate();
 			var y = date.getFullYear();
-			
-			
-			
-			
-            // page is now ready, initialize the calendar...
+		 	// page is now ready, initialize the calendar...
 
 			$('#calendar').fullCalendar({
 		        header: {
@@ -44,7 +40,7 @@
 		 					title: 'Long Event',
 		 					start: '2015-12-31', /* start date */
 		 					end: '2015-12-31T16:00:00', /* due date */
-		 					description: 'www.google.com',
+		 					description: 'https://www.google.com',
 		 					
 		 				},
 		 				],
@@ -58,14 +54,19 @@
 		    
 
 		    function dayClickCallback(date){
+		    	
 		        slotDate = date;
 		        $("#calendar").on("mousemove", forgetSlot);
-		    }
+		        if (event.description) {
+		            alert(event.description);
+		            return false;
+		        }
+		    } 
 		    
 		    function eventRenderCallback(event,element){
-	          element.qtip({
+	          /* element.qtip({
 	              content: event.description
-	          })
+	          }) */
 		      element.on("dblclick",function(){
 		            dblClickFunction(event.start)          
 	        	});   
@@ -117,11 +118,11 @@
 				<h2 id="classes-header">Select Classes.</h2>
 
 				<input type="checkbox" name="class1" id="classselection1"
-					class="classroomclass" value="period1">Period 1<br> <input
+					class="classroomclass" value="period1">AP History Period 1<br> <input
 					type="checkbox" name="class2" id="classselection2"
-					class="classroomclass" value="period2">Period 2<br> <input
+					class="classroomclass" value="period2">AP Calc Period 2<br> <input
 					type="checkbox" name="class3" id="classselection3"
-					class="classroomclass" value="period3">Period 3<br>
+					class="classroomclass" value="period3">AP Comp Sci Period 3<br>
 				<button type="submit" name="changepassword" value="changepassword"
 					id="changepassword_button">Change Password.</button>
 			</form>
@@ -227,11 +228,7 @@
         
     });
 </script>
-	<script>
-$(document).ready(function() {
-	
-});
-	</script>
+
 
 </body>
 
