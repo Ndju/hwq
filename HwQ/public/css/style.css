@@ -1,3 +1,7 @@
+/* ================================================================================================== */
+/* FONT STUFF */
+/* ================================================================================================== */
+
 @font-face {
     font-family: 'Miso Light';
     font-style: normal;
@@ -38,6 +42,10 @@
 }
 
 
+
+/* ================================================================================================== */
+/*  BODY STUFF. WILL BE APPLIED TO ALL THINGS UNLESS OTHERWISE SPECFIEID*/
+/* ================================================================================================== */
 body{
     width: 100%;
     margin: 0px;
@@ -47,10 +55,54 @@ body{
 background-size: cover;
 }
 
-.calendar-container{
-    width:85%;
+
+
+
+/* ================================================================================================== */
+/* CALENDAR PAGE STYLING */
+/* ================================================================================================== */
+.fc-bg td{
+/* Code for each individual date box. */
 }
 
+#calendar{
+   width: 75%;
+    position: absolute;
+    float: left;
+/*  */
+}
+
+.menu-container{
+    position: absolute;
+    right: 0px;
+    width: 20%;
+}
+.newFile{
+    position: absolute;
+    right: 0%;
+    top: 40%;
+    width: 20%;
+}
+
+.everythingButNewFileForm{
+    /*opacity: 0.4;!important;*/
+}
+
+.newFile{
+	display: block;
+	border: 1px black solid;
+	position: absolute;
+	right: 35%;
+	background-color:rgba(51,51,51,0.8);
+	padding: 5%;
+	top: 30%;
+	
+}
+
+
+/* ================================================================================================== */
+/* STYLING FOR LOGIN PAGE  */
+/* ================================================================================================== */
 form.homepage-loginform {
 	padding-left: 50px;
 	text-align: left;
@@ -158,32 +210,31 @@ float:left;
 #loginbutton:hover{
 	cursor:pointer;
 }
+/* ================================================================================================== */
 
+
+
+
+
+/* ================================================================================================== */
+/* CODE FOR THE SIDEBAR */
+/* ================================================================================================== */
 .settings-container{
-    float: left;
-     margin-left: -500px;
-    /*uncomment that ^ in order to move it off screen*/
-    margin-top: 0px;
-    position: absolute;
-    height: 100%;
-    width: 17%;
-    background-color: aqua;
-    margin-top: 75px;
+   float: left;
+	margin-left: -500px;
+	/*uncomment that ^ in order to move it off screen*/
+	position: absolute;
+	height: 100%;
+	width: 17%;
+	background-color: aqua;
+	margin-top: 82px;
+	z-index: 15252;
 }
-
-
-
-
-
-
-
 
 .navbar-items{
     display: inline;
 
 }
-
-
 
 #navbar_classname{
     text-align: center;
@@ -233,50 +284,18 @@ float:left;
 #navbar_scoolyear{
     right: 10%;
 }
+/* ================================================================================================== */
 
 
 
-.daysOfWeek{
-    display: block;
-    float: left;
-    width: 14.2857142857%;
-    padding: 5px;
-    padding-bottom: 0px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    margin-right: -1px;
-    margin-bottom: -1px;
-    text-align: center;
 
-}
 
-#weekdays-list{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    clear: both;
-    width: 100%;
-    /* position: absolute; */
-    /*  */
-    margin-top: -20px;
-}
-.weekdates_items{
-    display: block;
-    float: left;
-    width: 14.2857142857%;
-    padding: 5px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    margin-right: -1px;
-    margin-bottom: -1px;
-    text-align: center;
-    height:140px;
-}
-h1{
-	padding-top: 10px;
-	padding-bottom: 0px;
-}
 
+
+
+/* ================================================================================================== */
+/* ANDY'S CODE FOR SUBMISSIONS QUERY BUTTONS */
+/* ================================================================================================== */
 #logout{
 	padding-top: 5px;
     padding-right: 7.5px;
@@ -318,34 +337,11 @@ h1{
     border-width: 1.5px;
     border-color: #220efe;
 }
-
-#greetings{
-	float: center;
-}
-
-.weekdatesclass{
-    padding: 0px;
-    margin-top: 5px;
-}
+/* ================================================================================================== */
 
 
 
-.date{
-    text-align:center;
-	margin-bottom:5px;
-	padding:5px;
-	background:#333;
-	color:#fff;
-	width:25px;
-	border-radius:50%;
-	float:right;
-}
 
 
-@media (max-width: 960px) {
-    #navbar_range{
-        top:27%;
-        right:10%;
-    }
 
-}
+

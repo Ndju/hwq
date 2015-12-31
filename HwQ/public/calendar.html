@@ -11,6 +11,7 @@
 <script src='fullcalendar/lib/jquery.min.js'></script>
 <script src='fullcalendar/lib/moment.min.js'></script>
 <script src='fullcalendar/fullcalendar.js'></script>
+<script type="text/javascript" src="jquery/jquery.qtip.js"></script>
 
 
 <script>
@@ -38,6 +39,17 @@
 		        eventRender: eventRenderCallback,
 		        editable: true,
 		        eventLimit: true, // allow "more" link when too many events
+		        events: [
+		 				{
+		 					title: 'Long Event',
+		 					start: '2015-12-31', /* start date */
+		 					end: '2015-12-31T16:00:00', /* due date */
+		 					description: 'www.google.com',
+		 					
+		 				},
+		 				],
+		 				
+		 				
 		        
 		    });
 
@@ -51,10 +63,14 @@
 		    }
 		    
 		    function eventRenderCallback(event,element){
+	          element.qtip({
+	              content: event.description
+	          })
 		      element.on("dblclick",function(){
 		            dblClickFunction(event.start)          
-		        });   
+	        	});   
 		    }
+		    
 		    
 		    function forgetSlot(){
 		        slotDate = null;
@@ -94,7 +110,7 @@
     </script>
 </head>
 
-<body>
+<body style="background-image: none;">
 	<div class="everythingButNewFileForm">
 		<div class="settings-container">
 			<form class="settings-form">
