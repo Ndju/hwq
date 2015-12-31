@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Class Calendar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="jquery-1.8.2.min.js"></script>
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+<link href='fullcalendar/fullcalendar.print.css' rel='stylesheet'
+	media='print' />
+<script src='fullcalendar/lib/jquery.min.js'></script>
+<script src='fullcalendar/lib/moment.min.js'></script>
+<script src='fullcalendar/fullcalendar.js'></script>
+<script type="text/javascript" src="jquery/jquery.qtip.js"></script>
+
+
+<script>
+        $(document).ready(function() {
+			var date = new Date();
+			var m = date.getMonth();
+			var d = date.getDate();
+			var y = date.getFullYear();
+			
+			
+			
+			
+            // page is now ready, initialize the calendar...
+
+			$('#calendar').fullCalendar({
+		        header: {
+		            left: 'prev,next today',
+		            center: 'title',
+		            right: 'month,agendaWeek,agendaDay'
+		        },
+		        defaultDate: y + "-" + (m+1) + "-" + d,
+		        allDaySlot: false,
+				slotEventOverlap: false,
+		        dayClick: dayClickCallback,
+		        eventRender: eventRenderCallback,
+		        editable: true,
+		        eventLimit: true, // allow "more" link when too many events
+		        events: [
+		 				{
+		 					title: 'Long Event',
+		 					start: '2015-12-31', /* start date */
+		 					end: '2015-12-31T16:00:00', /* due date */
+		 					description: 'www.google.com',
+		 					
+		 				},
+		 				],
+		 				
+		 				
+		        
+		    });
+
+
+		    var slotDate;
+		    
+
+		    function dayClickCallback(date){
+		        slotDate = date;
+		        $("#calendar").on("mousemove", forgetSlot);
+		    }
+		    
+		    function eventRenderCallback(event,element){
+	          element.qtip({
+	              content: event.description
+	          })
+		      element.on("dblclick",function(){
+		            dblClickFunction(event.start)          
+	        	});   
+		    }
+		    
+		    
+		    function forgetSlot(){
+		        slotDate = null;
+		        $("#calendar").off("mousemove", forgetSlot);
+		    }
+		        
+		    function dblClickFunction(date){
+			    clickeddate = date.format();
+		        yearyear = clickeddate.substring(0, 4);
+		        monthmonth = clickeddate.substring(5, 7);
+		        dayday = clickeddate.substring(8,10);
+		        clickeddate = new Date(clickeddate);
+		        clickeddate = "" + monthmonth + "/" + dayday + "/" + yearyear;
+		    }
+		    $( "#calendar" ).dblclick(function() {
+		    	$("#unitunit").val(null);
+		    	if(slotDate){
+		            dblClickFunction(slotDate); //do something with the date
+		        }
+		    	
+			 	$(".newFile").show();
+			 	
+			 	$(".everythingButNewFileForm").css({ opacity: 0.5 }); 
+			 	$("#calendar").css({ opacity: 0.5 });
+			 	$("#calendar").css({ opacity: 0.5 });
+			 	
+			 	$("#datedate").val(clickeddate);
+			});
+
+		    
+		    
+		});
+
+
+
+
+    </script>
+</head>
+
+<body style="background-image: none;">
+	<div class="everythingButNewFileForm">
+		<div class="settings-container">
+			<form class="settings-form">
+				<h2 id="classes-header">Select Classes.</h2>
+
+				<input type="checkbox" name="class1" id="classselection1"
+					class="classroomclass" value="period1">Period 1<br> <input
+					type="checkbox" name="class2" id="classselection2"
+					class="classroomclass" value="period2">Period 2<br> <input
+					type="checkbox" name="class3" id="classselection3"
+					class="classroomclass" value="period3">Period 3<br>
+				<button type="submit" name="changepassword" value="changepassword"
+					id="changepassword_button">Change Password.</button>
+			</form>
+		</div>
+
+
+		<div id="navbar">
+			<div id="navbar_menu">
+				<h4 id="navbar_settings">Aye</h4>
+			</div>
+			<h1 class="navbar-items" id="navbar_classname">Class</h1>
+			<h4 class="navbar-items" id="navbar_range">December</h4>
+			<h4 class="navbar-items" id="navbar_scoolyear">15-16</h4>
+		</div>
+
+
+
+		<div id="calendar"></div>
+
+
+		<div class="menu-container">
+			<h4>Zoom</h4>
+			<input type="range" name="zoom" id="points" value="50" min="0"
+				max="100">
+			<button type="button" value="pushback">Push Back</button>
+			<button type="button" value="addfiles">Add Files</button>
+			<button type="button" value="Print">Print Selected Days</button>
+			<h4>Number of Copies</h4>
+			<input type="range" name="zoom" id="copies" value="50" min="0"
+				max="100">
+			<button type="button" value="breakday">Break Day</button>
+			<button type="button" id="newFileButton" value="newFileform">New
+				File</button>
+			<script>
+            <!--basically put all the stuff push back stuff here-->
+
+        </script>
+			<script>
+            $(document).ready(function() {
+                var menushow = false;
+                $('#navbar_settings').bind('click touchstart', function(e){
+                    if (menushow != true) {
+                        $('.settings-container').animate({left: '500px'});
+                        menushow = true;
+
+                    }
+                    else if (menushow != false) {
+                        $('.settings-container').animate({left: '-500px'});
+                        menushow = false;
+                    }
+                })
+
+                var newfileshow = false;
+                $('#newFileButton')
+
+
+            });
+
+
+        </script>
+
+		</div>
+
+
+	</div>
+	<div class="newFile">
+		<form class="newFileform" method="post"
+			action="/TeachingCalendar/index.html">
+			<h1 id="NewFileHeader">New File/Event</h1>
+			<input type="file" value="newFile"><br> <input
+				type="date" placeholder="mm/dd/yyyy" id = "datedate"><br> <input
+				id = "unitunit" type="input" placeholder="Unit"><br>
+			<button type="submit" name="submitfile" value="submitFile"
+				id="filesubmitbutton">Submit New File.</button>
+			<button type="button" name="cancelnewFile" value="cancelnewFile"
+				id="cancelNewFile">Cancel</button>
+
+		</form>
+	</div>
+
+	<script>
+
+    $(document).ready(function() {
+        $('.newFile').hide();
+
+
+        $('#newFileButton').bind('click touchstart',function(e){
+        	$("#datedate").val(null);
+        	$("#unitunit").val(null);
+            $('.newFile').show();
+            $(".everythingButNewFileForm").css({ opacity: 0.5 }); 
+            $("#calendar").css({ opacity: 0.5 });
+
+        });
+        $('#cancelNewFile').bind('click touchstart',function(e){
+            $('.newFile').hide();
+            $(".everythingButNewFileForm").css({ opacity: 1.0 });
+            $("#calendar").css({ opacity: 1.0 });
+
+        })
+        
+          
+        
+    });
+</script>
+	<script>
+$(document).ready(function() {
+	
+});
+	</script>
+
+</body>
+
+</html>
