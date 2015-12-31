@@ -19,7 +19,8 @@ exports.login = function(req, res){
 			     //(id is the safe access point for mysql database)
 		    	 req.session.id = rows[0].id;
 		    	 //redirects the website to query, this function will go on to load the ejs file.
-	        	 res.redirect('/query');
+	        	 //res.redirect('/query');
+		    	 res.redirect('/calendar');
 		     }
 	      }
 	   });
