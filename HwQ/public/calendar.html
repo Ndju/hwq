@@ -26,7 +26,7 @@
 			var m = date.getMonth();
 			var d = date.getDate();
 			var y = date.getFullYear();e
-			var teacher = false; //mark to true if user is a teacher (andy make this dynamic later)
+			var teacher = false; //mark to true if user is a teacher (andy make this dynamic later) //change
 
 			
 		 	
@@ -45,7 +45,7 @@
 		        dayClick: dayClickCallback,
 		        eventRender: eventRenderCallback,
 		        editable: teacher,  //change to true if teacher
-		        eventLimit: true, // allow "more" link when too many events
+		        eventLimit: true, // allow "more" link when too many events //change
 		        events: [
 		 				{
 		 					title: 'Long Event',
@@ -70,7 +70,7 @@
 		    
 		    
 		    var slotDate;
-		    var clientEvents = $('#calendar').fullCalendar('clientEvents');   
+		    var clientEvents = $('#calendar').fullCalendar('clientEvents');    //change
 		    
 		    
 		    
@@ -80,6 +80,7 @@
  
 //When newFile/assignment form is submitted, it gets the values, and creates the new event with that...
 //problem right now is that this isn't really actually saving it in. 
+//change
 		 $('.newFileform').submit(function(){
 			 console.log("potatoes");
 				var startdate = $('#assigneddate').val();
@@ -98,6 +99,7 @@
 			});
  
  //Shift+click -> pop up window of events for that day clicked
+ //change
 		    $('.fc-bg td').click(function(event) {
 		    	var dayTitles = []
 		    	$('#daySchedUL li').remove();
@@ -121,9 +123,9 @@
 		    
 // Get's the date of clicked day	    
 		    function dayClickCallback(date) {
-		    	clickDate = date.date();
-		    	clickMonth = date.month()+1;
-		    	clickYear = date.year();
+		    	clickDate = date.date(); //change
+		    	clickMonth = date.month()+1; //change
+		    	clickYear = date.year();//change
 		    	
 		    	
 		    	//idk what this stuff is for...
@@ -134,7 +136,7 @@
 		    
 		    
 //when you click on an event   
-		    function eventRenderCallback(event,element){
+		    function eventRenderCallback(event,element){ //complete change
 			//double clicking on a day does this stuff -- basicaly just says "when the element is double clicked on, go to 
 			// that dblclickfunction
 		      element.on("dblclick",function(){
