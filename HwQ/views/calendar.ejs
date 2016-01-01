@@ -287,8 +287,8 @@
 			action="/TeachingCalendar/index.html">
 			<h1 id="NewFileHeader">New File/Event</h1>
 			<input type="file" value="newFile"><br> <input
-				type="date" placeholder="mm/dd/yyyy" id = "datedate"><br> <input
-				id = "unitunit" type="input" placeholder="Unit"><br>
+				type="date" placeholder="mm/dd/yyyy" id = "assigneddate"><br> <input
+				id = "titletitle" type="input" placeholder="Unit"><br>
 			<button type="submit" name="submitfile" value="submitFile"
 				id="filesubmitbutton">Submit New File.</button>
 			<button type="button" name="cancelnewFile" value="cancelnewFile"
@@ -339,8 +339,8 @@
 
 
         $('#newFileButton').bind('click touchstart',function(e){
-        	$("#datedate").val(null);
-        	$("#unitunit").val(null);
+        	$("#assigneddate").val(null);
+        	$("#titletitle").val(null);
             $('.newFile').show();
             $(".everythingButNewFileForm").css({ opacity: 0.5 }); 
             $("#calendar").css({ opacity: 0.5 });
