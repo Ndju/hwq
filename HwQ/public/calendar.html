@@ -25,8 +25,8 @@
 			var date = new Date();
 			var m = date.getMonth();
 			var d = date.getDate();
-			var y = date.getFullYear();e
-			var teacher = false; //mark to true if user is a teacher (andy make this dynamic later) //change
+			var y = date.getFullYear();
+			var teacher = false; //mark to true f
 
 			
 		 	
@@ -40,12 +40,12 @@
 		            right: 'month,agendaWeek,agendaDay'
 		        },
 		        defaultDate: y + "-" + (m+1) + "-" + d,
-		        allDaySlot: false,
+		        allDaySlot: true,
 				slotEventOverlap: false,
 		        dayClick: dayClickCallback,
 		        eventRender: eventRenderCallback,
-		        editable: teacher,  //change to true if teacher
-		        eventLimit: true, // allow "more" link when too many events //change
+		        editable: false,  //change to true if teacher
+		        eventLimit: true, // allow "more" link when too many events
 		        events: [
 		 				{
 		 					title: 'Long Event',
@@ -70,7 +70,7 @@
 		    
 		    
 		    var slotDate;
-		    var clientEvents = $('#calendar').fullCalendar('clientEvents');    //change
+		    var clientEvents = $('#calendar').fullCalendar('clientEvents');   
 		    
 		    
 		    
@@ -80,7 +80,6 @@
  
 //When newFile/assignment form is submitted, it gets the values, and creates the new event with that...
 //problem right now is that this isn't really actually saving it in. 
-//change
 		 $('.newFileform').submit(function(){
 			 console.log("potatoes");
 				var startdate = $('#assigneddate').val();
@@ -99,7 +98,6 @@
 			});
  
  //Shift+click -> pop up window of events for that day clicked
- //change
 		    $('.fc-bg td').click(function(event) {
 		    	var dayTitles = []
 		    	$('#daySchedUL li').remove();
@@ -123,9 +121,9 @@
 		    
 // Get's the date of clicked day	    
 		    function dayClickCallback(date) {
-		    	clickDate = date.date(); //change
-		    	clickMonth = date.month()+1; //change
-		    	clickYear = date.year();//change
+		    	clickDate = date.date();
+		    	clickMonth = date.month()+1;
+		    	clickYear = date.year();
 		    	
 		    	
 		    	//idk what this stuff is for...
@@ -136,7 +134,7 @@
 		    
 		    
 //when you click on an event   
-		    function eventRenderCallback(event,element){ //complete change
+		    function eventRenderCallback(event,element){
 			//double clicking on a day does this stuff -- basicaly just says "when the element is double clicked on, go to 
 			// that dblclickfunction
 		      element.on("dblclick",function(){

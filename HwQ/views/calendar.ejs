@@ -12,19 +12,24 @@
 <script src='/fullcalendar/lib/moment.min.js'></script>
 <script src='/fullcalendar/fullcalendar.js'></script>
 <script type="text/javascript" src="jquery/jquery.qtip.js"></script>
+<script type="text/javascript" src="jquery/jquery-ui.js"></script>
 
 
 <script>
         $(document).ready(function() {
+/* ================================================================================================== */
+ //get today's date
+ /* ================================================================================================== */
 			var date = new Date();
 			var m = date.getMonth();
 			var d = date.getDate();
 			var y = date.getFullYear();
+			var teacher = false; //mark to true if user is a teacher (andy make this dynamic later)
 			
 			
-			
-			
-            // page is now ready, initialize the calendar...
+/* ================================================================================================== */
+ //initialize the calendar
+ /* ================================================================================================== */			
 
 			$('#calendar').fullCalendar({
 		        header: {
@@ -33,11 +38,11 @@
 		            right: 'month,agendaWeek,agendaDay'
 		        },
 		        defaultDate: y + "-" + (m+1) + "-" + d,
-		        allDaySlot: false,
+		        allDaySlot: true,
 				slotEventOverlap: false,
 		        dayClick: dayClickCallback,
 		        eventRender: eventRenderCallback,
-		        editable: true,
+		        editable: false, //make true if teacher 
 		        eventLimit: true, // allow "more" link when too many events
 		        events: [
 		        <% assignmentList.forEach(function(assignmentInfo){ %>
@@ -49,36 +54,102 @@
 		 					
 		 				},
 		 		<% }) %>
-		        ],
-		 				
-		 				
-		        
+		        ],    
 		    });
 
-
+/* ================================================================================================== */	
 		    var slotDate;
+		    var clientEvents = $('#calendar').fullCalendar('clientEvents');   
 		    
+		    
+/* ================================================================================================== */	
+// These are just functions that are to work with client-side stuff.
+/* ================================================================================================== */
+ 
+//When newFile/assignment form is submitted, it gets the values, and creates the new event with that...
+//problem right now is that this isn't really actually saving it in. 
 
+		 $('.newFileform').submit(function(){
+			 console.log("potatoes");
+				var startdate = $('#assigneddate').val();
+				var enddate = $('#duedate').val();
+				var title = $('#titletitle').val();
+				var newevent = {
+						title: title,
+						start: startdate, /* start date */
+						end: enddate, /* due date */ 
+				}
+				$('#calendar').fullCalendar( 'renderEvent', newevent);
+				$(".newFile").hide();
+	            $(".everythingButNewFileForm").css({ opacity: 1.0 });
+	            $("#calendar").css({ opacity: 1.0 });
+				
+			});
+ 
+ 
+ //Shift+click -> pop up window of events for that day clicked
+ 
+		    $('.fc-bg td').click(function(event) {
+		    	var dayTitles = []
+		    	$('#daySchedUL li').remove();
+		    	
+		        if (event.shiftKey) {
+		        	for (var i = 0; i<clientEvents.length;i++){
+				    	var clientMonth = (clientEvents[i]["start"].month()+1);
+					    var clientDate = (clientEvents[i]["start"].date());
+					    var clientYear = (clientEvents[i]["start"].year());
+					    if ((clickDate === clientDate) && (clickMonth === clientMonth) && (clickYear === clientYear)){
+					    	dayTitles.push(clientEvents[i]["title"]);
+					    	$('#daySchedUL').append('<li>' + clientEvents[i]["title"] + '</li>');	
+					    	$(".daySchedule").dialog({ modal: true});
+					    }
+				    }
+		        } 
+		    
+		    	
+		    });
+		    
+		    
+// Get's the date of clicked day
 		    function dayClickCallback(date){
+		    	clickDate = date.date();
+		    	clickMonth = date.month()+1;
+		    	clickYear = date.year();
+		    
+		    	//idk what this stuff is for...
 		        slotDate = date;
 		        $("#calendar").on("mousemove", forgetSlot);
 		    }
 		    
+		    
+//when you click on an event 	    
 		    function eventRenderCallback(event,element){
-	          element.qtip({
-	              content: event.description
-	          })
+			//double clicking on a day does this stuff -- basicaly just says "when the element is double clicked on, go to 
+			// that dblclickfunction
 		      element.on("dblclick",function(){
 		            dblClickFunction(event.start)          
 	        	});   
-		    }
+			//this is code for showing the event description stuff 
+		      element.attr('href', 'javascript:void(0);');
+		      element.click(function() {
+		      	$("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
+		      	$("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
+		      	$("#eventInfo").html(event.description);
+		      	$("#eventLink").attr('href', event.url);
+		      	$("#eventContent").dialog({ modal: true, title: event.title, width:350});
+		        });
+		    }  
 		    
 		    
+//not sure
 		    function forgetSlot(){
 		        slotDate = null;
 		        $("#calendar").off("mousemove", forgetSlot);
 		    }
-		        
+		    
+		    
+		    
+//this gets the date of the double clicked box   
 		    function dblClickFunction(date){
 			    clickeddate = date.format();
 		        yearyear = clickeddate.substring(0, 4);
@@ -87,19 +158,21 @@
 		        clickeddate = new Date(clickeddate);
 		        clickeddate = "" + monthmonth + "/" + dayday + "/" + yearyear;
 		    }
+		    
+		    
+		    
+		    
+//this works with opening the form for new assignment after something a box is double clicked.
 		    $( "#calendar" ).dblclick(function() {
-		    	$("#unitunit").val(null);
-		    	if(slotDate){
+		    	$("#titletitle").val(null); //clears any previous value for title 
+		    	if(slotDate){ 
 		            dblClickFunction(slotDate); //do something with the date
 		        }
-		    	
-			 	$(".newFile").show();
-			 	
-			 	$(".everythingButNewFileForm").css({ opacity: 0.5 }); 
-			 	$("#calendar").css({ opacity: 0.5 });
-			 	$("#calendar").css({ opacity: 0.5 });
-			 	
-			 	$("#datedate").val(clickeddate);
+			 	$(".newFile").show();  //shows the form 
+			 	$(".everythingButNewFileForm").css({ opacity: 0.5 });  //makes everything in background a bit blurred
+			 	$("#calendar").css({ opacity: 0.5 }); //same^
+			 	$("#calendar").css({ opacity: 0.5 }); //not sure why there are two...
+			 	$("#assigneddate").val(clickeddate); //changes the preset value of assign date to the date of the dblckicked box
 			});
 
 		    
@@ -201,7 +274,15 @@
 
 
 	</div>
-	<div class="newFile">
+	
+	
+	
+	
+	
+	<!-- ================================= -->
+	<!-- THIS IS OLD NEW ASSIGNMENT FORM.  -->
+	<!-- ================================= -->
+	<!-- <div class="newFile">
 		<form class="newFileform" method="post"
 			action="/TeachingCalendar/index.html">
 			<h1 id="NewFileHeader">New File/Event</h1>
@@ -214,6 +295,41 @@
 				id="cancelNewFile">Cancel</button>
 
 		</form>
+	</div>  -->
+	<!-- ================================= -->
+	<!-- ================================= -->
+	<!-- ================================= -->
+	
+	
+	
+	
+	
+	<div class="newFile">
+		<form class="newFileform" action = "#">
+			<h1 id="NewFileHeader">New Assignment</h1>
+			
+			Assigned Date
+			<input type="date" placeholder="mm/dd/yyyy" id = "assigneddate"><br> 
+			Due Date
+			<input type="date"  placeholder="mm/dd/yyyy" id = "duedate"><br> 
+			Title
+			<input id = "titletitle" type="input" placeholder="Title"><br>
+			<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Submit New File</button>
+			<button type="button" name="cancelnewFile" value="cancelnewFile" id="cancelNewFile">Cancel</button>
+
+		</form>
+	</div>
+	
+	<div id="eventContent" title="Event Details" style="display:none;">
+    Start: <span id="startTime"></span><br>
+    End: <span id="endTime"></span><br><br>
+    <p id="eventInfo"></p>
+    <p><strong><a id="eventLink" href="" target="_blank">Read More</a></strong></p>
+	</div>
+	
+	<div class = "daySchedule" title = "Daily Schedule" >
+		<ul id = "daySchedUL">
+		</ul>
 	</div>
 
 	<script>
