@@ -65,3 +65,7 @@ exports.assignments = function(req, res){
 				}
 			});
 }
+exports.newAssignments = function(req, res){
+	req.body.assigneddate
+	
+}
