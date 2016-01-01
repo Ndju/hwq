@@ -69,10 +69,32 @@ exports.assignments = function(req, res){
 				}
 			});
 }
+
 exports.newAssignments = function(req, res){
+	function convertdate(date){
+		var upDate = new Date(date);
+		var m = String(upDate.getMonth()+1);
+		if (m.length === 1){
+			m = "0" + (m);
+		}
+		var d = String(upDate.getDate());
+		if (d.length === 1){
+			d = "0" + d;
+		}
+	
+		var y = String(upDate.getFullYear());
+		return (y + "-" + (m) + "-" + d);
+	}
+	
 	//gets values to plug into assignment table
 	var start = req.body.startdate;
 	var end = req.body.duedate;
+	start = convertdate(start);
+	end = convertdate(end);
+	console.log("hello");
+	console.log(start);
+	console.log(end);
+	console.log("bye");
 	var title = req.body.title;
 	var id = Math.random() * (9000 - 1) + 1;
 	
@@ -94,3 +116,5 @@ exports.newAssignments = function(req, res){
 	});
 	
 }
+
+
