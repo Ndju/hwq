@@ -65,12 +65,14 @@ app.configure('production', function() {
 
 
 function checkAuth(req, res, next) {
+	console.log(req.session.classList);
 	if (!req.session.user) {
 		console.log( "Require authorization." );
 		res.redirect("/");
 	} else {
 		next();
 	}
+	
 }
 
 

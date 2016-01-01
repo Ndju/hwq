@@ -41,8 +41,8 @@ exports.cal = function(req, res){
 exports.assignments = function(req, res){
 	var classPeriodList= req.session.classPeriodList;
 	var assignmentList = [];
-	var sql = 'SELECT DATE_FORMAT(assigned_date, \'%Y-%m-%d\') AS assigned_date, title, DATE_FORMAT(due_date, \'%Y-%m-%d\') AS due_date,id,description ' +
-	'FROM user.assignments WHERE class_period_fk = ?';
+	var sql = 'SELECT DATE_FORMAT(assigned_date, \'%Y-%m-%d\') AS assigned_date, title, DATE_FORMAT(due_date, \'%Y-%m-%d\') AS due_date, id, description, class_name, period ' +
+	'FROM user.assignments, user.period, user.class WHERE class_period_fk = ? AND period_id = class_period_fk AND class_fk = class_id';
 	console.log(sql);
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(sql, [ req.body.classperiodid ],

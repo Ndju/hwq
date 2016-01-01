@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Class Calendar</title>
+<title>TeachCal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="jquery-1.8.2.min.js"></script>
 <link rel="stylesheet" href="css/style.css" type="text/css">
@@ -120,7 +120,7 @@
 
 
 		<% classList.forEach(function(classInfo){ %>
-			<input type="checkbox" name=classperiodid value=<%= classInfo.period_id %> id="classselection1"
+			<input type="radio" name=classperiodid value=<%= classInfo.period_id %> id="classselection1"
 					class="classroomclass">Period <%= classInfo.period + " " + classInfo.class_name%><br>
 
 		<% }) %>
@@ -134,16 +134,21 @@
 				<button type="submit" name="select_class" value="select_class"
 					id="selectbutton">Select Class</button>
 			</form>
+			<button type= >
 		</div>
 
 
 		<div id="navbar">
 			<div id="navbar_menu">
-				<h4 id="navbar_settings">Aye</h4>
+				<h4 id="navbar_settings"></h4>
 			</div>
-			<h1 class="navbar-items" id="navbar_classname">Class</h1>
-			<h4 class="navbar-items" id="navbar_range">December</h4>
-			<h4 class="navbar-items" id="navbar_scoolyear">15-16</h4>
+			<% if(assignmentList.length === 0) { %>
+				<h1 class="navbar-items" id="navbar_classname">Teaching Calendar</h1>
+			<%}else{ %>
+				<h1 class="navbar-items" id="navbar_classname">Period <%= assignmentList[0].period + " " + assignmentList[0].class_name %></h1>
+				<%}%>
+			<h4 class="navbar-items" id="navbar_range"></h4>
+			<h4 class="navbar-items" id="navbar_scoolyear"></h4>
 		</div>
 
 
