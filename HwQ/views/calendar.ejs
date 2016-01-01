@@ -81,10 +81,12 @@
 				var startdate = $('#assigneddate').val();
 				var enddate = $('#duedate').val();
 				var title = $('#titletitle').val();
+				var description = $('#descriptiontxt').val();
 				var newevent = {
 						title: title,
 						start: startdate, /* start date */
 						end: enddate, /* due date */ 
+						description: description,
 				}
 				$('#calendar').fullCalendar( 'renderEvent', newevent);
 				$(".newFile").hide();
@@ -315,7 +317,7 @@
 			<input type="date"  placeholder="mm/dd/yyyy" name = "duedate" id = "duedate"><br> 
 			Title
 			<input id = "titletitle" type="input" name = "title" placeholder="Title"><br>
-			<textarea name="descriptiontext" cols="30" rows="5" placeholder = "Description"></textarea>
+			<textarea id = "descriptiontxt" name="descriptiontext" cols="30" rows="5" placeholder = "Description"></textarea>
 			<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Submit New File</button>
 			<button type="button" name="cancelnewFile" value="cancelnewFile" id="cancelNewFile">Cancel</button>
 
