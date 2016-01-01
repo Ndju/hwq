@@ -136,6 +136,9 @@
 		      	$("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
 		      	$("#eventInfo").html(event.description);
 		      	$("#eventLink").attr('href', event.url);
+		      	$("#subfileform").remove();
+				$("#eventContent").append('<form id="subfileform" action="#"><input type="file" value="newFile"><br> <input id = "titletitle" type="input" value = ' + event.title + '><br><button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button></form>');
+			      	
 		      	$("#eventContent").dialog({ modal: true, title: event.title, width:350});
 		        });
 		    }  
@@ -283,17 +286,12 @@
 	<!-- THIS IS OLD NEW ASSIGNMENT FORM.  -->
 	<!-- ================================= -->
 	<!-- <div class="newFile">
-		<form class="newFileform" method="post"
-			action="/TeachingCalendar/index.html">
-			<h1 id="NewFileHeader">New File/Event</h1>
-			<input type="file" value="newFile"><br> <input
-				type="date" placeholder="mm/dd/yyyy" id = "assigneddate"><br> <input
-				id = "titletitle" type="input" placeholder="Unit"><br>
+		<form class="subfileform" action="#">
+			
+			<input type="file" value="newFile"><br> 
+			<input id = "titletitle" type="input" value = event.title><br>
 			<button type="submit" name="submitfile" value="submitFile"
-				id="filesubmitbutton">Submit New File.</button>
-			<button type="button" name="cancelnewFile" value="cancelnewFile"
-				id="cancelNewFile">Cancel</button>
-
+				id="filesubmitbutton">Submit New File</button>
 		</form>
 	</div>  -->
 	<!-- ================================= -->

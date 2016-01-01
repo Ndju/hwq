@@ -135,20 +135,26 @@
 		    
 //when you click on an event   
 		    function eventRenderCallback(event,element){
-			//double clicking on a day does this stuff -- basicaly just says "when the element is double clicked on, go to 
-			// that dblclickfunction
-		      element.on("dblclick",function(){
-		            dblClickFunction(event.start)          
-	        	});   
-			//this is code for showing the event description stuff 
-		      element.attr('href', 'javascript:void(0);');
-		      element.click(function() {
-		      	$("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
-		      	$("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
-		      	$("#eventInfo").html(event.description);
-		      	$("#eventLink").attr('href', event.url);
-		      	$("#eventContent").dialog({ modal: true, title: event.title, width:350});
-		        });
+				
+		
+			    
+				console.log(event.title);
+				//double clicking on a day does this stuff -- basicaly just says "when the element is double clicked on, go to 
+				// that dblclickfunction
+			      element.on("dblclick",function(){
+			            dblClickFunction(event.start);       
+		        	});   
+				//this is code for showing the event description stuff 
+			      element.attr('href', 'javascript:void(0);');
+			      element.click(function(){
+			      	$("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
+			      	$("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
+			      	$("#eventInfo").html(event.description);
+			      	$("#eventLink").attr('href', event.url);
+			      	$("#subfileform").remove();
+			      	$("#eventContent").append('<form id="subfileform" action="#"><input type="file" value="newFile"><br> <input id = "titletitle" type="input" value = ' + event.title + '><br><button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button></form>');
+			      	$("#eventContent").dialog({ modal: true, title: event.title, width:350});
+			        });
 		    }  
 		    
 		    //not sure
@@ -283,6 +289,9 @@
     End: <span id="endTime"></span><br><br>
     <p id="eventInfo"></p>
     <p><strong><a id="eventLink" href="" target="_blank">Read More</a></strong></p>
+    <form id="subfileform" action="#">
+    HELLO
+    </form>
 	</div>
 	
 	
