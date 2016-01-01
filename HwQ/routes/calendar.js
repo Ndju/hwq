@@ -112,5 +112,3 @@ exports.newAssignments = function(req, res){
 	});
 	
 }
-
-
