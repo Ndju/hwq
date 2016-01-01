@@ -40,14 +40,16 @@ exports.cal = function(req, res){
 			});
 };
 exports.assignments = function(req, res){
+	//gets the classPeriod list for sidebar
 	var classPeriodList= req.session.classPeriodList;
-	req.session.periodid = req.body.classperiodid;
+	//sets current period as periodsession to be used in other functions (see below)
+	req.session.periodid = req.query.classperiodid;
 	var assignmentList = [];
 	var sql = 'SELECT DATE_FORMAT(assigned_date, \'%Y-%m-%d\') AS assigned_date, title, DATE_FORMAT(due_date, \'%Y-%m-%d\') AS due_date, id, description, class_name, period ' +
 	'FROM user.assignments, user.period, user.class WHERE class_period_fk = ? AND period_id = class_period_fk AND class_fk = class_id';
 	console.log(sql);
 	// creates the connection with mysql database and executes statement.
-	req.app.get('connection').query(sql, [ req.body.classperiodid ],
+	req.app.get('connection').query(sql, [ req.query.classperiodid ],
 			function(err, rows, fields) {
 				if (err) {
 					// connection mess-up handler --> very unlikely as the
@@ -68,23 +70,26 @@ exports.assignments = function(req, res){
 			});
 }
 exports.newAssignments = function(req, res){
+	//gets values to plug into assignment table
 	var start = req.body.startdate;
 	var end = req.body.duedate;
 	var title = req.body.title;
 	var id = Math.random() * (9000 - 1) + 1;
+	
+	
 	var description = req.body.descriptiontext;
-	var sql = 'INSERT INTO assignments (id, title, assigned_date, due_date, class_period_fk, description)' + 
-	'VALUES (id = ?, title = ?, assigned_date = ?, due_date = ?, class_period_fk = ?, description = ?)';
-	console.log(sql);
+	var sql = 'INSERT INTO user.assignments (id, title, assigned_date, due_date, class_period_fk, description)' + 
+	'VALUES (?, ?, ?, ?, ?, ?)';
 	// creates the connection with mysql database and executes statement.
-	req.app.get('connection').query(sql, [id, title, start, end, req.session.classperiod, description], function(err, rows, fields) {
+	//req.app.get('connection').query(sql, [id, title, start, end, req.session.periodid, description], function(err, rows, fields) {
+	req.app.get('connection').query(sql, [id, title, start, end, req.session.periodid, description], function(err, rows, fields) {
 		if (err) {
 			// connection mess-up handler --> very unlikely as the
 			// statement is static and consistent
 			res.redirect('/login-failure.html');
 		} else {
-			// for loops through each line of data from mysql
-			res.redirect('/assignment');
+			//by using a get statement instead of post, the page is easily refreshed by simply plugging in the periodid into the url statement.
+			res.redirect('/assignments?classperiodid='+req.session.periodid);
 		}
 	});
 	

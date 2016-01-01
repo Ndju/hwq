@@ -87,7 +87,7 @@ function init() {
   app.get('/calendar',checkAuth, calendar.cal);
   app.get('/query', checkAuth, submissions.query);
   app.post('/reset', checkAuth, user.reset);
-  app.post('/assignments',checkAuth,calendar.assignments);
+  app.get('/assignments',checkAuth,calendar.assignments);
   app.post('/new-assignment', checkAuth, calendar.newAssignments);
 
   http.createServer(app).listen(app.get('port'), function(){
