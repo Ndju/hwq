@@ -25,7 +25,8 @@
 			var date = new Date();
 			var m = date.getMonth();
 			var d = date.getDate();
-			var y = date.getFullYear();
+			var y = date.getFullYear();e
+			var teacher = false; //mark to true if user is a teacher (andy make this dynamic later)
 
 			
 		 	
@@ -43,7 +44,7 @@
 				slotEventOverlap: false,
 		        dayClick: dayClickCallback,
 		        eventRender: eventRenderCallback,
-		        editable: false,  //change to true if teacher
+		        editable: teacher,  //change to true if teacher
 		        eventLimit: true, // allow "more" link when too many events
 		        events: [
 		 				{
@@ -80,6 +81,7 @@
 //When newFile/assignment form is submitted, it gets the values, and creates the new event with that...
 //problem right now is that this isn't really actually saving it in. 
 		 $('.newFileform').submit(function(){
+			 console.log("potatoes");
 				var startdate = $('#assigneddate').val();
 				var enddate = $('#duedate').val();
 				var title = $('#titletitle').val();
@@ -90,7 +92,7 @@
 				}
 				$('#calendar').fullCalendar( 'renderEvent', newevent);
 				$(".newFile").hide();
-				$(".everythingButNewFileForm").css({ opacity: 1.0 });
+	            $(".everythingButNewFileForm").css({ opacity: 1.0 });
 	            $("#calendar").css({ opacity: 1.0 });
 				
 			});
