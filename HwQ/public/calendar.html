@@ -89,6 +89,10 @@
 						end: enddate, /* due date */ 
 				}
 				$('#calendar').fullCalendar( 'renderEvent', newevent);
+				$(".newFile").hide();
+				$(".everythingButNewFileForm").css({ opacity: 1.0 });
+	            $("#calendar").css({ opacity: 1.0 });
+				
 			});
  
  //Shift+click -> pop up window of events for that day clicked
