@@ -21,10 +21,17 @@
  //get today's date
  /* ================================================================================================== */
 			var date = new Date();
-			var m = date.getMonth();
-			var d = date.getDate();
-			var y = date.getFullYear();
-			var teacher = false; //mark to true if user is a teacher (andy make this dynamic later)
+			var m = String(date.getMonth()+1);
+			if (m.length === 1){
+				m = "0" + (m);
+				
+			}
+			var d = String(date.getDate());
+			if (d.length === 1){
+				d = "0" + d;
+			}
+			var y = String(date.getFullYear());
+			var teacher = false; //mark to true if teacher
 			
 			
 /* ================================================================================================== */
@@ -37,7 +44,7 @@
 		            center: 'title',
 		            right: 'month,agendaWeek,agendaDay'
 		        },
-		        defaultDate: y + "-" + (m+1) + "-" + d,
+		        defaultDate: y + "-" + (m) + "-" + d,
 		        allDaySlot: true,
 				slotEventOverlap: false,
 		        dayClick: dayClickCallback,
