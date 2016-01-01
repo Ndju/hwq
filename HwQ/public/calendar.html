@@ -17,12 +17,21 @@
 
 <script>
         $(document).ready(function() {
+        	
+        	
+/* ================================================================================================== */
+ //get today's date
+ /* ================================================================================================== */
 			var date = new Date();
 			var m = date.getMonth();
 			var d = date.getDate();
 			var y = date.getFullYear();
-		 	// page is now ready, initialize the calendar...
 
+			
+		 	
+/* ================================================================================================== */
+ //initialize the calendar
+ /* ================================================================================================== */
 			$('#calendar').fullCalendar({
 		        header: {
 		            left: 'prev,next today',
@@ -47,53 +56,85 @@
 		 					
 		 				},
 		 				{
-		 					title: 'Long Event',
+		 					title: 'Other Event',
 		 					start: '2015-12-31', /* start date */
 		 					end: '2015-12-31T16:00:00', /* due date */ 
 		 					description: 'https://www.google.com', //change
-		 					url: 'https://www.google.com',
-		 					
-		 					
+		 					url: 'https://www.google.com',	
 		 				},
-		 				
 		 				],
 		 		
 		    });
+/* ================================================================================================== */		    
+		    
+		    
 		    var slotDate;
-		    var clientEvents = $('#calendar').fullCalendar('clientEvents');
+		    var clientEvents = $('#calendar').fullCalendar('clientEvents');   
 		    
 		    
 		    
-		    
-		    function dayClickCallback(date) {
+/* ================================================================================================== */	
+// These are just functions that are to work with client-side stuff.
+/* ================================================================================================== */
+ 
+//When newFile/assignment form is submitted, it gets the values, and creates the new event with that...
+//problem right now is that this isn't really actually saving it in. 
+		 $('.newFileform').submit(function(){
+				var startdate = $('#assigneddate').val();
+				var enddate = $('#duedate').val();
+				var title = $('#titletitle').val();
+				var newevent = {
+						title: title,
+						start: startdate, /* start date */
+						end: enddate, /* due date */ 
+				}
+				$('#calendar').fullCalendar( 'renderEvent', newevent);
+			});
+ 
+ //Shift+click -> pop up window of events for that day clicked
+		    $('.fc-bg td').click(function(event) {
 		    	var dayTitles = []
+		    	$('#daySchedUL li').remove();
+		    	
+		        if (event.shiftKey) {
+		        	for (var i = 0; i<clientEvents.length;i++){
+				    	var clientMonth = (clientEvents[i]["start"].month()+1);
+					    var clientDate = (clientEvents[i]["start"].date());
+					    var clientYear = (clientEvents[i]["start"].year());
+					    if ((clickDate === clientDate) && (clickMonth === clientMonth) && (clickYear === clientYear)){
+					    	dayTitles.push(clientEvents[i]["title"]);
+					    	$('#daySchedUL').append('<li>' + clientEvents[i]["title"] + '</li>');	
+					    	$(".daySchedule").dialog({ modal: true});
+					    }
+				    }
+		        } 
+		    
+		    	
+		    });
+		    
+		    
+// Get's the date of clicked day	    
+		    function dayClickCallback(date) {
 		    	clickDate = date.date();
 		    	clickMonth = date.month()+1;
 		    	clickYear = date.year();
-		    	for (var i = 0; i<clientEvents.length;i++){
-		    		
-			    	var clientMonth = (clientEvents[i]["start"].month()+1);
-				    var clientDate = (clientEvents[i]["start"].date());
-				    var clientYear = (clientEvents[i]["start"].year());
-				    if ((clickDate === clientDate) && (clickMonth === clientMonth) && (clickYear === clientYear)){
-				    	dayTitles.push(clientEvents[i]["title"]);
-				    	$('#daySchedUL').append('<li>' + clientEvents[i]["title"] + '</li>');
-				    	
-				    }
-				    
-				    
-			    }
-		    	alert(dayTitles);
-		    	/* console.log(date.date()); */
+		    	
+		    	
+		    	//idk what this stuff is for...
 		        slotDate = date;
 		        $("#calendar").on("mousemove", forgetSlot);  
 		      	
-		    } 
+		    }
 		    
+		    
+//when you click on an event   
 		    function eventRenderCallback(event,element){
+			//double clicking on a day does this stuff -- basicaly just says "when the element is double clicked on, go to 
+			// that dblclickfunction
 		      element.on("dblclick",function(){
 		            dblClickFunction(event.start)          
 	        	});   
+			//this is code for showing the event description stuff 
 		      element.attr('href', 'javascript:void(0);');
 		      element.click(function() {
 		      	$("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
@@ -102,15 +143,15 @@
 		      	$("#eventLink").attr('href', event.url);
 		      	$("#eventContent").dialog({ modal: true, title: event.title, width:350});
 		        });
-		    }
+		    }  
 		    
-		    
-		    
+		    //not sure
 		    function forgetSlot(){
 		        slotDate = null;
 		        $("#calendar").off("mousemove", forgetSlot);
-		    }
-		        
+		    }    
+		    
+		    //this gets the date of the double clicked box
 		    function dblClickFunction(date){
 			    clickeddate = date.format();
 		        yearyear = clickeddate.substring(0, 4);
@@ -119,28 +160,21 @@
 		        clickeddate = new Date(clickeddate);
 		        clickeddate = "" + monthmonth + "/" + dayday + "/" + yearyear;
 		    }
+		    
+		    //this works with opening the form for new assignment after something a box is double clicked.
 		    $( "#calendar" ).dblclick(function() {
-		    	$("#unitunit").val(null);
-		    	if(slotDate){
+		    	$("#titletitle").val(null); //clears any previous value for title 
+		    	if(slotDate){ 
 		            dblClickFunction(slotDate); //do something with the date
 		        }
-		    	
-			 	$(".newFile").show();
-			 	
-			 	$(".everythingButNewFileForm").css({ opacity: 0.5 }); 
-			 	$("#calendar").css({ opacity: 0.5 });
-			 	$("#calendar").css({ opacity: 0.5 });
-			 	
-			 	$("#datedate").val(clickeddate);
+			 	$(".newFile").show();  //shows the form 
+			 	$(".everythingButNewFileForm").css({ opacity: 0.5 });  //makes everything in background a bit blurred
+			 	$("#calendar").css({ opacity: 0.5 }); //same^
+			 	$("#calendar").css({ opacity: 0.5 }); //not sure why there are two...
+			 	$("#assigneddate").val(clickeddate); //changes the preset value of assign date to the date of the dblckicked box
 			});
 
-		    
-		    
 		});
-
-
-
-
     </script>
 </head>
 
@@ -150,7 +184,7 @@
 			<form class="settings-form">
 				<h2 id="classes-header">Select Classes.</h2>
 
-				<input type="checkbox" name="class1" id="classselection1"
+				<input type="radio" name="class1" id="classselection1"
 					class="classroomclass" value="period1">AP History Period 1<br> 
 					
 					
@@ -167,7 +201,7 @@
 
 		<div id="navbar">
 			<div id="navbar_menu">
-				<h4 id="navbar_settings">Aye</h4>
+				<h4 id="navbar_settings"></h4>
 			</div>
 			<h1 class="navbar-items" id="navbar_classname">Class</h1>
 			<h4 class="navbar-items" id="navbar_range">December</h4>
@@ -180,9 +214,7 @@
 
 
 		<div class="menu-container">
-			<h4>Zoom</h4>
-			<input type="range" name="zoom" id="points" value="50" min="0"
-				max="100">
+			
 			<button type="button" value="pushback">Push Back</button>
 			<button type="button" value="addfiles">Add Files</button>
 			<button type="button" value="Print">Print Selected Days</button>
@@ -225,16 +257,17 @@
 
 	</div>
 	<div class="newFile">
-		<form class="newFileform" method="post"
-			action="/TeachingCalendar/index.html">
-			<h1 id="NewFileHeader">New File/Event</h1>
-			<input type="file" value="newFile"><br> <input
-				type="date" placeholder="mm/dd/yyyy" id = "datedate"><br> <input
-				id = "unitunit" type="input" placeholder="Unit"><br>
-			<button type="submit" name="submitfile" value="submitFile"
-				id="filesubmitbutton">Submit New File.</button>
-			<button type="button" name="cancelnewFile" value="cancelnewFile"
-				id="cancelNewFile">Cancel</button>
+		<form class="newFileform" action = "#">
+			<h1 id="NewFileHeader">New Assignment</h1>
+			
+			Assigned Date
+			<input type="date" placeholder="mm/dd/yyyy" id = "assigneddate"><br> 
+			Due Date
+			<input type="date"  placeholder="mm/dd/yyyy" id = "duedate"><br> 
+			Title
+			<input id = "titletitle" type="input" placeholder="Title"><br>
+			<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Submit New File</button>
+			<button type="button" name="cancelnewFile" value="cancelnewFile" id="cancelNewFile">Cancel</button>
 
 		</form>
 	</div>
@@ -247,21 +280,18 @@
 	</div>
 	
 	
-	<div class = "daySchedule">
+	<div class = "daySchedule" title = "Daily Schedule" >
 		<ul id = "daySchedUL">
-			
 		</ul>
 	</div>
-
+	
+	
 	<script>
-
     $(document).ready(function() {
         $('.newFile').hide();
-
-
         $('#newFileButton').bind('click touchstart',function(e){
-        	$("#datedate").val(null);
-        	$("#unitunit").val(null);
+        	$("#assigneddate").val(null);
+        	$("#titletitle").val(null);
             $('.newFile').show();
             $(".everythingButNewFileForm").css({ opacity: 0.5 }); 
             $("#calendar").css({ opacity: 0.5 });
@@ -272,12 +302,15 @@
             $(".everythingButNewFileForm").css({ opacity: 1.0 });
             $("#calendar").css({ opacity: 1.0 });
 
-        })
-        
-          
-        
+        })  
     });
-</script>
+	</script>
+	
+<!-- 	<script>
+	$(document).ready(function(){
+		
+	});
+	</script> -->
 
 
 </body>
