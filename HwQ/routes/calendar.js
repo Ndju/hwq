@@ -91,10 +91,6 @@ exports.newAssignments = function(req, res){
 	var end = req.body.duedate;
 	start = convertdate(start);
 	end = convertdate(end);
-	console.log("hello");
-	console.log(start);
-	console.log(end);
-	console.log("bye");
 	var title = req.body.title;
 	var id = Math.random() * (9000 - 1) + 1;
 	
