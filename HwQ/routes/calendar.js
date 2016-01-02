@@ -1,4 +1,4 @@
-
+//THIS FUNCTION LOADS THE SIDEBAR FOR STUDENT;
 exports.cal = function(req, res){
 	var assignmentList = [];
 	//initializes list of information to be rendered on calendar.ejs
@@ -39,6 +39,7 @@ exports.cal = function(req, res){
 				}
 			});
 };
+//THIS FUNCTION LOADS THE EVENTS ON A CALENDAR BASED ON WHAT CLASS IS CHOSEN
 exports.assignments = function(req, res){
 	//gets the classPeriod list for sidebar
 	var classPeriodList= req.session.classPeriodList;
@@ -69,7 +70,7 @@ exports.assignments = function(req, res){
 				}
 			});
 }
-
+//THIS FUNCTION CREATES NEW EVENTS AND REFRESHES PAGE TO SHOW THE EVENT
 exports.newAssignments = function(req, res){
 	function convertdate(date){
 		var upDate = new Date(date);
@@ -99,7 +100,6 @@ exports.newAssignments = function(req, res){
 	var sql = 'INSERT INTO user.assignments (id, title, assigned_date, due_date, class_period_fk, description)' + 
 	'VALUES (?, ?, ?, ?, ?, ?)';
 	// creates the connection with mysql database and executes statement.
-	//req.app.get('connection').query(sql, [id, title, start, end, req.session.periodid, description], function(err, rows, fields) {
 	req.app.get('connection').query(sql, [id, title, start, end, req.session.periodid, description], function(err, rows, fields) {
 		if (err) {
 			// connection mess-up handler --> very unlikely as the
@@ -111,4 +111,32 @@ exports.newAssignments = function(req, res){
 		}
 	});
 	
+}
+//THIS FUNCTION ALLOWS STUDENTS TO SUBMIT FILES AND PUTS THEM IN THE DATABASE (HOPEFULLY IT WILL ALSO LOAD ON THE HWQ)
+exports.submission = function(req,res){
+	//gets ip address
+	var ip = req.ip;
+	console.log(ip);
+	var userId = req.session.id;
+	console.log(userId);
+	var assignmentId = req.body.assignmentId;
+	console.log(assignmentId)
+	var title = req.body.title;
+	console.log(title);
+	console.log(req.session.usernameFL[0]);
+	console.log(req.session.usernameFL[1]);
+	var sql = 'INSERT INTO user.submissions (assignment_id, submission_id, student_id, submit_date, IP_Address, first_name, last_name)'+
+	'VALUES (?, ?, ?, CURDATE(), ?, ?, ?)';
+	// creates the connection with mysql database and executes statement.
+	req.app.get('connection').query(sql, [assignmentId, title, userId, 'Hello', req.session.usernameFL[0], req.session.usernameFL[1]], function(err, rows, fields) {
+		if (err) {
+			// connection mess-up handler --> very unlikely as the
+			// statement is static and consistent
+			res.redirect('/login-failure.html');
+		} else {
+			//by using a get statement instead of post, the page is easily refreshed by simply plugging in the periodid into the url statement.
+			res.redirect('/assignments?classperiodid='+req.session.periodid);
+		}
+	});
+
 }

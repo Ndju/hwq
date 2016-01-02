@@ -1,5 +1,6 @@
 exports.login = function(req, res){
 	//sets the sql statement to retrieve values from the row with the specified username and password;
+	var capitalUser = [];
 	var sql = 'SELECT * FROM users WHERE username = ? AND password = ? ';
 	console.log(sql);
 	req.app.get('connection').query(sql, [req.body.username, req.body.password], function(err, rows, fields) {
@@ -15,6 +16,16 @@ exports.login = function(req, res){
 		     }else{
 		    	 //if password is correct, the user name is saved into cookie-session for later 
 		    	 req.session.user = req.body.username;
+		    	 //takes the username and splits it at the period
+		    	 var user = req.session.user.split(".")
+		    	 //for loop capitalizes the first letter of both the first and last name
+		    	 for(var i = 0; i < user.length; i++){
+		 			capitalUser.push(user[i].charAt(0).toUpperCase() + user[i].slice(1));
+		 		}
+		    	 //creates session variable that is the user's name
+		    	 req.session.usernameFL = capitalUser;
+		    	 console.log(req.session.usernameFL);
+		    	 
 		    	 //id is saved as a cookie so further editing can be done, id is the first value of the rows dictionary
 			     //(id is the safe access point for mysql database)
 		    	 req.session.id = rows[0].id;

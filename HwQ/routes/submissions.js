@@ -7,7 +7,6 @@ var weebly = require("./weebly");
 exports.query = function(req, res) {
 	var results = [];
 	var user = req.session.user.split(".");
-	var capitalUser = [];
 	//gets live data from weebly website via weebly object.
 	weebly.getData(function(rows) {
 		//loops through each submission.
@@ -25,14 +24,10 @@ exports.query = function(req, res) {
 				}
 			}
 		}
-		for(var i = 0; i < user.length; i++){
-			capitalUser.push(user[i].charAt(0).toUpperCase() + user[i].slice(1));
-		}
-		
 				
 		//sends the results under the name "submissions" to the subLists.ejs file
 		res.render('subList', {
-			user : capitalUser,
+			user : req.session.usernameFL,
 			submissions : results,
 		});
 

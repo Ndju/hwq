@@ -89,6 +89,7 @@ function init() {
   app.post('/reset', checkAuth, user.reset);
   app.get('/assignments',checkAuth,calendar.assignments);
   app.post('/new-assignment', checkAuth, calendar.newAssignments);
+  app.post('/submission', checkAuth, calendar.submission);
 
   http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
