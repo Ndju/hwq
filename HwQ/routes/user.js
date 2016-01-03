@@ -1,3 +1,5 @@
+
+
 exports.login = function(req, res){
 	//sets the sql statement to retrieve values from the row with the specified username and password;
 	var capitalUser = [];

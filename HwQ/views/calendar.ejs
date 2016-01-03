@@ -147,7 +147,7 @@
 		      	$("#eventInfo").html(event.description);
 		      	$("#eventLink").attr('href', event.url);
 		      	$("#subfileform").remove();
-				$("#eventContent").append('<form id="subfileform" method = "post" action="/submission"><input type="hidden" name="assignmentId" value=' + event.id + '><input type="file" value="newFile"><br> <input name = "title" id = "titletitle" type="input" value = ' + event.title + '><br><button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button></form>');
+				$("#eventContent").append('<form id="subfileform" method="post" action="/submission" enctype="multipart/form-data"><input type="hidden" name="assignmentId" value=' + event.id + '><input type="file" name="file1"><br> <input name="title" id="titletitle" type="input" value =' + event.title + '><br><button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button></form>');
 			      	
 		      	$("#eventContent").dialog({ modal: true, title: event.title, width:350});
 		        });

@@ -1,6 +1,6 @@
 <html>
 <body>
-    <form method="POST" action="/upload" enctype="multipart/form-data">
+    <form method="POST" action="/testUpload" enctype="multipart/form-data">
         <div class="field">
             Title:<input type="text" name="title" id="title"><br/>
             <input type="file" name="image" id="image"><br/>
@@ -8,5 +8,11 @@
         </div>
         <input type="submit" class="btn" value="Save">
     </form>
+    
+    
+<form id="subfileform" method="post" action="/testUpload" enctype="multipart/form-data">
+<input type="hidden" name="assignmentId" value='3642'><input type="file" name="file1"><br> <input name = "title" id = "titletitle" type="input" value='KKK'>
+<br><button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button></form>    
+    
 </body>
 </html>

@@ -13,6 +13,7 @@ var express = require('express')
   , async = require('async')
 ,uuid = require('node-uuid');
 
+var bodyParser = require('body-parser');
 
 /**
  * Initialize express .
@@ -27,7 +28,7 @@ app.configure(function(){
   app.set('view engine', 'ejs');
   app.use(express.favicon());
   app.use(express.logger('dev'));
-  app.use(express.bodyParser());
+  //app.use(express.bodyParser());
   //initializes cookie parser settings
   app.use(express.cookieParser('S3CRE7'));
   app.use(express.cookieSession());
@@ -36,6 +37,7 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
+app.use(express.methodOverride());
 
 /**
  * Initialize connections to mysql database depending on the NODE_ENV.
@@ -82,13 +84,13 @@ function checkAuth(req, res, next) {
 
 function init() {
 	// if the url route is chosen, calls the function (the static file posts to the url)
-  app.post('/login', user.login);
+  app.post('/login', bodyParser.urlencoded(), user.login);
   app.post('/logout', user.logout); //TODO
   app.get('/calendar',checkAuth, calendar.cal);
   app.get('/query', checkAuth, submissions.query);
-  app.post('/reset', checkAuth, user.reset);
-  app.get('/assignments',checkAuth,calendar.assignments);
-  app.post('/new-assignment', checkAuth, calendar.newAssignments);
+  app.post('/reset', checkAuth, bodyParser.urlencoded(), user.reset);
+  app.get('/assignments',checkAuth, calendar.assignments);
+  app.post('/new-assignment', checkAuth, bodyParser.urlencoded(), calendar.newAssignments);
   app.post('/submission', checkAuth, calendar.submission);
 
   http.createServer(app).listen(app.get('port'), function(){
