@@ -83,17 +83,29 @@ exports.assignments = function(req, res) {
 						// each row index = dictionary of values from mysql
 						assignmentList.push(rows[i]);
 					}
+					var classTitle = "";
+					//extracts the class name chosen by searching through classPeriodList and matching period id
+					for(var i = 0; i < classPeriodList.length; i ++ ){
+						//if the periodid (turned into string) is equal the the class period that the student selected...
+						if( classPeriodList[i].period_id.toString() === req.query.classperiodid){
+							console.log("setting title....")
+							//...then the class name will be displayed as Period x 'classname'
+							classTitle = "Period" + " " + classPeriodList[i].period +  " " + classPeriodList[i].class_name;
+						}
+					}
+					console.log(classTitle)
+					
 					res.render('calendar', {
+						classTitle: classTitle,
 						classList : classPeriodList,
 						assignmentList : assignmentList,
-						title : 'Express'
 					});
 				}
 			});
 }
 // THIS FUNCTION CREATES NEW EVENTS AND REFRESHES PAGE TO SHOW THE EVENT
 exports.newAssignments = function(req, res) {
-	//converts date
+	//converts date so it can be plugged into mysql database
 	function convertdate(date) {
 		var upDate = new Date(date);
 		var m = String(upDate.getMonth() + 1);

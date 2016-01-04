@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>TeachCal</title>
+<title><%= classTitle %></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="jquery-1.8.2.min.js"></script>
 <link rel="stylesheet" href="css/style.css" type="text/css">
@@ -201,12 +201,12 @@
 <body style="background-image: none;">
 	<div class="everythingButNewFileForm">
 		<div class="settings-container">
-			<form class="settings-form" method='get' action='/assignments'>
+			<form id="class_select_form" class="settings-form" method='get' action='/assignments'>
 				<h2 id="classes-header">Select Classes.</h2>
 
 
 		<% classList.forEach(function(classInfo){ %>
-			<input type="radio" name=classperiodid value=<%= classInfo.period_id %> id="classselection1"
+			<input type="radio" name="classperiodid" value=<%=classInfo.period_id%> id="classselection1"
 					class="classroomclass">Period <%= classInfo.period + " " + classInfo.class_name%><br>
 
 		<% }) %>
@@ -217,10 +217,23 @@
 					class="classroomclass" value="period2">Period 2<br> <input
 					type="checkbox" name="class3" id="classselection3"
 					class="classroomclass" value="period3">Period 3<br> -->
-				<button type="submit" name="select_class" value="select_class"
-					id="selectbutton">Select Class</button>
+		
 			</form>
-			<button type= >
+			<button id="viewQ" class="float-left submit-button">View Past Submissions</button>
+
+			<script type="text/javascript">
+    			document.getElementById("viewQ").onclick = function () {
+        			location.href = "/query";
+    			};
+			</script>
+			<form class="reset-form" method="get" action="change-password.html">
+				<input id="reset" type="submit" value="Reset Password">
+			</form>
+			<form class="query-logoutform" method="post" action="logout">
+				<input id="logout" type="submit" value="Logout">
+			</form>
+
+
 		</div>
 
 
@@ -228,11 +241,7 @@
 			<div id="navbar_menu">
 				<h4 id="navbar_settings"></h4>
 			</div>
-			<% if(assignmentList.length === 0) { %>
-				<h1 class="navbar-items" id="navbar_classname">Teaching Calendar</h1>
-			<%}else{ %>
-				<h1 class="navbar-items" id="navbar_classname">Period <%= assignmentList[0].period + " " + assignmentList[0].class_name %></h1>
-				<%}%>
+				<h1 class="navbar-items" id="navbar_classname"><%=classTitle%></h1>
 			<h4 class="navbar-items" id="navbar_range"></h4>
 			<h4 class="navbar-items" id="navbar_scoolyear"></h4>
 		</div>
@@ -271,6 +280,11 @@
                     }
                 })
 
+                
+                $('input[name=classperiodid]').change(function(){
+		     		$('form[id=class_select_form]').submit();
+	   			});
+                
                 var newfileshow = false;
                 $('#newFileButton')
 
