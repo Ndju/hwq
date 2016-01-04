@@ -26,26 +26,24 @@ exports.cal = function(req, res) {
 			function(err, rows, fields) {
 				if (err) {
 					//connection mess-up handler --> very unlikely as the statement is static and consistent
-					res.redirect('/login-failure.html');
+					res.send('Failed to retrieve class information for user.');
 				} else {
-					//if password is incorrect then there will be 0 rows returned, hence the rows.length will equal 0
-					//console.log(rows);
-					//console.log(fields);
-					if (rows.length === 0) {
-						res.redirect('/login-failure.html');
-					} else {
-						//for loops through each line of data from mysql
-						for (var i = 0; i < rows.length; i++) {
-							classPeriodList.push(rows[i]);
-						}
-						req.session.classPeriodList = classPeriodList;
-						res.render('calendar', { /* Put the code that passes variables to homepage so that computer can get
-												 user's files for the calendar here. check submissions for this) */
-							assignmentList : assignmentList,
-							classList : classPeriodList,
-							title : 'Express'
-						});
+					// for loops through each line of data from mysql
+					for (var i = 0; i < rows.length; i++) {
+						classPeriodList.push(rows[i]);
 					}
+					req.session.classPeriodList = classPeriodList;
+					res.render('calendar', { /*
+												 * Put the code that passes
+												 * variables to homepage so that
+												 * computer can get user's files
+												 * for the calendar here. check
+												 * submissions for this)
+												 */
+						assignmentList : assignmentList,
+						classList : classPeriodList,
+						title : 'Express'
+					});
 				}
 			});
 };

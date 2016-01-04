@@ -26,11 +26,11 @@ exports.login = function(req, res){
 		 		}
 		    	 //creates session variable that is the user's name
 		    	 req.session.usernameFL = capitalUser;
-		    	 console.log(req.session.usernameFL);
 		    	 
 		    	 //id is saved as a cookie so further editing can be done, id is the first value of the rows dictionary
 			     //(id is the safe access point for mysql database)
 		    	 req.session.id = rows[0].id;
+		    	 console.log("Login successfully! Store user in session:" + req.session.usernameFL + "(id=" + req.session.id +")") ;
 		    	 //redirects the website to query, this function will go on to load the ejs file.
 	        	 //res.redirect('/query');
 		    	 res.redirect('/calendar');
