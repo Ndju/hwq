@@ -50,9 +50,9 @@ exports.cal = function(req, res) {
 													 * for the calendar here. check
 													 * submissions for this)
 													 */
+							classTitle: "Welcome",
 							assignmentList : assignmentList,
 							classList : classPeriodList,
-							title : 'Express'
 						});
 						
 					}
@@ -83,7 +83,7 @@ exports.assignments = function(req, res) {
 						// each row index = dictionary of values from mysql
 						assignmentList.push(rows[i]);
 					}
-					var classTitle = "";
+					var classTitle = "NA";
 					//extracts the class name chosen by searching through classPeriodList and matching period id
 					for(var i = 0; i < classPeriodList.length; i ++ ){
 						//if the periodid (turned into string) is equal the the class period that the student selected...

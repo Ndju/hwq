@@ -19,7 +19,7 @@ exports.login = function(req, res){
 		    	 //if password is correct, the user name is saved into cookie-session for later 
 		    	 req.session.user = req.body.username;
 		    	 //takes the username and splits it at the period
-		    	 var user = req.session.user.split(".")
+		    	 var user = req.session.user.split(".");
 		    	 //for loop capitalizes the first letter of both the first and last name
 		    	 for(var i = 0; i < user.length; i++){
 		 			capitalUser.push(user[i].charAt(0).toUpperCase() + user[i].slice(1));
@@ -30,7 +30,10 @@ exports.login = function(req, res){
 		    	 //id is saved as a cookie so further editing can be done, id is the first value of the rows dictionary
 			     //(id is the safe access point for mysql database)
 		    	 req.session.id = rows[0].id;
+		    	 //FOR backward compatible with APCS Weebly integration
+		    	 req.session.APCS_PERIOD = rows[0].period;
 		    	 console.log("Login successfully! Store user in session:" + req.session.usernameFL + "(id=" + req.session.id +")") ;
+		    	 console.log("[DEBUG]: " + req.session );
 		    	 //redirects the website to query, this function will go on to load the ejs file.
 	        	 //res.redirect('/query');
 		    	 res.redirect('/calendar');

@@ -1,11 +1,14 @@
 var csv = require("fast-csv");
 var request = require('request');
 
-console.log( "P1_DATA_URL = "+process.env.P1_DATA_URL );
-var P1_DATA_URL = process.env.P1_DATA_URL;
+exports.getData = function( req, callback ){
+	var DATA_URL = process.env.P1_DATA_URL;
+	if ( req.session.APCS_PERIOD === "P2" ){
+		 DATA_URL = process.env.P2_DATA_URL;	
+	}
+	console.log( "DATA_URL = " + DATA_URL );
 
-exports.getData = function( callback ){
-	request( P1_DATA_URL, function (error, response, body) {
+	request( DATA_URL, function (error, response, body) {
 		  if (!error && response.statusCode === 200) {
 		    //console.log(body) // Show the HTML for the Google homepage. 
    		    var rows = [];
