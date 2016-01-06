@@ -88,7 +88,7 @@ function init() {
   app.post('/logout', user.logout); //TODO
   app.get('/calendar',checkAuth, calendar.cal);
   app.get('/query', checkAuth, submissions.querySubmission);
-  app.get('/query2', checkAuth, submissions.query);
+  app.get('/query2', checkAuth, submissions.query2);
   app.post('/reset', checkAuth, bodyParser.urlencoded(), user.reset);
   app.get('/assignments',checkAuth, calendar.assignments);
   app.post('/new-assignment', checkAuth, bodyParser.urlencoded(), calendar.newAssignments);

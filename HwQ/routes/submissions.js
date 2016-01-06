@@ -4,11 +4,11 @@
 var ejs = require('ejs');
 var weebly = require("./weebly");
 
-exports.query = function(req, res) {
+exports.query2 = function(req, res) {
 	var results = [];
 	var user = req.session.user.split(".");
 	//gets live data from weebly website via weebly object.
-	weebly.getData(function(rows) {
+	weebly.getData(req, function(rows) {
 		//loops through each submission.
 		for (var i = 1; i < rows.length; i++) {
 			var data = rows[i];

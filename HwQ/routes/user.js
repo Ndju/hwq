@@ -32,7 +32,8 @@ exports.login = function(req, res){
 		    	 req.session.id = rows[0].id;
 		    	 //FOR backward compatible with APCS Weebly integration
 		    	 req.session.APCS_PERIOD = rows[0].period;
-		    	 console.log("Login successfully! Store user in session:" + req.session.usernameFL + "(id=" + req.session.id +")") ;
+		    	 console.log("Login successfully! Store user in session:" 
+		    			 + req.session.usernameFL + "(id=" + req.session.id +")" + req.session.APCS_PERIOD) ;
 		    	 console.log("[DEBUG]: " + req.session );
 		    	 //redirects the website to query, this function will go on to load the ejs file.
 	        	 //res.redirect('/query');
