@@ -181,13 +181,13 @@ exports.submission = function(req, res) {
 		console.log('busboy finished');
 		finished = true;
 		//puts data in databse
-		unploadDatabase(req, res, assignmentId, title, ip);
+		unploadDatabase(req, res, assignmentId, title, ip, files);
 	});
 	
 	busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
 
 		console.log(filename);
-
+		//if the data input is a file, push the name of the file into the files array --> used to construct bucket url.
 		files.push(filename);
 
 		if (!filename) {
@@ -224,7 +224,7 @@ exports.submission = function(req, res) {
 				// bucket = class period id;
 				Bucket : 'apcs-dev',
 				// gives the url route to the file
-				Key : "apcs/p1/" + userId +"_"+ filename,
+				Key : req.session.periodid + "/" + userId +"_"+ filename,
 				ContentType : mimetype,
 				Body : data
 			};
@@ -258,14 +258,21 @@ exports.submission = function(req, res) {
 
 }
 //This function is used in calendar.submission to load the file's data into the mysql submission table.
-function unploadDatabase(req, res, assignmentId, title, ipAddress){
+function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
 	var userId = req.session.id;
-	var sql = 'INSERT INTO user.submissions (assignment_id, submission_id, student_id, submit_date, IP_Address, first_name, last_name)'
-		+ 'VALUES (?, ?, ?, CURDATE(), ?, ?, ?)';
+	
+	console.log( 'files:::::: '+files );
+	
+	var urlNames = [" "," "," "];
+	for(var i = 0; i<files.length; i++){
+		urlNames[i] = "https://apcs-dev.s3.amazonaws.com/" + req.session.periodid + "/" + userId + "_" + files[i];
+	}
+	var sql = 'INSERT INTO user.submissions (assignment_id, submission_id, student_id, submit_date, IP_Address, first_name, last_name, file1_url, file2_url, file3_url)'
+		+ 'VALUES (?, ?, ?, CURDATE(), ?, ?, ?, ?, ?, ?)';
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(
 		sql,
-		[ assignmentId, title, userId, ipAddress, req.session.usernameFL[0], req.session.usernameFL[1] ],
+		[ assignmentId, title, userId, ipAddress, req.session.usernameFL[0], req.session.usernameFL[1], urlNames[0], urlNames[1], urlNames[2]],
 		function(err, rows, fields) {
 			if (err) {
 				// connection mess-up handler --> very unlikely as the
