@@ -24,6 +24,10 @@ exports.login = function(req, res){
 		    	 for(var i = 0; i < user.length; i++){
 		 			capitalUser.push(user[i].charAt(0).toUpperCase() + user[i].slice(1));
 		 		}
+		    	 //Special case for admin user
+		    	 if( capitalUser.length==1)
+		    		 capitalUser.push("");
+		    	 
 		    	 //creates session variable that is the user's name
 		    	 req.session.usernameFL = capitalUser;
 		    	 
@@ -36,8 +40,11 @@ exports.login = function(req, res){
 		    			 + req.session.usernameFL + "(id=" + req.session.id +")" + req.session.APCS_PERIOD) ;
 		    	 console.log("[DEBUG]: " + req.session );
 		    	 //redirects the website to query, this function will go on to load the ejs file.
-	        	 //res.redirect('/query');
-		    	 res.redirect('/calendar');
+		    	 if( req.session.user === "p1admin" || req.session.user==="p2admin"){
+		    		 res.redirect('/query2');
+		     	}else{
+			    	 res.redirect('/calendar');
+		     	}
 		     }
 	      }
 	   });
