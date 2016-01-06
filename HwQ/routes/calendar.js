@@ -267,8 +267,8 @@ function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
 	for(var i = 0; i<files.length; i++){
 		urlNames[i] = "https://apcs-dev.s3.amazonaws.com/" + req.session.periodid + "/" + userId + "_" + files[i];
 	}
-	var sql = 'INSERT INTO user.submissions (assignment_id, submission_id, student_id, submit_date, IP_Address, first_name, last_name, file1_url, file2_url, file3_url)'
-		+ 'VALUES (?, ?, ?, CURDATE(), ?, ?, ?, ?, ?, ?)';
+	var sql = 'INSERT INTO user.submissions (assignment_id, submission_id, date_submitted, student_id, IP_Address, first_name, last_name, file1_url, file2_url, file3_url)'
+		+ 'VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)';
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(
 		sql,
@@ -277,7 +277,7 @@ function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
 			if (err) {
 				// connection mess-up handler --> very unlikely as the
 				// statement is static and consistent
-				res.redirect('/login-failure.html');
+				res.send('SQL Error ' + err);
 			} else {
 				// by using a get statement instead of post, the page is
 				// easily refreshed by simply plugging in the periodid into
