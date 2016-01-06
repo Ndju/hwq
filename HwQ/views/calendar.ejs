@@ -202,6 +202,7 @@
 <body style="background-image: none;">
 	<div class="everythingButNewFileForm">
 		<div class="settings-container">
+		<div class = "sidebarMinusReset">
 			<form id="class_select_form" class="settings-form" method='get' action='/assignments'>
 				<h2 id="classes-header">Select Classes.</h2>
 
@@ -221,21 +222,62 @@
 		
 			</form>
 			<button id="viewQ" class="float-left submit-button">View Past Submissions</button>
+			
+			<br>
 
 			<script type="text/javascript">
     			document.getElementById("viewQ").onclick = function () {
         			location.href = "/query";
     			};
 			</script>
-			<form class="reset-form" method="get" action="change-password.html">
-				<input id="reset" type="submit" value="Reset Password">
-			</form>
+			
+			
+			
+			
+			<a id = "changePassword" href = "#navbar">Change Password.</a>
+			
+			
+			
+			
 			<form class="query-logoutform" method="post" action="logout">
 				<input id="logout" type="submit" value="Logout">
 			</form>
 
 
+
 		</div>
+		
+		
+		
+		<form id="resetform" method="post" action="reset" style="display:none;">
+        <h1 id="resetHeader"> Change Password</h1>
+        <h2 id ="resetDescription"> Please reset your password so that your classmates don't steal your work</h2>
+      
+        <div class="resetitems" id="homepage-password">
+            <input placeholder="new password" id="password2" name="newpassword" type="newpassword" type="text">
+        </div>
+        <input type="submit" value="Change">
+        <a id = "cancelChangePass" href = "#navbar">Cancel.</a>
+    	</form>
+		</div>
+		
+		<script>
+			$("#changePassword").click(function(){
+				$('#resetform').show();
+				$('.sidebarMinusReset').hide();
+			});
+			
+			
+			$("#cancelChangePass").click(function(){
+				$('#resetform').hide();
+				$('.sidebarMinusReset').show();
+			});
+			
+		</script>
+		
+		
+		
+		
 
 
 		<div id="navbar">
