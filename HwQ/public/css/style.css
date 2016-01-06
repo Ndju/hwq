@@ -50,11 +50,10 @@ body{
     width: 100%;
     margin: 0px;
     font-family: "Miso Light";
-    background-image: url("http://williambeem.com/wp-content/uploads/2011/04/Artsy-Fartsy-Shit.jpg");
+    background-image: url("background.jpg");
     background-repeat: no-repeat;
 background-size: cover;
 }
-
 
 
 
@@ -123,18 +122,18 @@ form.homepage-loginform {
 #header-logos{
     float: left;
     color: transparent;!important;
-    background-image: url("Logo.png");
+    background-image: url("etaoin.png");
     background-size: contain;
     margin-left: 1%;
     width: 200px;
     height: 200px;
-
+	position:absolute;
     margin-top: 0px;
     background-repeat: no-repeat
 }
 .homeheader{
     width: 100%;
-    background-color: white;
+    background-color: transparent;
     height: 75px;
     position: fixed;
     top:0px;
