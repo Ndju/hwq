@@ -206,12 +206,14 @@
 			<form id="class_select_form" class="settings-form" method='get' action='/assignments'>
 				<h2 id="classes-header">Select Classes.</h2>
 
-
+		<div class="classroomclass">		
 		<% classList.forEach(function(classInfo){ %>
-			<input type="radio" name="classperiodid" value=<%=classInfo.period_id%> id="classselection1"
-					class="classroomclass">Period <%= classInfo.period + " " + classInfo.class_name%><br>
+			<input type="radio" name="classperiodid" value=<%=classInfo.period_id%> id="classselection1">
+			Period <%= classInfo.period + " " + classInfo.class_name%><br>
 
 		<% }) %>
+		</div>
+		
 
 				<!-- <input type="checkbox" name="class1" id="classselection1"
 					class="classroomclass" value="period1">Period 1<br> <input
@@ -231,11 +233,18 @@
     			};
 			</script>
 			
+			<button id="changePassword" class="side_button">Change Password</button>
 			
+			<br>
+
+			<script type="text/javascript">
+    			document.getElementById("changePassword").onclick = function () {
+        			location.href = "#navbar";
+    			};
+			</script>
 			
-			
-			<a class="side_button" id="changePassword" href = "#navbar">Change Password.</a>
-			
+			<!-- Old link to change password -->
+			<!-- <a class="side_button" id="changePassword" href = "#navbar">Change Password.</a> -->
 			
 			
 			

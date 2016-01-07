@@ -226,6 +226,13 @@ float:left;
 /* ================================================================================================== */
 /* CODE FOR THE SIDEBAR */
 /* ================================================================================================== */
+#classes-header{
+	color: white;
+}
+.classroomclass{
+	color: white;
+}
+
 .settings-container{
    float: left;
 	margin-left: -500px;
@@ -233,7 +240,7 @@ float:left;
 	position: absolute;
 	height: 100%;
 	width: 17%;
-	background-color: #b3b6d5;
+	background-color: #2a2527;
 	margin-top: 82px;
 	z-index: 15252;
 }
@@ -382,12 +389,16 @@ float:left;
 .side_button{
 	width: 99%;
 	height: 30px;
-	border: 2px solid white;
 	background: transparent;
+	color: white;
+	border: none;
 	/* background-color: rgba(0,0,0,0.0);!important */
 	 	
 }
 .side_button:hover{
+	border-color: white;
+	border-width: 2px;
+	border-style: solid;
 	background-color:rgba(0,0,0,0.5);!important
 }
 
