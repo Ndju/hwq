@@ -105,11 +105,9 @@ body{
 form.homepage-loginform {
 	padding-left: 50px;
 	text-align: left;
-	padding-top: 0px;
-	float: none;
-	margin-left: 70%;
+	width: 300px;
+	margin: auto;
 	background-color: #333;
-	margin-top: 10px;
 	padding-top: 20px;
 	padding-right: 70px;
 	padding-bottom: 50px;
@@ -117,6 +115,12 @@ form.homepage-loginform {
 	box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.6);
 	-moz-box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.6);
 	-o-box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.6);
+}
+
+#homepageImage{
+	opacity: 0.4;
+	position: fixed;
+	z-index: -1252151245;
 }
 
 #header-logos{
@@ -140,7 +144,7 @@ form.homepage-loginform {
 }
 
 #homepage-container{
-    
+    padding-top:200px;
     text-align: center;
     
     background-color: transparent;
