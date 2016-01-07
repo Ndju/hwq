@@ -91,9 +91,8 @@
 				}
 				$('#calendar').fullCalendar( 'renderEvent', newevent);
 				$(".newFile").hide();
-	            $(".everythingButNewFileForm").css({ opacity: 1.0 });
-	            
-	            $("#calendar").css({ opacity: 1.0 });
+	            $(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
+           		$("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
 				
 			});
  
@@ -154,8 +153,11 @@
 				$("#eventContent").append('<form id="subfileform" method="post" action="/submission" enctype="multipart/form-data"><input type="hidden" name="assignmentId" value=' + event.id + '><input type="file" name="file1"><br> <input name="title" id="titletitle" type="input" value =' + event.title + '><br><button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button></form>');
 			      	
 		      	$("#eventContent").dialog({ modal: true, title: event.title, width:350});
-		      	$(".everythingButNewFileForm").css({ opacity: 0.5 });  //makes everything in background a bit blurred
-			 	$("#calendar").css({ opacity: 0.5 }); //same^
+		      	$(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' });  //makes everything in background a bit blurred
+		      	
+			 	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
+			 	
+			 	
 		        });
 		    }  
 		    
@@ -188,9 +190,9 @@
 		            dblClickFunction(slotDate); //do something with the date
 		        }
 			 	$(".newFile").show();  //shows the form 
-			 	$(".everythingButNewFileForm").css({ opacity: 0.5 });  //makes everything in background a bit blurred
-			 	$("#calendar").css({ opacity: 0.5 }); //same^
-			 	$("#calendar").css({ opacity: 0.5 }); //not sure why there are two...
+			 	$(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' });  //makes everything in background a bit blurred
+		      	
+			 	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
 			 	$("#assigneddate").val(clickeddate); //changes the preset value of assign date to the date of the dblckicked box
 			});
 
@@ -261,6 +263,7 @@
     			};
 			</script>
 			<script>
+			
 			$(document).ready(function(){
 				var dropdownshow = false;
 				
@@ -274,6 +277,7 @@
 					dropdownshow = false;
 					}
 				});
+				
 			});
 			
 			</script>
@@ -448,14 +452,15 @@
         	$("#assigneddate").val(null);
         	$("#titletitle").val(null);
             $('.newFile').show();
-            $(".everythingButNewFileForm").css({ opacity: 0.5 }); 
-            $("#calendar").css({ opacity: 0.5 });
+            $(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' });  //makes everything in background a bit blurred
+		      	
+			$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
 
         });
         $('#cancelNewFile').bind('click touchstart',function(e){
             $('.newFile').hide();
-            $(".everythingButNewFileForm").css({ opacity: 1.0 });
-            $("#calendar").css({ opacity: 1.0 });
+            $(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
+            $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
 
         })
         
@@ -467,7 +472,10 @@
 </script>
 	<script>
 $(document).ready(function() {
-	
+	$('.ui-dialog-titlebar-close').bind('click touchstart',function(e){
+					$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
+           			$("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
+				});
 });
 	</script>
 
