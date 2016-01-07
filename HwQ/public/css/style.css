@@ -140,11 +140,9 @@ form.homepage-loginform {
 }
 
 #homepage-container{
-    margin-top: 15%;
-    margin-left: 25%;
+    
     text-align: center;
-    height: 500px;
-    /* width: 50%; */
+    
     background-color: transparent;
 }
 #newprofile{
@@ -388,7 +386,7 @@ float:left;
 /*=================================================================================================== */
 .side_button{
 	width: 99%;
-	height: 35px;
+	height: 40px;
 	background: transparent;
 	color: white;
 	font-family: "Miso Light";
