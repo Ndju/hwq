@@ -193,7 +193,7 @@ float:left;
 	float: left;
 }
 
-/* #loginbutton {
+#loginbutton {
 	text-transform: uppercase;
 	background-color: rgba(131, 100, 171, 1.0);
 	border: none;
@@ -208,7 +208,7 @@ float:left;
 
 #loginbutton:hover{
 	cursor:pointer;
-} */
+}
 /* ================================================================================================== */
 
 
@@ -388,7 +388,7 @@ float:left;
 /*=================================================================================================== */
 .side_button{
 	width: 99%;
-	height: 30px;
+	height: 35px;
 	background: transparent;
 	color: white;
 	font-family: "Miso Light";
