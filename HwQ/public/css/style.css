@@ -234,7 +234,23 @@ letter-spacing: 1px;
 	color: white;
 }
 .classroomclass{
-	color: white;
+	color: black;
+	font-size: 18px;
+}
+
+.classSelectionChoices{
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	margin-left: 0px;
+}
+
+#dropdownSelectClasses{
+	list-style: none;
+display: block;
+margin: auto;
+background-color: rgba(255, 255, 255, 0.4);;
+/*  */
 }
 
 .settings-container{
