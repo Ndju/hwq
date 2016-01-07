@@ -202,17 +202,25 @@
 <body style="background-image: none;">
 	<div class="everythingButNewFileForm">
 		<div class="settings-container">
-		<div class = "sidebarMinusReset">
-			<form id="class_select_form" class="settings-form" method='get' action='/assignments'>
-				<h2 id="classes-header">Select Classes</h2>
-
-		<div class="classroomclass">		
-		<% classList.forEach(function(classInfo){ %>
-			<input type="radio" name="classperiodid" value=<%=classInfo.period_id%> id="classselection1">
-			Period <%= classInfo.period + " " + classInfo.class_name%><br>
-
-		<% }) %>
-		</div>
+			<div class = "sidebarMinusReset">
+				<!-- <form id="class_select_form" class="settings-form" method='get' action='/assignments'> -->
+					<button class="side_button" id="classes-header">Select Classes</button>
+					<form id="class_select_form" class="settings-form" method='get' action='/assignments'>
+						<ul id = "dropdownSelectClasses" style = "list-style: none; display: none;">
+	
+							<div class="classroomclass">		
+								<% classList.forEach(function(classInfo){ %>
+									<li>
+										<input type="radio" name="classperiodid" value=<%=classInfo.period_id%> id="classselection1">
+										Period <%= classInfo.period + " " + classInfo.class_name%>
+									</li>
+			
+								<% }) %>
+							</div>
+						</ul>
+						</form>
+		
+		
 		
 
 				<!-- <input type="checkbox" name="class1" id="classselection1"
@@ -222,7 +230,7 @@
 					type="checkbox" name="class3" id="classselection3"
 					class="classroomclass" value="period3">Period 3<br> -->
 		
-			</form>
+			<!-- </form> -->
 			<button id="viewQ" class="side_button">View Past Submissions</button>
 			
 			<br>
@@ -241,6 +249,26 @@
     			document.getElementById("changePassword").onclick = function () {
         			location.href = "#navbar";
     			};
+    			document.getElementById("classes-header").onclick = function () {
+        			location.href = "#";
+    			};
+			</script>
+			<script>
+			$(document).ready(function(){
+				var dropdownshow = false;
+				
+				$('#classes-header').click(function(){
+					if (!dropdownshow){
+					$('#dropdownSelectClasses').show();
+					dropdownshow = true;
+					}
+					else{
+					$('#dropdownSelectClasses').hide();
+					dropdownshow = false;
+					}
+				});
+			});
+			
 			</script>
 			
 			<!-- Old link to change password -->
