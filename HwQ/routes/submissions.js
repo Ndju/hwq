@@ -68,6 +68,7 @@ exports.querySubmission = function(req, res){
 		res.render('submissionList', {
 			user : req.session.usernameFL,
 			submissions : results
+			classList: req.session.classPeriodList
 			});
 
 	});
