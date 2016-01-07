@@ -227,7 +227,8 @@ letter-spacing: 1px;
 /* ================================================================================================== */
 .ui-dialog{
 	z-index: 1251;
-	background-color:red;
+	background-color: rgba(51, 136, 170, 0.9);
+	border: white solid 5px;
 }
 
 
