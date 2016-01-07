@@ -387,6 +387,7 @@ float:left;
 .side_button{
 	width: 99%;
 	height: 40px;
+	margin-top: 5px;
 	background: transparent;
 	color: white;
 	font-family: "Miso Light";
