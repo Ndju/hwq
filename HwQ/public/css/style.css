@@ -248,6 +248,10 @@ letter-spacing: 1px;
 	margin-right: 0px;
 	margin-bottom: 10px;
 	margin-left: 0px;
+	
+}
+.classSelectionChoices:hover{
+	background-color:blue;
 }
 
 #dropdownSelectClasses{
