@@ -471,12 +471,12 @@
     });
 </script>
 	<script>
-$(document).ready(function() {
-	$('.ui-dialog-titlebar-close').bind('click touchstart',function(e){
-					$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
-           			$("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
-				});
-});
+	
+	$(".ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-draggable ui-resizable .ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close").click(function(){
+		alert("button clicked");
+	});
+
+
 	</script>
 
 </body>
