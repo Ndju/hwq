@@ -3,7 +3,8 @@
 exports.login = function(req, res){
 	//sets the sql statement to retrieve values from the row with the specified username and password;
 	var capitalUser = [];
-	var sql = 'SELECT * FROM users WHERE username = ? AND password = ? ';
+	var sql = 'SELECT id, period, username,is_teacher, period_id_fk FROM student_period, users '+
+		'where id = student_id_fk AND username = ? AND password = ? ';
 	console.log(sql);
 	req.app.get('connection').query(sql, [req.body.username, req.body.password], function(err, rows, fields) {
 	      if (err) {
@@ -34,17 +35,16 @@ exports.login = function(req, res){
 		    	 //id is saved as a cookie so further editing can be done, id is the first value of the rows dictionary
 			     //(id is the safe access point for mysql database)
 		    	 req.session.id = rows[0].id;
+		    	 req.session.is_teacher  = rows[0].is_teacher;
+		    	 req.session.periodid = rows[0].period_id_fk;
+		    	 
 		    	 //FOR backward compatible with APCS Weebly integration
 		    	 req.session.APCS_PERIOD = rows[0].period;
+		    	 
 		    	 console.log("Login successfully! Store user in session:" 
 		    			 + req.session.usernameFL + "(id=" + req.session.id +")" + req.session.APCS_PERIOD) ;
 		    	 console.log("[DEBUG]: " + req.session );
-		    	 //redirects the website to query, this function will go on to load the ejs file.
-		    	 if( req.session.user === "p1admin" || req.session.user==="p2admin"){
-		    		 res.redirect('/query2');
-		     	}else{
-			    	 res.redirect('/calendar');
-		     	}
+		    	 res.redirect('/calendar');
 		     }
 	      }
 	   });

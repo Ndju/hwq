@@ -30,6 +30,127 @@
 
 <body style="background-image: none;">
 
+<div class="settings-container">
+			<div class = "sidebarMinusReset">
+			<!-- </form> -->
+			<button id="viewQ" class="side_button">Calendar View</button>
+			
+			<br>
+
+			<script type="text/javascript">
+    			document.getElementById("viewQ").onclick = function () {
+        			location.href = "/assignments";
+    			};
+			</script>
+			
+			<button id="changePassword" class="side_button">Change Password</button>
+			
+			<br>
+
+			<script type="text/javascript">
+    			document.getElementById("changePassword").onclick = function () {
+        			location.href = "#navbar";
+    			};
+    			document.getElementById("classes-header").onclick = function () {
+        			location.href = "#";
+    			};
+			</script>
+			<script>
+			$(document).ready(function(){
+				var dropdownshow = false;
+				
+				$('#classes-header').click(function(){
+					if (!dropdownshow){
+					$('#dropdownSelectClasses').show();
+					dropdownshow = true;
+					}
+					else{
+					$('#dropdownSelectClasses').hide();
+					dropdownshow = false;
+					}
+				});
+			});
+			
+			</script>
+			
+			<!-- Old link to change password -->
+			<!-- <a class="side_button" id="changePassword" href = "#navbar">Change Password.</a> -->
+			
+			
+			
+			<form class="query-logoutform" method="post" action="logout">
+				<input class="side_button" id="logout" type="submit" value="Logout">
+			</form>
+
+
+
+		</div>
+		
+		
+		
+		<form id="resetform" method="post" action="reset" style="display:none;">
+	        <h1 id="resetHeader"> Change Password</h1>
+	        <h2 id ="resetDescription"> Please reset your password so that your classmates don't steal your work</h2>
+	      
+		        <div class="resetitems" id="homepage-password">
+		            <input placeholder="new password" id="password2" name="newpassword" type="newpassword" type="text">
+		        </div>
+	        <input type="submit" value="Change">
+	        <a id = "cancelChangePass" href = "#navbar">Cancel.</a>
+    	</form>
+		</div>
+		
+		<script>
+			$("#changePassword").click(function(){
+				$('#resetform').show();
+				$('.sidebarMinusReset').hide();
+			});
+			
+			
+			$("#cancelChangePass").click(function(){
+				$('#resetform').hide();
+				$('.sidebarMinusReset').show();
+			});
+			
+		</script>
+<div id="navbar">
+	<div id="navbar_menu">
+		<h4 id="navbar_settings"></h4>
+	</div>
+	<h1 class="navbar-items" id="navbar_classname"><%= " " + user[0] + " " + user[1] %></h1>
+	<h4 class="navbar-items" id="navbar_range"></h4>
+	<h4 class="navbar-items" id="navbar_scoolyear"></h4>
+</div>
+
+<script>
+            $(document).ready(function() {
+                var menushow = false;
+                $('#navbar_settings').bind('click touchstart', function(e){
+                    if (menushow != true) {
+                        $('.settings-container').animate({left: '500px'});
+                        menushow = true;
+
+                    }
+                    else if (menushow != false) {
+                        $('.settings-container').animate({left: '-500px'});
+                        menushow = false;
+                    }
+                })
+
+                
+                $('input[name=classperiodid]').change(function(){
+		     		$('form[id=class_select_form]').submit();
+	   			});
+                
+                var newfileshow = false;
+                $('#newFileButton')
+
+
+            });
+
+
+</script>
+
 
 <hr/>
 	<table id="submissions"  class="hover stripe order-column" cellspacing="0" width="100%">

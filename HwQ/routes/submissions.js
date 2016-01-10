@@ -35,14 +35,23 @@ exports.query2 = function(req, res) {
 };
 exports.querySubmission = function(req, res){
 	var results = [];
-	console.log('HELLO::::' + req.session.id + " AND " + req.session.periodid);
 	//links submission table with assignment table and returns total result
 	var sql = 'SELECT date_submitted, IP_Address, last_name, first_name, submission_id, file1_url, file2_url, file3_url '
 		+'FROM user.submissions, user.assignments ' +
-		'WHERE student_id = ? AND class_period_fk = ? ' +
+		'WHERE class_period_fk = ?  AND student_id = ? ' +
 		'AND id = assignment_id';
+	
+	if( req.session.is_teacher ){
+		sql = 'SELECT date_submitted, IP_Address, last_name, first_name, submission_id, file1_url, file2_url, file3_url '
+			+'FROM user.submissions, user.assignments ' +
+			'WHERE class_period_fk = ?  ' +
+			'AND id = assignment_id';
+	}
+	
+	console.log('HELLO::::' + req.session.id + " AND " + req.session.periodid + " AND \n" + sql );
+	
 	// creates the connection with mysql database and executes statement.
-	req.app.get('connection').query(sql, [req.session.id, req.session.periodid],function(err, rows, fields) {
+	req.app.get('connection').query(sql, [req.session.periodid, req.session.id],function(err, rows, fields) {
 			if (err) {
 				console.log('MYSQL Error: ' + err )
 			}else{
