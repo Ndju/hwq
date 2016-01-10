@@ -28,13 +28,9 @@ exports.cal = function(req, res) {
 					//connection mess-up handler --> very unlikely as the statement is static and consistent
 					res.send('Failed to retrieve class information for user.');
 				} else {
-					var classperiodid = -1;
+					var classperiodid = req.session.periodid;
 					// for loops through each line of data from mysql
 					for (var i = 0; i < rows.length; i++) {
-						if( i === 0 ){
-							//Set the default class to first one found in DB
-							classperiodid = rows[i].period_id;
-						}
 						classPeriodList.push(rows[i]);
 					}
 					req.session.classPeriodList = classPeriodList;
