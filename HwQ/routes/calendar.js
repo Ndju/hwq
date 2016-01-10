@@ -30,6 +30,7 @@ exports.cal = function(req, res) {
 				} else {
 					var classperiodid = req.session.periodid;
 					// for loops through each line of data from mysql
+					console.log(rows.length)
 					for (var i = 0; i < rows.length; i++) {
 						classPeriodList.push(rows[i]);
 					}
@@ -57,6 +58,7 @@ exports.cal = function(req, res) {
 };
 //THIS FUNCTION LOADS THE EVENTS ON A CALENDAR BASED ON WHAT CLASS IS CHOSEN
 exports.assignments = function(req, res) {
+	var classid = getClassId(req);
 	// gets the classPeriod list for sidebar
 	var classPeriodList = req.session.classPeriodList;
 	// sets current period as periodsession to be used in other functions (see
@@ -64,19 +66,21 @@ exports.assignments = function(req, res) {
 	req.session.periodid = req.query.classperiodid;
 	var assignmentList = [];
 	var sql = 'SELECT DATE_FORMAT(assigned_date, \'%Y-%m-%d\') AS assigned_date, title, DATE_FORMAT(due_date, \'%Y-%m-%d\') AS due_date, id, description, class_name, period '
-			+ 'FROM user.assignments, user.period, user.class WHERE class_period_fk = ? AND period_id = class_period_fk AND class_fk = class_id';
+			+ 'FROM user.assignments1, user.period, user.class WHERE classcode_fk = ? AND classcode_fk = class_id AND period_id = ?';
 	console.log(sql);
 	// creates the connection with mysql database and executes statement.
-	req.app.get('connection').query(sql, [ req.query.classperiodid ],
+	req.app.get('connection').query(sql, [ req.session.classid, req.session.periodid ],
 			function(err, rows, fields) {
 				if (err) {
 					// connection mess-up handler --> very unlikely as the
 					// statement is static and consistent
-					res.redirect('/login-failure.html');
+					res.send('ERROR AT EXPORTS.ASSIGNMENTS');
 				} else {
+					console.log(rows.length)
 					// for loops through each line of data from mysql
 					for (var i = 0; i < rows.length; i++) {
 						// each row index = dictionary of values from mysql
+						console.log(rows[i]);
 						assignmentList.push(rows[i]);
 					}
 					var classTitle = "NA";
@@ -85,6 +89,7 @@ exports.assignments = function(req, res) {
 						//if the periodid (turned into string) is equal the the class period that the student selected...
 						if( classPeriodList[i].period_id.toString() === req.query.classperiodid){
 							console.log("setting title....")
+							req.session.periodnumber = classPeriodList[i].period;
 							//...then the class name will be displayed as Period x 'classname'
 							classTitle = "Period" + " " + classPeriodList[i].period +  " " + classPeriodList[i].class_name;
 						}
@@ -124,19 +129,20 @@ exports.newAssignments = function(req, res) {
 	end = convertdate(end);
 	var title = req.body.title;
 	var id = Math.random() * (9000 - 1) + 1;
+	var classCode = getClassId(req);
 
 	var description = req.body.descriptiontext;
-	var sql = 'INSERT INTO user.assignments (id, title, assigned_date, due_date, class_period_fk, description)'
+	var sql = 'INSERT INTO user.assignments1 (id, title, assigned_date, due_date, classcode_fk, description)'
 			+ 'VALUES (?, ?, ?, ?, ?, ?)';
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(
 			sql,
-			[ id, title, start, end, req.session.periodid, description ],
+			[ id, title, start, end, req.session.classid, description ],
 			function(err, rows, fields) {
 				if (err) {
 					// connection mess-up handler --> very unlikely as the
 					// statement is static and consistent
-					res.redirect('/login-failure.html');
+					res.send('ERROR AT EXPORTS.NEWASSIGNMENTS');
 				} else {
 					// by using a get statement instead of post, the page is
 					// easily refreshed by simply plugging in the periodid into
@@ -145,6 +151,25 @@ exports.newAssignments = function(req, res) {
 							+ req.session.periodid);
 				}
 			});
+
+}
+function getClassId(req){
+	var period = req.session.periodid;
+	var sql = 'SELECT class_fk FROM user.period WHERE period_id = ?';
+// creates the connection with mysql database and executes statement.
+req.app.get('connection').query(sql, [ period ],
+		function(err, rows, fields) {
+			if (err) {
+				// connection mess-up handler --> very unlikely as the
+				// statement is static and consistent
+				res.redirect('/login-failure.html');
+			} else {
+				//
+				req.session.classid = rows[0].class_fk;
+				console.log(req.session.classid);
+				return rows[0].class_fk;
+			}
+		});
 
 }
 // THIS FUNCTION ALLOWS STUDENTS TO SUBMIT FILES AND PUTS THEM IN THE DATABASE
@@ -263,7 +288,7 @@ function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
 	for(var i = 0; i<files.length; i++){
 		urlNames[i] = "https://apcs-dev.s3.amazonaws.com/" + req.session.periodid + "/" + userId + "_" + files[i];
 	}
-	var sql = 'INSERT INTO user.submissions (assignment_id, submission_id, date_submitted, student_id, IP_Address, first_name, last_name, file1_url, file2_url, file3_url)'
+	var sql = 'INSERT INTO user.submissions1 (assignment_id, submission_id, date_submitted, student_id, IP_Address, first_name, last_name, file1_url, file2_url, file3_url)'
 		+ 'VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)';
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(

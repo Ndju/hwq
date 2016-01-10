@@ -37,21 +37,21 @@ exports.querySubmission = function(req, res){
 	var results = [];
 	//links submission table with assignment table and returns total result
 	var sql = 'SELECT date_submitted, IP_Address, last_name, first_name, submission_id, file1_url, file2_url, file3_url '
-		+'FROM user.submissions, user.assignments ' +
-		'WHERE class_period_fk = ?  AND student_id = ? ' +
+		+'FROM user.submissions1, user.assignments1 ' +
+		'WHERE classcode_fk = ?  AND student_id = ? ' +
 		'AND id = assignment_id';
 	
 	if( req.session.is_teacher ){
 		sql = 'SELECT date_submitted, IP_Address, last_name, first_name, submission_id, file1_url, file2_url, file3_url '
-			+'FROM user.submissions, user.assignments ' +
-			'WHERE class_period_fk = ?  ' +
+			+'FROM user.submissions1, user.assignments1 ' +
+			'WHERE classcode_fk = ?  ' +
 			'AND id = assignment_id';
 	}
 	
 	console.log('HELLO::::' + req.session.id + " AND " + req.session.periodid + " AND \n" + sql );
 	
 	// creates the connection with mysql database and executes statement.
-	req.app.get('connection').query(sql, [req.session.periodid, req.session.id],function(err, rows, fields) {
+	req.app.get('connection').query(sql, [req.session.classid, req.session.id],function(err, rows, fields) {
 			if (err) {
 				console.log('MYSQL Error: ' + err )
 			}else{
@@ -66,8 +66,9 @@ exports.querySubmission = function(req, res){
 					var data = [];
 					data.push( rows[i].date_submitted );
 					data.push( rows[i].IP_Address );
-					data.push(rows[i].last_name);
+					data.push(req.session.periodnumber);
 					data.push(rows[i].first_name);
+					data.push(rows[i].last_name);
 					data.push(rows[i].submission_id);
 					//this checks if the file is empty, nameStart finds the name of the file (last section of the url) and displays it as the link
 					if(rows[i].file1_url != " "){
