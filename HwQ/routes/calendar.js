@@ -58,18 +58,23 @@ exports.cal = function(req, res) {
 };
 //THIS FUNCTION LOADS THE EVENTS ON A CALENDAR BASED ON WHAT CLASS IS CHOSEN
 exports.assignments = function(req, res) {
-	var classid = getClassId(req);
 	// gets the classPeriod list for sidebar
 	var classPeriodList = req.session.classPeriodList;
 	// sets current period as periodsession to be used in other functions (see
 	// below)
 	req.session.periodid = req.query.classperiodid;
+	
+	//Simple calculation of class id based on class period id.
+	//The classperiod id is constructed from [CLASS_ID][period] 
+	var classid =  req.query.classperiodid;
+	classid = classid.substring(0,  classid.length-1);
+	req.session.classid = classid;
 	var assignmentList = [];
-	var sql = 'SELECT DATE_FORMAT(assigned_date, \'%Y-%m-%d\') AS assigned_date, title, DATE_FORMAT(due_date, \'%Y-%m-%d\') AS due_date, id, description, class_name, period '
-			+ 'FROM user.assignments1, user.period, user.class WHERE classcode_fk = ? AND classcode_fk = class_id AND period_id = ?';
-	console.log(sql);
+	var sql = 'SELECT DATE_FORMAT(assigned_date, \'%Y-%m-%d\') AS assigned_date, title, DATE_FORMAT(due_date, \'%Y-%m-%d\') AS due_date, id, description, class_name '
+			+ 'FROM user.assignments1, user.class WHERE classcode_fk = class_id AND class_id = ?';
+	console.log(sql + "\n===>" + req.session.classid );
 	// creates the connection with mysql database and executes statement.
-	req.app.get('connection').query(sql, [ req.session.classid, req.session.periodid ],
+	req.app.get('connection').query(sql, [ req.session.classid ],
 			function(err, rows, fields) {
 				if (err) {
 					// connection mess-up handler --> very unlikely as the
@@ -129,7 +134,7 @@ exports.newAssignments = function(req, res) {
 	end = convertdate(end);
 	var title = req.body.title;
 	var id = Math.random() * (9000 - 1) + 1;
-	var classCode = getClassId(req);
+	var classCode = req.session.classid;
 
 	var description = req.body.descriptiontext;
 	var sql = 'INSERT INTO user.assignments1 (id, title, assigned_date, due_date, classcode_fk, description)'
@@ -153,25 +158,7 @@ exports.newAssignments = function(req, res) {
 			});
 
 }
-function getClassId(req){
-	var period = req.session.periodid;
-	var sql = 'SELECT class_fk FROM user.period WHERE period_id = ?';
-// creates the connection with mysql database and executes statement.
-req.app.get('connection').query(sql, [ period ],
-		function(err, rows, fields) {
-			if (err) {
-				// connection mess-up handler --> very unlikely as the
-				// statement is static and consistent
-				res.redirect('/login-failure.html');
-			} else {
-				//
-				req.session.classid = rows[0].class_fk;
-				console.log(req.session.classid);
-				return rows[0].class_fk;
-			}
-		});
 
-}
 // THIS FUNCTION ALLOWS STUDENTS TO SUBMIT FILES AND PUTS THEM IN THE DATABASE
 // (HOPEFULLY IT WILL ALSO LOAD ON THE HWQ)
 exports.submission = function(req, res) {

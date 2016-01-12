@@ -3,8 +3,8 @@
 exports.login = function(req, res){
 	//sets the sql statement to retrieve values from the row with the specified username and password;
 	var capitalUser = [];
-	var sql = 'SELECT id, period, username,is_teacher, period_id_fk FROM student_period, users '+
-		'where id = student_id_fk AND username = ? AND password = ? ';
+	var sql = 'SELECT id, users.period, username,is_teacher, period_id_fk, class_fk FROM period, student_period, users '+
+		'where id = student_id_fk AND period.period_id = period_id_fk AND username = ? AND password = ? ';
 	console.log(sql);
 	req.app.get('connection').query(sql, [req.body.username, req.body.password], function(err, rows, fields) {
 	      if (err) {
@@ -37,6 +37,7 @@ exports.login = function(req, res){
 		    	 req.session.id = rows[0].id;
 		    	 req.session.is_teacher  = rows[0].is_teacher;
 		    	 req.session.periodid = rows[0].period_id_fk;
+		    	 req.session.classid = rows[0].class_fk;
 		    	 
 		    	 //FOR backward compatible with APCS Weebly integration
 		    	 req.session.APCS_PERIOD = rows[0].period;
