@@ -70,3 +70,18 @@ exports.reset = function(req,res){
 		    }
 	   });
 }
+exports.join = function(req,res){
+	//gets the period id from the join Class Form
+	var classCode = req.body.joinClass;
+	var sql = 'INSERT INTO users.student_period (student_id_fk, period_id_fk) VALUES (?, ?)';
+	req.app.get('connection').query(sql, [classCode, req.session.id], function(err, rows, fields) {
+	      if (err) {
+	    	  //very unlikely, hopefully this never happens
+	    	  res.send('ERROR AT EXPORTS.JOIN');
+	      } else {
+	    	  //returns the page back to query
+	        	res.redirect('/query');
+		    }
+	   });
+	
+}
