@@ -255,6 +255,7 @@
 					class="classroomclass" value="period3">Period 3<br> -->
 		
 			<!-- </form> -->
+			<button id="viewQ0" class="side_button">Join Class</button>
 			<button id="viewQ" class="side_button">View Submissions</button>
 			
 			<br>
@@ -288,6 +289,11 @@
     			document.getElementById("classes-header").onclick = function () {
         			location.href = "#";
     			};
+    			
+    			document.getElementById("viewQ0").onclick = function () {
+        			location.href = "#navbar";
+    			};
+    			
 			</script>
 			<script>
 			
@@ -323,7 +329,7 @@
 		</div>
 		
 		
-		
+		<!-- THIS FORM IS THE PAGE IN SIDEBAR THAT SHOWS FOR RESETTING PASSWORD -->
 		<form id="resetform" method="post" action="reset" style="display:none;">
 	        <h1 id="resetHeader"> Change Password</h1>
 	        <h2 id ="resetDescription"> Please reset your password so that your classmates don't steal your work</h2>
@@ -334,6 +340,20 @@
 	        <input type="submit" value="Change">
 	        <a id = "cancelChangePass" href = "#navbar">Cancel.</a>
     	</form>
+    	
+    	
+    	
+    	<!-- THIS FORM IS TO JOIN CLASS -->
+    	<form id="joinClassForm" method="post" action="/join-class" style="display:none;">
+	        <h1 id="joinHeader"> Join Class</h1>
+	        <h2 id ="joinDescription">Enter Class code your teacher provided you</h2>
+		        <div class="joinitems" id="class-code">
+		            <input placeholder="Enter Class Code" id="classcode" name="joinClass" type="text">
+		        </div>
+	        <input type="submit" value="Change">
+	        <a id = "cancelJoinClass" href = "#navbar">Cancel</a>
+    	</form>
+    	
 		</div>
 		
 		<script>
@@ -345,6 +365,17 @@
 			
 			$("#cancelChangePass").click(function(){
 				$('#resetform').hide();
+				$('.sidebarMinusReset').show();
+			});
+			
+			$("#viewQ0").click(function(){
+				$('#joinClassForm').show();
+				$('.sidebarMinusReset').hide();
+			});
+			
+			
+			$("#cancelJoinClass").click(function(){
+				$('#joinClassForm').hide();
 				$('.sidebarMinusReset').show();
 			});
 			
