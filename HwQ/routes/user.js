@@ -15,7 +15,7 @@ exports.login = function(req, res){
 	    	 //console.log(rows);
 		     //console.log(fields);
 		     if( rows.length === 0 ){
-		    	 res.redirect('/login-failure.html');	         
+		    	 loginNewUser(req, res);
 		     }else{
 		    	 //if password is correct, the user name is saved into cookie-session for later 
 		    	 req.session.user = req.body.username;
@@ -50,6 +50,27 @@ exports.login = function(req, res){
 	      }
 	   });
 };
+
+function loginNewUser(req, res){
+	var sql = 'SELECT * FROM users where username = ? AND password = ? ';
+	req.app.get('connection').query(sql, [req.body.username, req.body.password], function(err, rows, fields) {
+      if (err) {
+    	  res.redirect('/login-failure.html');
+      } else {
+	     if( rows.length === 0 ){
+	    	 res.redirect('/login-failure.html');	         
+	    	 return;
+	     }
+	     req.session.user =  req.body.username;
+    	 req.session.usernameFL = req.session.user ;
+	     
+    	 req.session.id = rows[0].id;
+    	 req.session.is_teacher  = rows[0].is_teacher;
+    	 res.redirect('/calendar');
+      }
+	});
+}
+	
 exports.logout = function(req, res){
 	//clears all cookies
 	req.session = null ;
