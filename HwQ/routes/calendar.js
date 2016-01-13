@@ -32,6 +32,7 @@ exports.cal = function(req, res) {
 					// for loops through each line of data from mysql
 					console.log(rows.length)
 					for (var i = 0; i < rows.length; i++) {
+						console.log(rows[i])
 						classPeriodList.push(rows[i]);
 					}
 					req.session.classPeriodList = classPeriodList;
@@ -105,27 +106,30 @@ exports.assignments = function(req, res) {
 						classTitle: classTitle,
 						classList : classPeriodList,
 						assignmentList : assignmentList,
+						isTeacher: req.session.is_teacher
 					});
 				}
 			});
 }
+//function converts date mm/dd/yyyy --> mysql usable
+function convertdate(date) {
+	var upDate = new Date(date);
+	var m = String(upDate.getMonth() + 1);
+	if (m.length === 1) {
+		m = "0" + (m);
+	}
+	var d = String(upDate.getDate());
+	if (d.length === 1) {
+		d = "0" + d;
+	}
+
+	var y = String(upDate.getFullYear());
+	return (y + "-" + (m) + "-" + d);
+}
 // THIS FUNCTION CREATES NEW EVENTS AND REFRESHES PAGE TO SHOW THE EVENT
 exports.newAssignments = function(req, res) {
 	//converts date so it can be plugged into mysql database
-	function convertdate(date) {
-		var upDate = new Date(date);
-		var m = String(upDate.getMonth() + 1);
-		if (m.length === 1) {
-			m = "0" + (m);
-		}
-		var d = String(upDate.getDate());
-		if (d.length === 1) {
-			d = "0" + d;
-		}
-
-		var y = String(upDate.getFullYear());
-		return (y + "-" + (m) + "-" + d);
-	}
+	
 
 	// gets values to plug into assignment table
 	var start = req.body.startdate;
@@ -294,4 +298,19 @@ function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
 						+ req.session.periodid);
 			}
 		});
+}
+exports.editAssignment = function(req, res){
+	console.log(req.body);
+	var start = convertdate(req.body.start);
+	var end = convertdate(req.body.end);
+	var sql = "UPDATE user.assignments1 SET title = ?, assigned_date = ?, due_date = ?, description = ? WHERE id = ?";
+	req.app.get('connection').query(sql,[req.body.title_assignment, start, end, req.body.descriptiontext, req.body.assignment_id],
+			function(err, rows, fields){
+		if(err){
+			res.send('SQL Error ' + err);
+		}else{
+			res.redirect('/assignments?classperiodid='
+					+ req.session.periodid);
+		}
+	})
 }

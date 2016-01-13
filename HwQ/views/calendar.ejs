@@ -143,15 +143,16 @@
 		            dblClickFunction(event.start)          
 	        	});   
 			//this is code for showing the event description stuff 
+			
 		      element.attr('href', 'javascript:void(0);');
+		      <% if(isTeacher == 0){%>
 		      element.click(function() {
 		      	$("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
 		      	$("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
 		      	$("#eventInfo").html(event.description);
 		      	$("#eventLink").attr('href', event.url);
-		      	$("#subfileform").remove();
+		      	$("#subfileform").remove();   	
 				$("#eventContent").append('<form id="subfileform" method="post" action="/submission" enctype="multipart/form-data"><input type="hidden" name="assignmentId" value=' + event.id + '><input type="file" name="file1"><br> <input name="title" id="titletitle" type="input" value =' + event.title + '><br><button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button></form>');
-			      	
 		      	$("#eventContent").dialog({ modal: true, title: event.title, width:350});
 		      	$(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' });  //makes everything in background a bit blurred
 		      	
@@ -159,7 +160,21 @@
 			 	
 			 	
 		        });
-		    }  
+		      <%}else{%>
+		      element.click(function() {
+			      	$("#start_date").val(moment(event.start).format('MM/DD/YYYY'));
+			      	$("#assignment_id").val(event.id);
+			      	$("#title_assignment").val(event.title);
+			      	$("#end_date").val(moment(event.end).format('MM/DD/YYYY'));
+			      	$("#descriptiontext").html(event.description);
+			      	$("#eventLink").attr('href', event.url);
+			      	$("#subfileform").remove();   	
+			      	$("#editAssignment").dialog({ modal: true, title: event.title, width:350});
+			      	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
+		      });
+		      <%}%>
+		    } 
+		     
 		    
 		    
 //not sure
@@ -429,18 +444,35 @@
 	<div class="newFile">
 		<form class="newFileform" action = "new-assignment" method = "post">
 			<h1 id="NewFileHeader">New Assignment</h1>
-			Assigned Date
+			Assigned Date:
 			<input type="date" placeholder="mm/dd/yyyy" name = "startdate" id = "assigneddate"><br> 
-			Due Date
+			Due Date:
 			<input type="date"  placeholder="mm/dd/yyyy" name = "duedate" id = "duedate"><br> 
-			Title
-			<input id = "titletitle" type="input" name = "title" placeholder="Title"><br>
+			Title:
+			<input id = "title" name = "title" placeholder="Title"><br>
+			Description:
 			<textarea id = "descriptiontxt" name="descriptiontext" cols="30" rows="5" placeholder = "Description"></textarea>
 			<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Submit New File</button>
 			<button type="button" name="cancelnewFile" value="cancelnewFile" id="cancelNewFile">Cancel</button>
 
 		</form>
 	</div>
+	<div id="editAssignment" style="display:none;">
+	<form action="edit-assignment" method="post">
+	<h3>Edit Assignment</h3>
+	<input type="hidden" id="assignment_id" name="assignment_id" value=""></input>
+		Start:
+    	<input type="date" placeholder="mm/dd/yyyy" name="start" id="start_date"></input><br>
+    	End: 
+    	<input type="date" placeholder="mm/dd/yyyy" name="end" id="end_date"></input><br>
+    	Title:
+    	<input type="text" name="title_assignment" placeholder="Title" id="title_assignment"></input><br>
+    	Description: <br>
+    	<textarea id="descriptiontext" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea><br>
+    	<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Update</button>
+    </form>
+	</div>
+	
 	
 	<div id="eventContent" title="Event Details" style="display:none;">
     Start: <span id="startTime"></span><br>
