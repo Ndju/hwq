@@ -86,7 +86,14 @@ exports.assignments = function(req, res) {
 					// for loops through each line of data from mysql
 					for (var i = 0; i < rows.length; i++) {
 						// each row index = dictionary of values from mysql
-						console.log(rows[i]);
+
+						//Format assignment description into HTML for better UI
+						var descText = rows[i].description;
+						descText = descText.split("\n").join("<br/>");
+						descText = descText.split("\r").join("");
+						descText = descText.split("*").join("<li>");
+						rows[i].description = "<h2>" + descText +"</h2>";
+						
 						assignmentList.push(rows[i]);
 					}
 					var classTitle = "NA";
