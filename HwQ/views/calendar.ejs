@@ -8,6 +8,7 @@
 <link rel='stylesheet' href='/fullcalendar/fullcalendar.css' />
 <link href='/fullcalendar/fullcalendar.print.css' rel='stylesheet'
 	media='print' />
+	
 <script src='/fullcalendar/lib/jquery.min.js'></script>
 <script src='/fullcalendar/lib/moment.min.js'></script>
 <script src='/fullcalendar/fullcalendar.js'></script>
@@ -91,7 +92,7 @@
 				}
 				$('#calendar').fullCalendar( 'renderEvent', newevent);
 				$(".newFile").hide();
-	            $(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
+	            $(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
            		$("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
 				
 			});
@@ -151,11 +152,16 @@
 		      	$("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
 		      	$("#eventInfo").html(event.description);
 		      	$("#eventLink").attr('href', event.url);
-		      	$("#subfileform").remove();   	
-				$("#eventContent").append('<form id="subfileform" method="post" action="/submission" enctype="multipart/form-data"><input type="hidden" name="assignmentId" value=' + event.id + '><input type="file" name="file1"><br> <input name="title" id="titletitle" type="input" value =' + event.title + '><br><button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button></form>');
-		      	$("#eventContent").dialog({ modal: true, title: event.title, width:350});
-		      	$(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' });  //makes everything in background a bit blurred
-		      	
+		      	//$("#subfileform").remove();   	
+				//$("#eventContent").append('<form id="subfileform" method="post" action="/submission" enctype="multipart/form-data"><input type="hidden" name="assignmentId" value=' + event.id + '><input type="file" name="file1"><br> <input name="title" id="titletitle" type="input" value =' + event.title + '><br><button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button></form>');
+		      	//$("#eventContent").dialog({ modal: true, title: event.title, width:350});
+		      	$('#submitFile').show();
+		      	$('#modalTitle').empty();
+		      	$('#eventDescription').empty();
+		      	$('#modalTitle').append("Title: " + event.title);
+		      	$('#eventDescription').append(event.description);
+		      	$('#titletitle').val(event.title);
+		      	$(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' });  //makes everything in background a bit blurred	
 			 	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
 			 	
 			 	
@@ -205,7 +211,7 @@
 		            dblClickFunction(slotDate); //do something with the date
 		        }
 			 	$(".newFile").show();  //shows the form 
-			 	$(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' });  //makes everything in background a bit blurred
+			 	$(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none'});  //makes everything in background a bit blurred
 		      	
 			 	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
 			 	$("#assigneddate").val(clickeddate); //changes the preset value of assign date to the date of the dblckicked box
@@ -488,6 +494,26 @@
 
 		</form>
 	</div>
+	<div class="submitFileModal" id="submitFile">
+	
+	
+		<div class="modal-header">
+          <button type="button" class="closemodal">&times;</button>
+          <h4 class="modal-title" id = "modalTitle"> </h4>
+        </div>
+		<form id="subfileform" method="post" action="/submission" enctype="multipart/form-data">
+			<input type="hidden" name="assignmentId" id = "assignmentID"><br> Attach File:
+			<input type="file" name="file1"><br> 
+			<p id = "eventDescription"></p><br>
+			File Name:<input name="title" id="titletitle" type="input"><br>
+			<button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button>
+			<button type = "button" name = "cancelSubmit" id = "cancelsubmitfile">Cancel</button>
+		</form>
+		
+    </div>
+ 
+	
+	
 	<div id="editAssignment" style="display:none;">
 	<form action="edit-assignment" method="post">
 	<h3>Edit Assignment</h3>
@@ -520,6 +546,7 @@
 	<script>
 
     $(document).ready(function() {
+    	$('#submitFile').hide();
         $('.newFile').hide();
 
 
@@ -527,14 +554,14 @@
         	$("#assigneddate").val(null);
         	$("#titletitle").val(null);
             $('.newFile').show();
-            $(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' });  //makes everything in background a bit blurred
+            $(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' });  //makes everything in background a bit blurred
 		      	
 			$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
 
         });
         $('#cancelNewFile').bind('click touchstart',function(e){
             $('.newFile').hide();
-            $(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
+            $(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
             $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
 
         })
@@ -546,10 +573,18 @@
     });
 </script>
 	<script>
+	$('.closemodal').bind('click touchstart',function(e){
+		$("#submitFile").hide();
+		$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
+        $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
+	})
 	
-	$(".ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-draggable ui-resizable .ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close").click(function(){
-		alert("button clicked");
-	});
+	$('#cancelsubmitfile').bind('click touchstart',function(e){
+		$("#submitFile").hide();
+		$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
+        $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
+	})
+	
 
 
 	</script>
