@@ -93,7 +93,7 @@ function init() {
   app.get('/assignments',checkAuth, calendar.assignments);
   app.post('/new-assignment', checkAuth, bodyParser.urlencoded(), calendar.newAssignments);
   app.post('/submission', checkAuth, calendar.submission);
-  app.post('/join-class', checkAuth, user.join)
+  app.post('/join-class', checkAuth, bodyParser.urlencoded(), user.join)
   app.post('/edit-assignment', checkAuth, bodyParser.urlencoded(), calendar.editAssignment);
 
   http.createServer(app).listen(app.get('port'), function(){

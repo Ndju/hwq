@@ -152,6 +152,7 @@
 		      	$("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
 		      	$("#eventInfo").html(event.description);
 		      	$("#eventLink").attr('href', event.url);
+		      	$("#assignmentId").val(event.id);
 		      	//$("#subfileform").remove();   	
 				//$("#eventContent").append('<form id="subfileform" method="post" action="/submission" enctype="multipart/form-data"><input type="hidden" name="assignmentId" value=' + event.id + '><input type="file" name="file1"><br> <input name="title" id="titletitle" type="input" value =' + event.title + '><br><button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button></form>');
 		      	//$("#eventContent").dialog({ modal: true, title: event.title, width:350});
@@ -502,9 +503,9 @@
           <h4 class="modal-title" id = "modalTitle"> </h4>
         </div>
 		<form id="subfileform" method="post" action="/submission" enctype="multipart/form-data">
-			<input type="hidden" name="assignmentId" id = "assignmentID"><br> Attach File:
+		<p id = "eventDescription"></p><br>
+			<input type="hidden" name="assignmentId" id="assignmentId"><br> Attach File:
 			<input type="file" name="file1"><br> 
-			<p id = "eventDescription"></p><br>
 			File Name:<input name="title" id="titletitle" type="input"><br>
 			<button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button>
 			<button type = "button" name = "cancelSubmit" id = "cancelsubmitfile">Cancel</button>

@@ -279,7 +279,7 @@ exports.submission = function(req, res) {
 //This function is used in calendar.submission to load the file's data into the mysql submission table.
 function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
 	var userId = req.session.id;
-	
+	console.log(assignmentId);
 	console.log( 'files:::::: '+files );
 	
 	var urlNames = [" "," "," "];
