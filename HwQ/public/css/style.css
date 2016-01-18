@@ -58,7 +58,7 @@ body{
     width: 100%;
     margin: 0px;
     font-family: "Miso Light";
-    background-image: url("background.jpg");
+    background-image: url("nice.jpg");
     background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -474,5 +474,49 @@ background-color: rgba(255, 255, 255, 0.4);;
 .modal-title{
 	font-size: 1.5em;
 	margin-bottom: 0px;
+}
+
+/* Mobile web style sheet */
+@media only screen and (max-device-width: 480px) {
+		div#wrapper {
+			width: 480px;
+		}
+
+		div#header h1 {
+			font-size: 140%;
+		}
+
+		#content {
+			float: none;
+			width: 100%;
+		}
+
+		#navigation {
+			float:none;
+			width: auto;
+		}
+		
+		form.homepage-loginform {
+			padding-left: 10px;
+			width: 80%;
+			font-size: 600%;
+		}
+		
+		form.homepage-loginitems{
+			font-size: 600%;
+		}
+		
+		#homepage-container{
+		    padding-top:100px;
+		    text-align: center;
+		    
+		    background-color: transparent;
+		}
+
+		#homepageImage{
+		    width: 100%;
+		    content:url("nice.jpg");
+		}
+		
 }
 
