@@ -2,6 +2,7 @@
 /* COLOR SCHEME  */
 /* BLUE: #3684d5, rgb(54,132,213) */
 /* RED : #ec484a, rgb(236,72,74)  */
+/* PURPLE:  */
 /* GRAY: #3d4d53, rgb(61,77,83)   */
 /* WHITE:#FFFFFF, rgb(255,255,255)*/
 /* ================================================================================================== */
@@ -98,7 +99,7 @@ body{
 	width: 20%;
 	display: block;
 	right: 35%;
-	background-color: rgba(67,180,179,0.6); 
+	background-color: rgba(54,132,213,0.6); 
 	border-radius: 20px;
 	padding: 5%;
 	-webkit-filter: blur(0px);
@@ -130,11 +131,6 @@ body{
 
 #newFileSubmitBtn:hover, #newFileCnclBtn:hover{
 	cursor:pointer;
-}
-.powerbutton{
-	background-color: rgb(244, 244, 255);
-	border: solid rgb(54, 132, 213) 2px;
-	border-radius: 2px;	
 }
 
 
@@ -394,6 +390,12 @@ background-color: rgba(255, 255, 255, 0.4);;
     border-color: #220efe;
 
 } */
+
+#joinClassForm,#resetform{
+	color:white;
+}
+
+
 /* ================================================================================================== */
 
 
@@ -476,10 +478,10 @@ background-color: rgba(255, 255, 255, 0.4);;
 .submitFileModal{
 	display: block;
 	margin: auto;
-	margin-top:10%;
+	margin-top: 10%;
 	width: 350px;
-	height:auto;
-	background-color: rgba(53, 53, 53, 0.6);
+	height: auto;
+	background-color: rgba(70, 4, 200, 0.52);
 	-webkit-filter: blur(0px);
 	border-radius: 20px;
 	padding: 20px;
