@@ -499,11 +499,11 @@ background-color: rgba(255, 255, 255, 0.4);;
 		form.homepage-loginform {
 			padding-left: 10px;
 			width: 80%;
-			font-size: 600%;
+			font-size: 100%;
 		}
 		
 		form.homepage-loginitems{
-			font-size: 600%;
+			font-size: 100%;
 		}
 		
 		#homepage-container{
