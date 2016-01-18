@@ -170,15 +170,18 @@
 		        });
 		      <%}else{%>
 		      element.click(function() {
+		    	  	console.log("Hello");
+		    	  	$("#editFile").show();
+		    	  	
 			      	$("#start_date").val(moment(event.start).format('MM/DD/YYYY'));
 			      	$("#assignment_id").val(event.id);
 			      	$("#title_assignment").val(event.title);
 			      	$("#end_date").val(moment(event.end).format('MM/DD/YYYY'));
-			      	$("#descriptiontext").html(event.description);
 			      	$("#eventLink").attr('href', event.url);
+			      	$("#descriptiontext").val(event.description);
 			      	$("#subfileform").remove();   	
 			      	$("#editAssignment").dialog({ modal: true, title: event.title, width:350});
-			      	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
+			      	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' }); //same^
 		      });
 		      <%}%>
 		    } 
@@ -515,11 +518,27 @@
     </div>
     
     <div class = "editFileModal" id = "editFile">
-    
+	    <div class="modal-header">
+	          <button type="button" class="closemodal">&times;</button>
+	          <h4 class="modal-title" id = "modalTitle">Edit Assignment</h4>
+		</div>
+		<form action="edit-assignment" method="post">
+		<input type="hidden" id="assignment_id" name="assignment_id" value=""></input>
+			Start:
+	    	<input type="date" placeholder="mm/dd/yyyy" name="start" id="start_date"></input><br>
+	    	End: 
+	    	<input type="date" placeholder="mm/dd/yyyy" name="end" id="end_date"></input><br>
+	    	Title:
+	    	<input type="text" name="title_assignment" placeholder="Title" id="title_assignment"></input><br>
+	    	Description: <br>
+	    	<textarea id="descriptiontext" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea><br>
+	    	<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Update</button>
+	    	<button type = "button" id = "cancelsubmitfile">Cancel</button>
+		</form>
     </div>
  
-	
-	
+	<!-- old modal type for edit assignment -->
+	<!-- 
 	<div id="editAssignment" style="display:none;">
 	<form action="edit-assignment" method="post">
 	<h3>Edit Assignment</h3>
@@ -535,6 +554,7 @@
     	<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Update</button>
     </form>
 	</div>
+	-->
 	
 	
 	<div id="eventContent" title="Event Details" style="display:none;">
@@ -553,6 +573,7 @@
 
     $(document).ready(function() {
     	$('#submitFile').hide();
+    	$('#editFile').hide();
         $('.newFile').hide();
 
 
@@ -581,12 +602,14 @@
 	<script>
 	$('.closemodal').bind('click touchstart',function(e){
 		$("#submitFile").hide();
+		$('#editFile').hide();
 		$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
         $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
 	})
 	
 	$('#cancelsubmitfile').bind('click touchstart',function(e){
 		$("#submitFile").hide();
+		$("#editFile").hide();
 		$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
         $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
 	})
