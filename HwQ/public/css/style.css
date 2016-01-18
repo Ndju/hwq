@@ -99,7 +99,7 @@ body{
 	width: 20%;
 	display: block;
 	right: 35%;
-	background-color: rgba(67,180,179,0.6); 
+	background-color: rgba(54,132,213,0.6); 
 	border-radius: 20px;
 	padding: 5%;
 	-webkit-filter: blur(0px);
@@ -390,6 +390,12 @@ background-color: rgba(255, 255, 255, 0.4);;
     border-color: #220efe;
 
 } */
+
+#joinClassForm,#resetform{
+	color:white;
+}
+
+
 /* ================================================================================================== */
 
 
