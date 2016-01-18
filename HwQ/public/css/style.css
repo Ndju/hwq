@@ -1,6 +1,6 @@
 /* ================================================================================================== */
 /* COLOR SCHEME  */
-/* BLUE: #43b4b3, rgb(67,180,179) */
+/* BLUE: #3684d5, rgb(54,132,213) */
 /* RED : #ec484a, rgb(236,72,74)  */
 /* GRAY: #3d4d53, rgb(61,77,83)   */
 /* WHITE:#FFFFFF, rgb(255,255,255)*/
@@ -94,25 +94,42 @@ body{
     width: 20%;
 }
 .newFile{
-    position: absolute;
-    right: 0%;
-    top: 40%;
-    width: 20%;
+	margin: auto;
+	width: 20%;
+	display: block;
+	right: 35%;
+	background-color: rgba(67,180,179,0.6); 
+	border-radius: 20px;
+	padding: 5%;
+	-webkit-filter: blur(0px);
 }
 
 .everythingButNewFileForm{
     /*opacity: 0.4;!important;*/
 }
 
-.newFile{
-	display: block;
-	border: 1px black solid;
-	position: absolute;
-	right: 35%;
-	background-color:rgba(51,51,51,0.8);
-	padding: 5%;
-	top: 30%;
-	
+
+#newFileSubmitBtn, #newFileCnclBtn{
+	text-transform: uppercase;
+	background-color: black;
+	border: none;
+	padding: 10px 30px;
+	color: white;
+	overflow: auto;
+	font-family: "nexa_lightregular";
+	font-size: 10px;
+	letter-spacing: 1px;
+	margin-top: 50px;
+	margin-right: 20px;
+	margin-left: 5px;
+}
+
+#newFileCnclBtn{
+	margin-right: 0px;
+}
+
+#newFileSubmitBtn:hover, #newFileCnclBtn:hover{
+	cursor:pointer;
 }
 
 
@@ -214,7 +231,7 @@ letter-spacing: 1px;
 	float: left;
 }
 
-#loginbutton,#filesubmitbutton,#cancelsubmitfile {
+#loginbutton,#filesubmitbutton,#cancelsubmitfile,#cancelNewFile {
 	text-transform: uppercase;
 	background-color: black;
 	border: none;

@@ -484,15 +484,15 @@
 		<form class="newFileform" action = "new-assignment" method = "post">
 			<h1 id="NewFileHeader">New Assignment</h1>
 			Assigned Date:
-			<input type="date" placeholder="mm/dd/yyyy" name = "startdate" id = "assigneddate"><br> 
+			<br><input type="date" placeholder="mm/dd/yyyy" name = "startdate" id = "assigneddate"><br> 
 			Due Date:
-			<input type="date"  placeholder="mm/dd/yyyy" name = "duedate" id = "duedate"><br> 
+			<br><input type="date"  placeholder="mm/dd/yyyy" name = "duedate" id = "duedate"><br> 
 			Title:
-			<input id = "title" name = "title" placeholder="Title"><br>
+			<br><input id = "title" name = "title" placeholder="Title"><br>
 			Description:
-			<textarea id = "descriptiontxt" name="descriptiontext" cols="30" rows="5" placeholder = "Description"></textarea>
-			<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Submit New Assignment</button>
-			<button type="button" name="cancelnewFile" value="cancelnewFile" id="cancelNewFile">Cancel</button>
+			<br><textarea id = "descriptiontxt" name="descriptiontext" cols="30" rows="5" placeholder = "Description"></textarea>
+			<button type="submit" name="submitfile" value="submitFile" id = "newFileSubmitBtn" id="filesubmitbutton">Submit</button>
+			<button type="button" name="cancelnewFile" value="cancelnewFile" id = "newFileCnclBtn" id="cancelNewFile">Cancel</button>
 
 		</form>
 	</div>
@@ -561,7 +561,7 @@
 			$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
 
         });
-        $('#cancelNewFile').bind('click touchstart',function(e){
+        $('#newFileCnclBtn').bind('click touchstart',function(e){
             $('.newFile').hide();
             $(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
             $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
