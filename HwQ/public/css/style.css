@@ -94,6 +94,13 @@ body{
     right: 0px;
     width: 20%;
 }
+
+.powerbutton{
+	background-color: rgb(244, 244, 255);
+	border: solid rgb(54, 132, 213) 2px;
+	border-radius: 2px;
+}
+
 .newFile{
 	margin: auto;
 	width: 20%;
@@ -129,7 +136,7 @@ body{
 	margin-right: 0px;
 }
 
-#newFileSubmitBtn:hover, #newFileCnclBtn:hover{
+#newFileSubmitBtn:hover, #newFileCnclBtn:hover,#cancelUpdfile:hover{
 	cursor:pointer;
 }
 
@@ -232,7 +239,7 @@ letter-spacing: 1px;
 	float: left;
 }
 
-#loginbutton,#filesubmitbutton,#cancelsubmitfile,#cancelNewFile {
+#loginbutton,#filesubmitbutton,#cancelsubmitfile,#cancelNewFile,#cancelUpdfile {
 	text-transform: uppercase;
 	background-color: black;
 	border: none;
@@ -475,7 +482,7 @@ background-color: rgba(255, 255, 255, 0.4);;
 /* ================================================================================================== */
 /*Submit File Form*/
 /*=================================================================================================== */
-.submitFileModal{
+.submitFileModal,.editFileModal{
 	display: block;
 	margin: auto;
 	margin-top: 10%;

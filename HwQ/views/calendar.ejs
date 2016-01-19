@@ -170,7 +170,7 @@
 		        });
 		      <%}else{%>
 		      element.click(function() {
-		    	  	console.log("Hello");
+		    	  	
 		    	  	$("#editFile").show();
 		    	  	
 			      	$("#start_date").val(moment(event.start).format('MM/DD/YYYY'));
@@ -182,6 +182,7 @@
 			      	$("#subfileform").remove();   	
 			      	$("#editAssignment").dialog({ modal: true, title: event.title, width:350});
 			      	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' }); //same^
+			      	
 		      });
 		      <%}%>
 		    } 
@@ -412,14 +413,14 @@
 
 
 		<div class="menu-container">
-			<button type="button" value="pushback">Push Back</button>
-			<button type="button" value="addfiles">Add Files</button>
-			<button type="button" value="Print">Print Selected Days</button>
+			<button class = "powerbutton" type="button" value="pushback">Push Back</button>
+			<button class = "powerbutton"type="button" value="addfiles">Add Files</button>
+			<button class = "powerbutton"type="button" value="Print">Print Selected Days</button>
 			<h4>Number of Copies</h4>
 			<input type="range" name="zoom" id="copies" value="50" min="0"
-				max="100">
-			<button type="button" value="breakday">Break Day</button>
-			<button type="button" id="newFileButton" value="newFileform">New
+				max="100"><br>
+			<button class = "powerbutton"type="button" value="breakday">Break Day</button>
+			<button class = "powerbutton"type="button" id="newFileButton" value="newFileform">New
 				File</button>
 			<script>
             <!--basically put all the stuff push back stuff here-->
@@ -533,7 +534,7 @@
 	    	Description: <br>
 	    	<textarea id="descriptiontext" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea><br>
 	    	<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Update</button>
-	    	<button type = "button" id = "cancelsubmitfile">Cancel</button>
+	    	<button type = "button" value="cancelUpdfile" id = "cancelUpdfile">Cancel</button>
 		</form>
     </div>
  
@@ -604,14 +605,23 @@
 		$("#submitFile").hide();
 		$('#editFile').hide();
 		$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
-        $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
+        $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
 	})
 	
 	$('#cancelsubmitfile').bind('click touchstart',function(e){
+		console.log("hello");
 		$("#submitFile").hide();
 		$("#editFile").hide();
 		$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
         $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
+	})
+	
+	$('#cancelUpdfile').bind('click touchstart',function(e){
+		console.log('hello');
+		
+		$("#editFile").hide();
+		$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
+        $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
 	})
 	
 
