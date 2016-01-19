@@ -267,7 +267,9 @@
 					class="classroomclass" value="period3">Period 3<br> -->
 		
 			<!-- </form> -->
+			<% if(isTeacher == 0){%>
 			<button id="viewQ0" class="side_button">Join Class</button>
+			<%}%>
 			<button id="viewQ" class="side_button">View Submissions</button>
 			
 			<br>
@@ -280,9 +282,10 @@
 
 
 			<!-- </form> -->
-			<button id="viewQ2" class="side_button">Weebly Submission</button>
-			
+			<% if(isTeacher == 1){%>
+			<button id="viewQ2" class="side_button">Weebly Submissions</button>
 			<br>
+			<%}%>
 
 			<script type="text/javascript">
     			document.getElementById("viewQ2").onclick = function () {
@@ -347,10 +350,10 @@
 	        <h2 id ="resetDescription"> Please reset your password so that your classmates don't steal your work</h2>
 	      
 		        <div class="resetitems" id="homepage-password">
-		            <input placeholder="new password" id="password2" name="newpassword" type="newpassword" type="text">
+		            <input placeholder="new password" id="password2" name="newpassword" type="password">
 		        </div>
-	        <input type="submit" value="Change">
-	        <a id = "cancelChangePass" href = "#navbar">Cancel.</a>
+		        <input class = "powerbutton" type="submit" value="Change">
+	        <a class="cancel" id="cancelChangePass" href = "#navbar">Cancel</a>
     	</form>
     	
     	
@@ -362,8 +365,8 @@
 		        <div class="joinitems" id="class-code">
 		            <input placeholder="Enter Class Code" id="classcode" name="joinClass" type="text">
 		        </div>
-	        <input type="submit" value="Change">
-	        <a id = "cancelJoinClass" href = "#navbar">Cancel</a>
+	        <input class="powerbutton" type="submit" value="Change">
+	        <a class="cancel" id="cancelJoinClass" href = "#navbar">Cancel</a>
     	</form>
     	
 		</div>
@@ -414,7 +417,7 @@
 
 		<div class="menu-container">
 			<button class = "powerbutton" type="button" value="pushback">Push Back</button>
-			<button class = "powerbutton"type="button" value="addfiles">Add Files</button>
+			<button class = "powerbutton"type="button" value="addfiles">Add Files</button><br>
 			<button class = "powerbutton"type="button" value="Print">Print Selected Days</button>
 			<h4>Number of Copies</h4>
 			<input type="range" name="zoom" id="copies" value="50" min="0"
