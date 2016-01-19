@@ -96,9 +96,23 @@ body{
 }
 
 .powerbutton{
+	margin-top: 5px;
+	padding-top: 3px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 3px;
 	background-color: rgb(244, 244, 255);
 	border: solid rgb(54, 132, 213) 2px;
 	border-radius: 2px;
+}
+.cancel{
+   color:white;
+   text-decoration: underline;
+   background-color: none;
+   margin-left: 5px;
+   font-size: 15px;
+   margin-top: 5px;
+   
 }
 
 .newFile{

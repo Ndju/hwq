@@ -88,7 +88,8 @@ exports.reset = function(req,res){
 	    	  res.redirect('/login-failure.html');
 	      } else {
 	    	  //returns the page back to query
-	        	res.redirect('/query');
+	        	res.redirect('/assignments?classperiodid='
+						+ req.session.periodid);
 		    }
 	   });
 }
