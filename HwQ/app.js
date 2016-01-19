@@ -7,6 +7,7 @@ var express = require('express')
   , user = require('./routes/user')
   , calendar = require('./routes/calendar')
   , submissions = require('./routes/submissions')
+  , s3upload = require('./routes/s3upload')
   , http = require('http')
   , path = require('path')
   , mysql = require('mysql')
@@ -94,6 +95,7 @@ function init() {
   app.post('/new-assignment', checkAuth, bodyParser.urlencoded(), calendar.newAssignments);
   app.post('/submission', checkAuth, calendar.submission);
   app.post('/join-class', checkAuth, bodyParser.urlencoded(), user.join)
+  app.post('/upload',  checkAuth, s3upload.doUpload )
   app.post('/edit-assignment', checkAuth, bodyParser.urlencoded(), calendar.editAssignment);
 
   http.createServer(app).listen(app.get('port'), function(){
