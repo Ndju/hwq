@@ -147,32 +147,27 @@
 			
 		      element.attr('href', 'javascript:void(0);');
 		      <% if(isTeacher == 0){%>
+		      
 		      element.click(function() {
-		      	$("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
-		      	$("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
-		      	$("#eventInfo").html(event.description);
-		      	$("#eventLink").attr('href', event.url);
-		      	$("#assignmentId").val(event.id);
-		      	//$("#subfileform").remove();   	
-				//$("#eventContent").append('<form id="subfileform" method="post" action="/submission" enctype="multipart/form-data"><input type="hidden" name="assignmentId" value=' + event.id + '><input type="file" name="file1"><br> <input name="title" id="titletitle" type="input" value =' + event.title + '><br><button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button></form>');
-		      	//$("#eventContent").dialog({ modal: true, title: event.title, width:350});
 		      	$('#submitFile').show();
 		      	$('#modalTitle').empty();
 		      	$('#eventDescription').empty();
 		      	$('#modalTitle').append("Title: " + event.title);
 		      	$('#eventDescription').append(event.description);
 		      	$('#titletitle').val(event.title);
-		      	
 		      	$(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' });  //makes everything in background a bit blurred	
 			 	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
 			 	
+			 	//EXEMPTION CODE
+			 	if((moment(event.end).format('YYYY'))<y || (moment(event.end).format('MM')) < m || (moment(event.end).format('DD')) < d){
+			 		prompt("Enter exemption code");
+			 	}
+			 	//
 			 	
 		        });
 		      <%}else{%>
-		      element.click(function() {
-		    	  	
+		      element.click(function() {  	
 		    	  	$("#editFile").show();
-		    	  	
 			      	$("#start_date").val(moment(event.start).format('MM/DD/YYYY'));
 			      	$("#assignment_id").val(event.id);
 			      	$("#title_assignment").val(event.title);
