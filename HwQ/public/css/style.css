@@ -106,10 +106,29 @@ body{
 	width: 20%;
 	display: block;
 	right: 35%;
-	background-color: rgba(54,132,213,0.6); 
+	background-color: rgba(61,77,83, 0.6); 
 	border-radius: 20px;
 	padding: 5%;
 	-webkit-filter: blur(0px);
+}
+
+#descriptiontxt{
+	background-color: rgba(127, 4, 202, 0.32); 
+	border: none;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	padding-left: 5px;
+	color: white;
+}
+
+.newFile input{
+	background-color: rgba(127, 4, 202, 0.32); 
+	border: none;
+	height: 20px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	padding-left: 5px;
+	color: white;
 }
 
 .everythingButNewFileForm{
@@ -188,7 +207,7 @@ form.homepage-loginform {
 }
 
 #homepage-container{
-    padding-top:200px;
+    padding-top:220px;
     text-align: center;
     
     background-color: transparent;
@@ -488,7 +507,7 @@ background-color: rgba(255, 255, 255, 0.4);;
 	margin-top: 10%;
 	width: 350px;
 	height: auto;
-	background-color: rgba(70, 4, 200, 0.52);
+	background-color: rgba(61, 77, 83, 0.52);
 	-webkit-filter: blur(0px);
 	border-radius: 20px;
 	padding: 20px;
@@ -517,6 +536,46 @@ background-color: rgba(255, 255, 255, 0.4);;
 	margin-bottom: 0px;
 }
 
+
+#titletitle{
+	background-color: rgba(127, 4, 202, 0.32); 
+	border: none;
+	height: 20px;
+	color: white;
+	border-radius: 5px;
+	padding-left: 10px;
+}
+
+
+/* ================================================================================================== */
+/*Edit File Form*/
+/*=================================================================================================== */
+#editFile input{
+	background-color: rgba(127, 4, 202, 0.32); 
+	border: none;
+	height: 20px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	padding-left: 5px;
+	color: white;
+}
+
+#editFile #descriptiontext{
+	background-color: rgba(127, 4, 202, 0.32); 
+	border: none;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	padding-left: 5px;
+	color: white;
+}
+
+#cancelUpdfile{
+	margin-top:20px;
+}
+
+#editFile #modalTitle{
+	margin-bottom:20px;
+}
 
 /* Mobile web style sheet */
 @media only screen and (max-device-width: 480px) {
