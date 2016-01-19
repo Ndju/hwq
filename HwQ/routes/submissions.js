@@ -13,7 +13,7 @@ exports.query2 = function(req, res) {
 		for (var i = 1; i < rows.length; i++) {
 			var data = rows[i];
 			//if admin, all rows are pushed into results array
-			if (user[0] === 'p1admin' || user[0] === 'p2admin') {
+			if (user[0] === 'p1admin' || user[0] === 'p2admin' || user[0] === 'teacher1') {
 				results.push(data);
 				continue;
 			}
