@@ -273,7 +273,7 @@ letter-spacing: 1px;
 	float: left;
 }
 
-#loginbutton,#filesubmitbutton,#cancelsubmitfile,#cancelNewFile,#cancelUpdfile {
+#loginbutton,#filesubmitbutton,#cancelsubmitfile,#cancelNewFile,#cancelUpdfile,#signUpButton {
 	text-transform: uppercase;
 	background-color: black;
 	border: none;
@@ -286,7 +286,13 @@ letter-spacing: 1px;
 	margin-top: 50px;
 }
 
-#loginbutton:hover,#filesubmitbutton:hover,#cancelsubmitfile:hover,.closemodal:hover{
+#signUpButton{
+	background-color:white;
+	color:black;
+	margin-left:20px;
+}
+
+#loginbutton:hover,#filesubmitbutton:hover,#cancelsubmitfile:hover,.closemodal:hover,#signUpButton:hover{
 	cursor:pointer;
 }
 /* ================================================================================================== */

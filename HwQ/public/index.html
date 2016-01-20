@@ -26,27 +26,27 @@
         </div>
         <br>
         <input id = "loginbutton" type="submit" value="Log in">
+        <input id = "signUpButton" type="button" value="Sign Up">
     </form>
-
+	<!-- <form>
+		<h1 id="SignUpHeader"> Log in.</h1>
+        
+	</form> -->
 </div>
 
 <script>
-//    <!--Home script for showing stuff for either new user or whatever-->
-    $(document).ready(function() {
-       $('#newprofile').hide();
-        $('#createprofile').bind('click touchstart',function(e){
-            $('#homepage-container').hide();
-            $('#newprofile').show();
-        });
-        $('#profileexists').bind('click touchstart',function(e){
-            $('#newprofile').hide();
-            $('#homepage-container').show();
-        })
-    });
+/* just have this show the actual sign up page later  */
+    /* $(document).ready(function() {
+       $('#signUpButton').bind('click touchstart', function(e){
+    	   $('.homepage-loginform').hide();
+       })
+    }); */
 </script>
 
 <script>
-    $(document).ready(function(){
+
+	
+    /* $(document).ready(function(){
         var first;
         var last;
         var email;
@@ -60,7 +60,7 @@
             password = $('#newprofile_id_password').val();
 
         });
-    })
+    }) */
 
 </script>
 
