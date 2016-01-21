@@ -28,19 +28,38 @@
         <input id = "loginbutton" type="submit" value="Log in">
         <input id = "signUpButton" type="button" value="Sign Up">
     </form>
-	<!-- <form>
-		<h1 id="SignUpHeader"> Log in.</h1>
-        
-	</form> -->
+	<form class = "homepage-signUpForm">
+		<h1 id="SignUpHeader"> SIGN UP.</h1>
+		<input class = "signUpInput" id = "signUpFName" placeholder = "first name" type = "text"  name = "signUpFName" required>
+		<input class = "signUpInput" id = "signUpLName" placeholder = "last name" type = "text"  name = "signUpLName" required>
+        <input class = "signUpInput" id = "signUpUser" placeholder = "username" type = "text" maxlength = "254" name = "signUpUser" required>
+        <input class = "signUpInput" id = "signUpPass" placeholder = "password" type = "password" name = "signUpPass" required>
+        <input class = "signUpInput" id = "signUpRepeatPass" placeholder = "repeat password" type = "password" name = "signUpRepeatPass" required>
+        <input class = "signUpInput" id = "signUpEmail" placeholder = "email" type = "email" name = "signUpEmail" required>
+        <input class = "signUpInput" id = "signUpClassCode" placeholder = "Enter Class Code" type = "text" name = "signUpClassCode"><br>
+        <input class = "signUpButton" id = "signUpSubmitButton" type="submit" value="Sign Up">
+        <input class = "signUpButton" id = "cancelSignUp" type="button" value="Cancel">
+	</form>
 </div>
 
 <script>
 /* just have this show the actual sign up page later  */
-    /* $(document).ready(function() {
-       $('#signUpButton').bind('click touchstart', function(e){
-    	   $('.homepage-loginform').hide();
+    $(document).ready(function() {
+    	$('.homepage-signUpForm').hide();
+      	$('#signUpButton').bind('click touchstart', function(e){
+    		$('.homepage-loginform').hide();
+    	  	$('.homepage-signUpForm').show();
+    	  	$('#homepage-container').css("padding-top", "180px");
+    	   
        })
-    }); */
+       $('#cancelSignUp').bind('click touchstart', function(e){
+    		$('.homepage-loginform').show();
+    	  	$('.homepage-signUpForm').hide();
+    	  	$('#homepage-container').css("padding-top", "220px");
+    	   
+       })
+       
+    });
 </script>
 
 <script>

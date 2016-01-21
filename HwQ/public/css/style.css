@@ -178,7 +178,7 @@ body{
 /* ================================================================================================== */
 /* STYLING FOR LOGIN PAGE  */
 /* ================================================================================================== */
-form.homepage-loginform {
+form.homepage-loginform,form.homepage-signUpForm {
 	padding-left: 50px;
 	text-align: left;
 	width: 300px;
@@ -253,7 +253,7 @@ font-family: "Miso Light";
 letter-spacing: 1px;
 }
 
-#id_username{
+#id_username,.signUpInput{
 	background: none;
 	border: none;
 	border-bottom: 2px solid black;
@@ -273,7 +273,7 @@ letter-spacing: 1px;
 	float: left;
 }
 
-#loginbutton,#filesubmitbutton,#cancelsubmitfile,#cancelNewFile,#cancelUpdfile,#signUpButton {
+#loginbutton,#filesubmitbutton,#cancelsubmitfile,#cancelNewFile,#cancelUpdfile,#signUpButton,#signUpSubmitButton,#cancelSignUp {
 	text-transform: uppercase;
 	background-color: black;
 	border: none;
@@ -286,16 +286,31 @@ letter-spacing: 1px;
 	margin-top: 50px;
 }
 
-#signUpButton{
+#signUpButton,#cancelSignUp{
 	background-color:white;
 	color:black;
 	margin-left:20px;
 }
 
-#loginbutton:hover,#filesubmitbutton:hover,#cancelsubmitfile:hover,.closemodal:hover,#signUpButton:hover{
+#loginbutton:hover,#filesubmitbutton:hover,#cancelsubmitfile:hover,.closemodal:hover,#signUpButton:hover,#signUpSubmitButton:hover,#cancelSignUp:hover{
 	cursor:pointer;
 }
+
+
+
+.homepage-signUpForm{
+	height:400px;
+}
+
+.signUpInput{
+	float:none;
+}
+
 /* ================================================================================================== */
+
+
+
+
 
 
 
