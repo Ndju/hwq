@@ -103,8 +103,7 @@ exports.join = function(req,res){
 	    	  res.send('ERROR AT EXPORTS.JOIN' + err);
 	      } else {
 	    	  //returns the page back to query
-	    	  res.redirect('/assignments?classperiodid='
-						+ req.session.periodid);
+	    	  res.redirect('/calendar');
 		    }
 	   });
 	
