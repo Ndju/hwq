@@ -204,13 +204,13 @@ form.homepage-loginform,form.homepage-signUpForm {
 #header-logos{
     float: left;
     color: transparent;!important;
-    background-image: url("JJ.png");
+    background-image: url("TSWBATLOGO.png");
     background-size: contain;
     margin-left: 1%;
     width: 200px;
     height: 200px;
 	position:absolute;
-    margin-top: 0px;
+    margin-top: 20px;
     background-repeat: no-repeat
 }
 .homeheader{
@@ -302,9 +302,7 @@ letter-spacing: 1px;
 	height:400px;
 }
 
-.signUpInput{
-	float:none;
-}
+
 
 /* ================================================================================================== */
 
