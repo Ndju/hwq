@@ -15,18 +15,19 @@ exports.cal = function(req, res) {
 	//initializes list of information to be rendered on calendar.ejs
 	var classPeriodList = [];
 	//this statement goes through database to draw out class name and class period_id and period.
-	var sql = 'SELECT class.class_name, period.period_id, period.period '
-			+ 'FROM user.student_period, user.period, user.class '
-			+ 'WHERE user.student_period.student_id_fk = ? '
-			+ 'AND user.period.period_id = user.student_period.period_id_fk '
-			+ 'AND user.class.class_id = user.period.class_fk ';
+	var sql = 'SELECT DISTINCT class.class_name, period.period_id, period.period '
+		+ 'FROM user.student_period, user.period, user.class '
+		+ 'WHERE user.student_period.student_id_fk = ? '
+		+ 'AND user.period.period_id = user.student_period.period_id_fk '
+		+ 'AND user.class.class_id = user.period.class_fk ';
 	console.log(sql);
+	console.log(req.session.id)
 	//creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(sql, [ req.session.id ],
 			function(err, rows, fields) {
 				if (err) {
 					//connection mess-up handler --> very unlikely as the statement is static and consistent
-					res.send('Failed to retrieve class information for user.');
+					res.send('Failed to retrieve class information for user');
 				} else {
 					var classperiodid = req.session.periodid;
 					// for loops through each line of data from mysql
