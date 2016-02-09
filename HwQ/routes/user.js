@@ -109,3 +109,30 @@ exports.join = function(req,res){
 	   });
 	
 }
+exports.signup = function(req, res){
+	username = req.body.signUpFName + "." + req.body.signUpLName;
+	console.log(username)
+	//inserts a new user's information into the user.users data table.
+	var sql = 'INSERT INTO user.users (id, username, password, period, change_password, is_teacher)' + 
+	'VALUES (null, ?, ?, null, 0, 0);';
+	req.app.get('connection').query(sql, [username, req.body.signUpPass], function(err, rows, fields) {
+	      if (err) {
+	    	  //very unlikely, hopefully this never happens
+	    	  res.redirect('/login-failure.html');
+	      } else {
+	    	  //returns the page back to query
+	    	  res.redirect('/');		    }
+	   });
+}
+function joinClass(id, periodId){
+	var sql = 'INSERT INTO user.student_period (student_id_fk, period_id_fk) VALUES (?, ?)';
+	//replaces password at the "cookie-d" id (user who is logged on) with the new password given by change-password.html
+	req.app.get('connection').query(sql, [id, periodId], function(err, rows, fields) {
+	      if (err) {
+	    	  //very unlikely, hopefully this never happens
+	    	  res.redirect('/login-failure.html');
+	      } else {
+	    	  res.redirect('/')
+		    }
+	   });
+}

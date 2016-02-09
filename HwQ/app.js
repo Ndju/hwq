@@ -97,6 +97,7 @@ function init() {
   app.post('/join-class', checkAuth, bodyParser.urlencoded(), user.join)
   app.post('/upload',  checkAuth, s3upload.doUpload )
   app.post('/edit-assignment', checkAuth, bodyParser.urlencoded(), calendar.editAssignment);
+  app.post('/signup', bodyParser.urlencoded(), user.signup)
 
   http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
