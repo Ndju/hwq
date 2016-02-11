@@ -76,12 +76,15 @@
 /* ================================================================================================== */
  
 //When newFile/assignment form is submitted, it gets the values, and creates the new event with that...
-//problem right now is that this isn't really actually saving it in. 
+
 
 		 $('.newFileform').submit(function(){
 			 
 				var startdate = $('#assigneddate').val();
 				var enddate = $('#duedate').val();
+				alert(enddate);
+				enddate = enddate.substring(0,4)  + (parseInt(enddate[4])+1) + enddate.substring(5,enddate.length);
+				alert(enddate);
 				var title = $('#titletitle').val();
 				var description = $('#descriptiontxt').val();
 				var newevent = {
@@ -90,6 +93,7 @@
 						end: enddate, /* due date */ 
 						description: description,
 				}
+				
 				$('#calendar').fullCalendar( 'renderEvent', newevent);
 				$(".newFile").hide();
 	            $(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
@@ -136,7 +140,7 @@
 		    
 //when you click on an event 	    
 		    function eventRenderCallback(event,element){
-			    
+							    
 			//double clicking on a day does this stuff -- basicaly just says "when the element is double clicked on, go to 
 			// that dblclickfunction
 		      element.on("dblclick",function(){

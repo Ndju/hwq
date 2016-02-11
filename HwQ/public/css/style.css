@@ -203,7 +203,7 @@ form.homepage-loginform,form.homepage-signUpForm {
 
 #header-logos{
     float: left;
-    color: transparent;!important;
+    color: transparent !important;
     background-image: url("TSWBATLOGO.png");
     background-size: contain;
     margin-left: 1%;
@@ -359,7 +359,7 @@ margin-top: 20px;
 	list-style: none;
 display: block;
 margin: auto;
-background-color: rgba(255, 255, 255, 0.4);;
+background-color: rgba(255, 255, 255, 0.4);
 /*  */
 }
 
@@ -394,7 +394,7 @@ h1#navbar_classname.navbar-items{
 
 #navbar_settings{
     float: left;
-    color: transparent;!important;
+    color: transparent !important;
     background-image: url("menuButton.png");
     background-size: contain;
     margin-left: 1%;
@@ -545,7 +545,7 @@ h1#navbar_classname.navbar-items{
 	border-color: white;
 	border-width: 2px;
 	border-style: solid;
-	background-color:rgba(0,0,0,0.5);!important
+	background-color:rgba(0,0,0,0.5) !important;
 }
 
 
@@ -578,7 +578,7 @@ h1#navbar_classname.navbar-items{
 }
 
 #filesubmitbutton, #cancelsubmitfile{
-	margin-top: 20px;!important;
+	margin-top: 20px !important;
 	margin-left: 20px;
 	margin-right: 20px;
 }

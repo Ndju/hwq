@@ -147,6 +147,7 @@ exports.newAssignments = function(req, res) {
 	// gets values to plug into assignment table
 	var start = req.body.startdate;
 	var end = req.body.duedate;
+	end = end.substring(0,4)  + (parseInt(end[4])+1) + end.substring(5,end.length);
 	start = convertdate(start);
 	end = convertdate(end);
 	var title = req.body.title;
