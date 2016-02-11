@@ -82,9 +82,7 @@
 			 
 				var startdate = $('#assigneddate').val();
 				var enddate = $('#duedate').val();
-				alert(enddate);
 				enddate = enddate.substring(0,4)  + (parseInt(enddate[4])+1) + enddate.substring(5,enddate.length);
-				alert(enddate);
 				var title = $('#titletitle').val();
 				var description = $('#descriptiontxt').val();
 				var newevent = {
