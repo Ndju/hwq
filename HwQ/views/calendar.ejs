@@ -194,7 +194,7 @@
 		    
 		    
 		    
-//this gets the date of the double clicked box   
+//this gets the date of the double clicked box
 		    function dblClickFunction(date){
 			    clickeddate = date.format();
 		        yearyear = clickeddate.substring(0, 4);
@@ -208,6 +208,7 @@
 		    
 		    
 //this works with opening the form for new assignment after something a box is double clicked.
+<% if(isTeacher == 1){%>
 		    $( "#calendar" ).dblclick(function() {
 		    	$("#titletitle").val(null); //clears any previous value for title 
 		    	if(slotDate){ 
@@ -220,7 +221,7 @@
 			 	$("#assigneddate").val(clickeddate); //changes the preset value of assign date to the date of the dblckicked box
 			});
 
-		    
+		    <%}%>  
 		    });
 		    
 		
