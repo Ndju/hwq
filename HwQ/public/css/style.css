@@ -263,6 +263,10 @@ letter-spacing: 1px;
 	float: left;
 }
 
+.signUpInput{
+	float:none;
+}
+
 #id_password {
 	background: none;
 	border: none;
@@ -300,6 +304,12 @@ letter-spacing: 1px;
 
 .homepage-signUpForm{
 	height:400px;
+	padding-bottom: 0px !important;
+}
+
+input#Teacher.studteachradio{
+	margin-left: 10%;
+margin-top: 20px;
 }
 
 
