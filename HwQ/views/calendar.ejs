@@ -275,16 +275,13 @@ color: black;">x</a>
 		
 		
 
-				<!-- <input type="checkbox" name="class1" id="classselection1"
-					class="classroomclass" value="period1">Period 1<br> <input
-					type="checkbox" name="class2" id="classselection2"
-					class="classroomclass" value="period2">Period 2<br> <input
-					type="checkbox" name="class3" id="classselection3"
-					class="classroomclass" value="period3">Period 3<br> -->
-		
-			<!-- </form> -->
+
 			<% if(isTeacher == 0){%>
 			<button id="viewQ0" class="side_button">Join Class</button>
+			<%}%>
+			
+			<% if(isTeacher == 1){%>
+			<button id="viewQ9" class="side_button">Create Class</button>
 			<%}%>
 			<button id="viewQ" class="side_button">View Submissions</button>
 			
