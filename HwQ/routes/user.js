@@ -98,7 +98,7 @@ exports.join = function(req,res){
 	var classCode = req.body.joinClass;
 	var sql = 'INSERT INTO user.student_period (student_id_fk, period_id_fk) VALUES (?, ?)';
 	req.app.get('connection').query(sql, [req.session.id, classCode], function(err, rows, fields) {
-	      if (err) {
+	      if (err){
 	    	  //very unlikely, hopefully this never happens
 	    	  res.send('ERROR AT EXPORTS.JOIN' + err);
 	      } else {
@@ -111,6 +111,12 @@ exports.join = function(req,res){
 exports.signup = function(req, res){
 	username = req.body.signUpFName + "." + req.body.signUpLName;
 	console.log(username);
+	console.log(req.body.signUpRepeatPass);
+	console.log(req.body.signUpPass);
+	console.log(req.body.signUpRepeatPass === req.body.signUpPass);
+	if(!(req.body.signUpRepeatPass === req.body.signUpPass)){
+		  res.redirect('/login-failure.html')
+	  }
 	//inserts a new user's information into the user.users data table.
 	var sql = 'INSERT INTO user.users (id, username, password, period, change_password, is_teacher)' + 
 	'VALUES (null, ?, ?, null, 0, ?);';

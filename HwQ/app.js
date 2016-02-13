@@ -93,7 +93,7 @@ function init() {
   app.post('/reset', checkAuth, bodyParser.urlencoded(), user.reset);
   app.get('/assignments',checkAuth, calendar.assignments);
   app.post('/new-assignment', checkAuth, bodyParser.urlencoded(), calendar.newAssignments);
-  app.post('/submission', checkAuth, calendar.submission);
+  app.post('/submission', checkAuth, bodyParser.urlencoded(), calendar.submission);
   app.post('/join-class', checkAuth, bodyParser.urlencoded(), user.join)
   app.post('/upload',  checkAuth, s3upload.doUpload )
   app.post('/edit-assignment', checkAuth, bodyParser.urlencoded(), calendar.editAssignment);

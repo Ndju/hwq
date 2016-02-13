@@ -197,7 +197,8 @@ exports.submission = function(req, res) {
 		//goes through each field of html form and takes value depending on input type
 		if(fieldname === 'title'){
 			title = val;
-		}else if(fieldname === 'assignmentId'){
+		}else if(fieldname === 'assignment_id'){
+			console.log('HEREEEE: ' + val);
 			assignmentId = val;
 		}
 	});
@@ -295,6 +296,7 @@ function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
 	}
 	var sql = 'INSERT INTO user.submissions1 (assignment_id, submission_id, date_submitted, student_id, IP_Address, first_name, last_name, file1_url, file2_url, file3_url)'
 		+ 'VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)';
+	console.log(assignmentId)
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(
 		sql,
@@ -330,6 +332,7 @@ exports.editAssignment = function(req, res){
 }
 
 exports.remove = function(req, res){
+	console.log(req.query.removeclass)
 	var sql = "DELETE FROM user.student_period WHERE student_id_fk = ? and period_id_fk = ?";
 	console.log("delete this");
 	req.app.get('connection').query(sql,[req.session.id, req.body.removeclass],

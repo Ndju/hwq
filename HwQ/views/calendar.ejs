@@ -151,6 +151,7 @@
 		      <% if(isTeacher == 0){%>
 		      
 		      element.click(function() {
+			    $("#assignment_id").val(event.id);
 		      	$('#submitFile').show();
 		      	$('#modalTitle').empty();
 		      	$('#eventDescription').empty();
@@ -171,7 +172,7 @@
 		      element.click(function() {  	
 		    	  	$("#editFile").show();
 			      	$("#start_date").val(moment(event.start).format('MM/DD/YYYY'));
-			      	$("#assignment_id").val(event.id);
+			      	$("#assignmentId").val(event.id);
 			      	$("#title_assignment").val(event.title);
 			      	$("#end_date").val(moment(event.end).format('MM/DD/YYYY'));
 			      	$("#eventLink").attr('href', event.url);
@@ -261,9 +262,9 @@ color: black;">x</a>
 										<input type="radio" name="classperiodid" value=<%=classInfo.period_id%> class = "classSelectionChoices" id="classselection1">
 										Period <%= classInfo.period + " " + classInfo.class_name%>
 										 <% if(isTeacher == 0){%>
-										<a href="/remove" name = "removeclass" id = "removeclassID" value = <%=classInfo.period_id %> style="float: right; margin-right: 10px; margin-top: 5px; text-decoration: none;
+										<form method="post" href="/remove" name = "removeclass" id = "removeclassID" value = <%=classInfo.period_id %> style="float: right; margin-right: 10px; margin-top: 5px; text-decoration: none;
 											color: black;
-											"> x </a>
+											"> x </form>
 											<%}%>
 									</li>
 									
@@ -275,14 +276,16 @@ color: black;">x</a>
 		
 		
 
-
+				<!-- <input type="checkbox" name="class1" id="classselection1"
+					class="classroomclass" value="period1">Period 1<br> <input
+					type="checkbox" name="class2" id="classselection2"
+					class="classroomclass" value="period2">Period 2<br> <input
+					type="checkbox" name="class3" id="classselection3"
+					class="classroomclass" value="period3">Period 3<br> -->
+		
+			<!-- </form> -->
 			<% if(isTeacher == 0){%>
 			<button id="viewQ0" class="side_button">Join Class</button>
-			<%}%>
-			
-			<% if(isTeacher == 1){%>
-			<button id="viewQ9" class="side_button">Create Class</button>
-			
 			<%}%>
 			<button id="viewQ" class="side_button">View Submissions</button>
 			
@@ -526,7 +529,7 @@ color: black;">x</a>
         </div>
 		<form id="subfileform" method="post" action="/submission" enctype="multipart/form-data">
 		<p id = "eventDescription"></p><br>
-			<input type="hidden" name="assignmentId" id="assignmentId"><br> Attach File:
+			<input type="hidden" name="assignment_id" id="assignment_id"><br> Attach File:
 			<input type="file" name="file1"><br> 
 			File Name:<input name="title" id="titletitle" type="input"><br>
 			<button type="submit" name="submitfile" value="submitFile"id="filesubmitbutton">Submit New File</button>
