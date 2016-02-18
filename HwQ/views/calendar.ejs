@@ -382,6 +382,18 @@ color: black;">x</a>
     	</form>
     	
     	
+    	<!-- THIS FORM IS THE PAGE IN SIDEBAR THAT LETS TEACHERS ADD A CLASS -->
+		<form id="addClassForm" method="post" action="addclass" style="display:none; color:white;">
+	        <h1 id="addHeader">Add Class</h1>
+	        <h2 id ="addDescription">Please enter the information below to add your new class.</h2>
+	      
+		        <div class="additems" id="homepage-password">
+		            <input placeholder="class name" id="newClassName" name="newClass" type="text">
+		        </div>
+		        <input class = "powerbutton" type="submit" value="add">
+	        <a class="cancel" id="cancelAddClass" href = "#navbar">Cancel</a>
+    	</form>
+    	
     	
     	<!-- THIS FORM IS TO JOIN CLASS -->
     	<form id="joinClassForm" method="post" action="/join-class" style="display:none;">
@@ -397,16 +409,30 @@ color: black;">x</a>
 		</div>
 		
 		<script>
+			//shows reset form if the change password button in sidebar is clicked
 			$("#changePassword").click(function(){
 				$('#resetform').show();
 				$('.sidebarMinusReset').hide();
 			});
 			
-			
+			// does opposite of the first one
 			$("#cancelChangePass").click(function(){
 				$('#resetform').hide();
 				$('.sidebarMinusReset').show();
 			});
+			
+			
+			$("#viewQ9").click(function(){
+				$('#addClassForm').show();
+				$('.sidebarMinusReset').hide();
+			});
+			
+			
+			$("#cancelAddClass").click(function(){
+				$('#addClassForm').hide();
+				$('.sidebarMinusReset').show();
+			});
+			
 			
 			$("#viewQ0").click(function(){
 				$('#joinClassForm').show();
