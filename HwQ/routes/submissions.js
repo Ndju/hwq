@@ -71,18 +71,20 @@ exports.querySubmission = function(req, res){
 					data.push(rows[i].last_name);
 					data.push(rows[i].submission_id);
 					//this checks if the file is empty, nameStart finds the name of the file (last section of the url) and displays it as the link
-					if(rows[i].file1_url != " "){
+					if(rows[i].file1_url != null){
 						var nameStart = rows[i].file1_url.indexOf("_") + 1;
 						data.push("<a href ='" + rows[i].file1_url + "'>" + rows[i].file1_url.substring(nameStart) + "</a>");
+					}else{
+						data.push("");
 					}
-					if(rows[i].file2_url != " "){
-						var nameStart = rows[i].file1_url.indexOf("_") + 1;
+					if(rows[i].file2_url != null){
+						var nameStart = rows[i].file2_url.indexOf("_") + 1;
 						data.push("<a href ='" + rows[i].file2_url + "'>" + rows[i].file2_url.substring(nameStart) + "</a>");
 					}else{
 						data.push("");
 					}
-					if(rows[i].file3_url != " "){
-						var nameStart = rows[i].file1_url.indexOf("_") + 1;
+					if(rows[i].file3_url != null){
+						var nameStart = rows[i].file3_url.indexOf("_") + 1;
 						data.push("<a href ='" + rows[i].file3_url + "'>" + rows[i].file3_url.substring(nameStart) + "</a>");
 					}else{
 						data.push("");
