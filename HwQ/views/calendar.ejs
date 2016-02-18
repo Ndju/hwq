@@ -265,9 +265,9 @@ color: black;">x</a>
 										<input type="radio" name="classperiodid" value=<%=classInfo.period_id%> class = "classSelectionChoices" id="classselection1">
 										Period <%= classInfo.period + " " + classInfo.class_name%>
 										 <% if(isTeacher == 0){%>
-										<form method="post" href="/remove" name = "removeclass" id = "removeclassID" value = <%=classInfo.period_id %> style="float: right; margin-right: 10px; margin-top: 5px; text-decoration: none;
+										<a method="post" href="/remove" name = "removeclass" id = "removeclassID" value = <%=classInfo.period_id %> style="float: right; margin-right: 10px; margin-top: 5px; text-decoration: none;
 											color: black;
-											"> x </form>
+											"> x </a>
 											<%}%>
 									</li>
 									
