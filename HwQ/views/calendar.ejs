@@ -162,8 +162,10 @@
 			 	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
 			 	
 			 	//EXEMPTION CODE
-			 	if((moment(event.end).format('YYYY'))<y || (moment(event.end).format('MM')) < m || (moment(event.end).format('DD')) < d){
-			 		prompt("Enter exemption code");
+				var curdate = new Date();
+				
+			 	if(event.end<curdate){
+			 		prompt("Please provide an exemption code provided by your teacher");
 			 	}
 			 	
 			 	
@@ -466,7 +468,7 @@ color: black;">x</a>
 		<div id="calendar"></div>
 
 
-		<div class="menu-container">
+		<div class="menu-container" style = "display:none;">
 			<button class = "powerbutton" type="button" value="pushback">Push Back</button>
 			<button class = "powerbutton"type="button" value="addfiles">Add Files</button><br>
 			<button class = "powerbutton"type="button" value="Print">Print Selected Days</button>
