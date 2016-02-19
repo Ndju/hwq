@@ -170,7 +170,7 @@ body{
 	margin-right: 0px;
 }
 
-#newFileSubmitBtn:hover, #newFileCnclBtn:hover,#cancelUpdfile:hover{
+#newFileSubmitBtn:hover, #newFileCnclBtn:hover,#cancelUpdfile:hover, #DeleteAssignment:hover{
 	cursor:pointer;
 }
 
@@ -277,7 +277,7 @@ letter-spacing: 1px;
 	float: left;
 }
 
-#loginbutton,#filesubmitbutton,#cancelsubmitfile,#cancelNewFile,#cancelUpdfile,#signUpButton,#signUpSubmitButton,#cancelSignUp {
+#loginbutton,#filesubmitbutton, #DeleteAssignment, #cancelsubmitfile,#cancelNewFile,#cancelUpdfile,#signUpButton,#signUpSubmitButton,#cancelSignUp {
 	text-transform: uppercase;
 	background-color: black;
 	border: none;
@@ -288,6 +288,12 @@ letter-spacing: 1px;
 	font-size: 10px;
 	letter-spacing: 1px;
 	margin-top: 50px;
+}
+
+button#DeleteAssignment{
+	margin-left: 20px !important;
+	margin-top:20px !important;
+	background-color: red !important;
 }
 
 #signUpButton,#cancelSignUp{
