@@ -332,7 +332,8 @@ exports.editAssignment = function(req, res){
 }
 
 exports.remove = function(req, res){
-	console.log(req.query.removeclass)
+	console.log(req.body.removeclass)
+	console.log("WE DEM BOYZ")
 	var sql = "DELETE FROM user.student_period WHERE student_id_fk = ? and period_id_fk = ?";
 	console.log("delete this");
 	req.app.get('connection').query(sql,[req.session.id, req.body.removeclass],

@@ -114,9 +114,14 @@ exports.signup = function(req, res){
 	console.log(req.body.signUpRepeatPass);
 	console.log(req.body.signUpPass);
 	console.log(req.body.signUpRepeatPass === req.body.signUpPass);
+	//if not the same
 	if(!(req.body.signUpRepeatPass === req.body.signUpPass)){
 		  res.redirect('/login-failure.html')
 	  }
+	//if doesn't actually submit
+	if(username == "."){
+		res.redirect('/login-failure')
+	}
 	//inserts a new user's information into the user.users data table.
 	var sql = 'INSERT INTO user.users (id, username, password, period, change_password, is_teacher)' + 
 	'VALUES (null, ?, ?, null, 0, ?);';
