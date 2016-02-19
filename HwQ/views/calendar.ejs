@@ -163,10 +163,11 @@
 			 	
 			 	//EXEMPTION CODE
 				var curdate = new Date();
-				
-			 	if(event.end<curdate){
-			 		prompt("Please provide an exemption code provided by your teacher");
+				var exemption;
+			 	if(event.end<curdate && event.end != null){
+			 		exemption = prompt("Please provide an exemption code provided by your teacher");
 			 	}
+			 	
 			 	
 			 	
 			 	
@@ -267,9 +268,16 @@ color: black;">x</a>
 										<input type="radio" name="classperiodid" value=<%=classInfo.period_id%> class = "classSelectionChoices" id="classselection1">
 										Period <%= classInfo.period + " " + classInfo.class_name%>
 										 <% if(isTeacher == 0){%>
-										<a method="post" href="/remove" name="removeclass" id="removeclassID" value=<%=classInfo.period_id%> style="float: right; margin-right: 10px; margin-top: 5px; text-decoration: none;
+										<!--<a method="post" href="/remove" name="removeclass"  value=<%=classInfo.period_id%> style="float: right; margin-right: 10px; margin-top: 5px; text-decoration: none;
 											color: black;
-											"> x </a>
+											"> x </a> -->
+										<button value = "removeclass" name="removeclass" style="float: right; margin-right: 10px; margin-top: 5px; text-decoration: none;
+											color: black;
+											" id="removeclassID" type="button" onclick="location.href='/remove'">
+    								x
+									</button>	
+											
+											
 											<%}%>
 									</li>
 									
@@ -665,7 +673,7 @@ color: black;">x</a>
 	})
 	
 	$('#cancelsubmitfile').bind('click touchstart',function(e){
-		console.log("hello");
+		
 		$("#submitFile").hide();
 		$("#editFile").hide();
 		$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
