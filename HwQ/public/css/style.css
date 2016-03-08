@@ -601,6 +601,7 @@ h1#navbar_classname.navbar-items{
 
 #titletitle{
 	background-color: rgba(127, 4, 202, 0.32); 
+	margin-top:9px;
 	border: none;
 	height: 20px;
 	color: white;
