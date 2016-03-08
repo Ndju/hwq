@@ -320,7 +320,7 @@ exports.editAssignment = function(req, res){
 	var start = convertdate(req.body.start);
 	var end = convertdate(req.body.end);
 	var sql = "UPDATE user.assignments1 SET title = ?, assigned_date = ?, due_date = ?, description = ? WHERE id = ?";
-	req.app.get('connection').query(sql,[req.body.title_assignment, start, end, req.body.descriptiontext, req.body.assignment_id],
+	req.app.get('connection').query(sql,[req.body.title_assignment, start, end, req.body.descriptiontext, req.body.assignmentId],
 			function(err, rows, fields){
 		if(err){
 			res.send('SQL Error ' + err);
