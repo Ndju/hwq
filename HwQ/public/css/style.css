@@ -183,16 +183,16 @@ form.homepage-loginform,form.homepage-signUpForm {
 	text-align: left;
 	width: 300px;
 	margin: auto;
-	
-	background-color: rgba(255,255,255,0.6);
-	border:5px solid white;
-	padding-top: 20px;
+	background-color: #000;
+	opacity:0.8;
+	border-radius: 10px;
+	padding-top: 1px;
 	padding-right: 70px;
 	padding-bottom: 50px;
-	-webkit-box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.6);
-	box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.6);
-	-moz-box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.6);
-	-o-box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.6);
+	color: white;
+	font-family: "Work Sans";
+	font-weight:100;
+	font-size: 20px;
 }
 
 #homepageImage{
@@ -222,7 +222,7 @@ form.homepage-loginform,form.homepage-signUpForm {
 }
 
 #homepage-container{
-    padding-top:220px;
+    padding-top:150px;
     text-align: center;
     
     background-color: transparent;
@@ -248,19 +248,26 @@ background-size: cover;
 #homepage-LoginHeader{
 margin-bottom: 40px;
 text-transform: uppercase;
-color: black;
-font-family: "Miso Light";
+color: white;
+font-family: "Work Sans";
+font-weight: 200;
 letter-spacing: 1px;
 }
 
 #id_username,.signUpInput{
-	background: none;
-	border: none;
-	border-bottom: 2px solid black;
-	font-size: small;
-	overflow: auto;
-	width: 60%;
-	float: left;
+	border: 1px solid #a0b3b0;
+    display: block;
+    width: 100%;
+    height: 40px;
+    color: #fff;
+    background: #000;
+    font-size: 16px;
+    text-transform: Uppercase;
+    margin-top:10px;
+    padding-left: 10px;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 200;
+
 }
 
 .signUpInput{
@@ -268,28 +275,46 @@ letter-spacing: 1px;
 }
 
 #id_password {
-	background: none;
-	border: none;
-	border-bottom: 2px solid black;
-	font-size: small;
-	overflow: auto;
-	width: 80%;
-	float: left;
+	margin-top:10px;
+	border: 1px solid #a0b3b0;
+    display: block;
+    width: 100%;
+    height: 40px;
+    color: #fff;
+    background: #000;
+    font-size: 16px;
+    text-transform: Uppercase;
+
 }
 
 #loginbutton,#filesubmitbutton, #DeleteAssignment, #cancelsubmitfile,#cancelNewFile,#cancelUpdfile,#signUpButton,#signUpSubmitButton,#cancelSignUp {
 	text-transform: uppercase;
-	background-color: black;
-	border: none;
-	padding: 10px 30px;
+	background-color: #1ab188;
+	border: 0px white;
+	border-radius: 10px;
+	width: 30%;
+	height: 40px;
 	color: white;
 	overflow: auto;
 	font-family: "nexa_lightregular";
-	font-size: 10px;
+	font-size: 15px;
 	letter-spacing: 1px;
-	margin-top: 50px;
+	margin-top: 25px;
+	font-family: "Work Sans";
+	font-weight: 100;
 }
-
+#loginbutton:hover { 
+    background-color: #009a71;
+}
+#signUpButton:hover {
+	background-color: #e2e2e2;
+}
+#signUpSubmitButton:hover {
+	background-color: #009a71;
+}
+#cancelSignUp:hover {
+	background-color: #e2e2e2;
+}
 button#DeleteAssignment{
 	margin-left: 20px !important;
 	margin-top:20px !important;
@@ -309,7 +334,7 @@ button#DeleteAssignment{
 
 
 .homepage-signUpForm{
-	height:400px;
+	height:475px;
 	padding-bottom: 0px !important;
 }
 
