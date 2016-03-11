@@ -307,7 +307,7 @@ letter-spacing: 1px;
 	height: 40px;
 	color: white;
 	overflow: auto;
-	font-family: "nexa_lightregular";
+	/* font-family: "nexa_lightregular"; */
 	font-size: 15px;
 	letter-spacing: 1px;
 	margin-top: 25px;
@@ -627,6 +627,19 @@ h1#navbar_classname.navbar-items{
 	margin-top: 20px !important;
 	margin-left: 20px;
 	margin-right: 20px;
+	background-color: black;
+border: 0px white;
+border-radius: 4px;
+width: auto;
+height: 40px;
+color: white;
+overflow: auto;
+font-family: "nexa_lightregular";
+font-size: 13px;
+letter-spacing: 1px;
+padding: 10px;
+/* font-family: "Work Sans"; */
+font-weight: 100;
 }
 
 .modal-title{
