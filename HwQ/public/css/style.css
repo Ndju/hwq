@@ -379,7 +379,7 @@ margin-top: 20px;
 /* CODE FOR THE SIDEBAR */
 /* ================================================================================================== */
 #classes-header{
-	color: white;
+	color: black;
 }
 .classroomclass{
 	color: black;
@@ -412,7 +412,7 @@ background-color: rgba(255, 255, 255, 0.4);
 	position: absolute;
 	height: 100%;
 	width: 17%;
-	background-color: #e74c3c;
+	background-color: #ecf0f1;
 	margin-top: 82px;
 	z-index: 15252;
 }
@@ -581,7 +581,7 @@ h1#navbar_classname.navbar-items{
 	height: 40px;
 	margin-top: 5px;
 	background: transparent;
-	color: white;
+	color: black;
 	font-family: "Miso Light";
 	font-size: 1.5em;
 	border: none;
