@@ -2,7 +2,7 @@
 
 # About the Application
 
-T/SWBAT is a web application designed to enhance organization between teachers and students. The idea came to us after our English and Computer Science teacher voiced concerns for a lack of an application that consolidated assignments, files, and a calendar in one site. While there were plenty of sites like Google Classroom, Edmodo, TurnItIn, etc. that had some of these features, none were in a consolidated, clean, concise format.
+T/SWBAT is a web application designed to enhance communication and organization between teachers and students. The idea came to us after our English and Computer Science teacher voiced concerns for a lack of an application that consolidated assignments, files, and a calendar in one site. While there were plenty of sites like Google Classroom, Edmodo, TurnItIn, etc. that had some of these features, none were in a consolidated, clean, concise format.
 
 Current functionality gives teachers the ability to create assignments, view it on a calendar, edit the assignment, and even see the student submissions in the submissions query page. Students are able to view their assignments and submit their files. To make sure it has been submitted, they can visit their own submissions query page to make sure their file was received by the database. The sidebar also has tons of functionality: students can select classes to view, join classes, go to the submissions query, change their password, or log out.
 
@@ -19,6 +19,5 @@ This application participated in 2016 Congressional App Challenge and won recogn
 https://www.challenge.gov/solution/tswbat/
 
 Andy Ju, Shivam Jindal
-March 2016
---------------------------
+Spring 2016
 
