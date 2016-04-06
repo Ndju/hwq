@@ -8,9 +8,12 @@ Current functionality gives teachers the ability to create assignments, view it 
 
 A demo of the application is available at: https://www.youtube.com/watch?v=qUo-R8LoAdY
 
+Our project was built using node.js and is rendered by pjs, an embedded javascript template. We also used jQuery, HTML, and CSS to render the front-end part of our website. The calendar was rendered using our modified version of the rich internet application fullcalendar.io.
+
 In the future, we plan on expanding this project with much more functionality. Teachers would be able to view the different units they are teaching, getting a better idea of how long certain assignments should be. Teachers would be able to upload documents with the assignments they create. Both, students and teachers, would be able to automatically print either class sets or individual papers directly from the website. Moreover, teachers would be able to drag/click to select certain days to “push back” in the event that teachers don’t get to a certain part of their agenda for a day.
 
-Our project was built using node.js and is rendered by pjs, an embedded javascript template. We also used jQuery, HTML, and CSS to render the front-end part of our website. The calendar was rendered using our modified version of the rich internet application fullcalendar.io.
+This application participated in 2016 Congressional App Challenge and won recognition by Rep. Anna Eshoo.
+https://www.challenge.gov/solution/tswbat/
 
 Andy Ju, Shivam Jindal
 March 2016
