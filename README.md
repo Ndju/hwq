@@ -18,6 +18,7 @@ In the future, we plan on expanding this project with much more functionality. T
 This application participated in 2016 Congressional App Challenge and won recognition by Rep. Anna Eshoo.
 https://www.challenge.gov/solution/tswbat/
 
-Andy Ju, Shivam Jindal
+Andy Ju, Shivam Jindal,
+
 Spring 2016
 
