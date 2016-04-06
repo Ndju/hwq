@@ -6,6 +6,9 @@ T/SWBAT is a web application designed to enhance organization between teachers a
 
 Current functionality gives teachers the ability to create assignments, view it on a calendar, edit the assignment, and even see the student submissions in the submissions query page. Students are able to view their assignments and submit their files. To make sure it has been submitted, they can visit their own submissions query page to make sure their file was received by the database. The sidebar also has tons of functionality: students can select classes to view, join classes, go to the submissions query, change their password, or log out.
 
+The application is run on Amazon Cloud and currently used by 60+ APCS students and several teachers in Leland HS.
+http://apcslhs-dev-env.elasticbeanstalk.com/
+
 A demo of the application is available at: https://www.youtube.com/watch?v=qUo-R8LoAdY
 
 Our project was built using node.js and is rendered by pjs, an embedded javascript template. We also used jQuery, HTML, and CSS to render the front-end part of our website. The calendar was rendered using our modified version of the rich internet application fullcalendar.io.
