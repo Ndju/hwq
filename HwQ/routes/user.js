@@ -45,7 +45,9 @@ exports.login = function(req, res){
 		    	 console.log("Login successfully! Store user in session:" 
 		    			 + req.session.usernameFL + "(id=" + req.session.id +")" + req.session.APCS_PERIOD) ;
 		    	 console.log("[DEBUG]: " + req.session );
-		    	 res.redirect('/calendar');
+		    	 
+		    	 //Redirect to Weebly query page by default for APCS class
+		    	 res.redirect('/query2');
 		     }
 	      }
 	   });
@@ -66,7 +68,8 @@ function loginNewUser(req, res){
 	     
     	 req.session.id = rows[0].id;
     	 req.session.is_teacher  = rows[0].is_teacher;
-    	 res.redirect('/calendar');
+    	 
+    	 res.redirect('/query2');
       }
 	});
 }
