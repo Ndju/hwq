@@ -12,6 +12,7 @@ exports.login = function(req, res){
 	    	  res.redirect('/login-failure.html');
 	      } else {
 	    	  //if password is incorrect then there will be 0 rows returned, hence the rows.length will equal 0
+	    	 console.log("[DEBUG]: Found user:"  );
 	    	 console.log(rows);
 		     //console.log(fields);
 		     if( rows.length === 0 ){
@@ -43,8 +44,7 @@ exports.login = function(req, res){
 		    	 req.session.APCS_PERIOD = rows[0].period;
 		    	 
 		    	 console.log("Login successfully! Store user in session:" 
-		    			 + req.session.usernameFL + "(id=" + req.session.id +")" + req.session.APCS_PERIOD) ;
-		    	 console.log("[DEBUG]: " + req.session );
+		    			 + req.session.usernameFL + ",(id=" + req.session.id +")," + req.session.APCS_PERIOD) ;
 		    	 
 		    	 //Redirect to Weebly query page by default for APCS class
 		    	 res.redirect('/query2');
