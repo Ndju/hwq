@@ -289,6 +289,9 @@ function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
 	var userId = req.session.id;
 	console.log(assignmentId);
 	console.log( 'files:::::: '+files );
+	var datetime = new Date().toString();
+	var time = datetime.substring(4)
+	console.log(time);
 	
 	var urlNames = [" "," "," "];
 	for(var i = 0; i<files.length; i++){

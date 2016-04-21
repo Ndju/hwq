@@ -18,8 +18,9 @@ exports.query2 = function(req, res) {
 				continue;
 			}
 			//but if student only the rows with same last name and containing the full first name will be pushed into results array.
-			if (data[3].trim().toLowerCase() === user[1]) {
-				if (data[2].trim().toLowerCase().indexOf(user[0]) > -1) {
+			if (data[3].replace(/\s/g, '').toLowerCase() === user[1]) {
+				console.log(data[3].replace(/\s/g, ''));
+				if (data[2].replace(/\s/g, '').toLowerCase().indexOf(user[0]) > -1) {
 					results.push(data);
 				}
 			}
