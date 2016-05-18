@@ -267,7 +267,7 @@ color: black;">x</a>
 								<% classList.forEach(function(classInfo){ %>
 									<li>
 										<input type="radio" name="classperiodid" value=<%=classInfo.period_id%> class = "classSelectionChoices" id="classselection1">
-										Period <%= classInfo.period + " " + classInfo.class_name%>
+										Period <%= classInfo.period + " " + classInfo.class_name + " (id:" + classInfo.period_id+")"%>
 										 <% if(isTeacher == 0){%>
 										<!--<a method="post" href="/remove" name="removeclass"  value=<%=classInfo.period_id%> style="float: right; margin-right: 10px; margin-top: 5px; text-decoration: none;
 											color: black;
