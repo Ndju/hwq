@@ -118,8 +118,8 @@ body{
 	border-radius: 2px;
 }
 .cancel{
-   color:white;
-   text-decoration: underline;
+	color: rgb(53, 74, 93);
+	text-decoration: underline;
    background-color: none;
    margin-left: 5px;
    font-size: 15px;
@@ -512,7 +512,7 @@ h1#navbar_classname.navbar-items{
 } */
 
 #joinClassForm,#resetform{
-	color:white;
+	color: rgb(53, 74, 93);
 }
 
 

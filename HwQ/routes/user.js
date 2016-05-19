@@ -134,3 +134,6 @@ exports.signup = function(req, res){
 	    	  res.redirect('/');		    }
 	   });
 }
+exports.addClass = function(req, res){
+	
+}

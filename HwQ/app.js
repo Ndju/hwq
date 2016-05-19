@@ -99,6 +99,7 @@ function init() {
   app.post('/edit-assignment', checkAuth, bodyParser.urlencoded(), calendar.editAssignment);
   app.post('/signup', bodyParser.urlencoded(), user.signup)
   app.get('/remove', bodyParser.urlencoded(), calendar.remove)
+  app.post('/addClass',checkAuth, user.addClass)
 
   http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
