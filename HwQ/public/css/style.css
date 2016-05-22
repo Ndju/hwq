@@ -206,6 +206,20 @@ form.homepage-loginform,form.homepage-signUpForm {
 	font-size: 20px;
 }
 
+.navbarul{margin-top: -20px;}
+.navbaritem{
+	list-style: none;
+display: inline;
+padding:3% 5%;
+
+float: right;
+}
+
+.navbaritem:hover{
+	background-color:black;
+}
+
+
 #homepageImage{
 	opacity: 0.7;
 	position: fixed;
