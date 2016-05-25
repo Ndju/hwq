@@ -1,0 +1,786 @@
+/* ================================================================================================== */
+/* COLOR SCHEME  */
+/* BLUE: #3684d5, rgb(54,132,213) */
+/* RED : #ec484a, rgb(236,72,74)  */
+/* PURPLE:  */
+/* GRAY: #3d4d53, rgb(61,77,83)   */
+/* WHITE:#FFFFFF, rgb(255,255,255)*/
+/* ================================================================================================== */
+
+/* ================================================================================================== */
+/* Shiv test for buttons on calendar */
+/* ================================================================================================== */
+
+.fc-button{
+	color:green;
+}
+
+
+/* ================================================================================================== */
+
+
+.settings-form{
+
+margin: 0px;
+}
+
+
+
+
+/* ================================================================================================== */
+/* FONT STUFF */
+/* ================================================================================================== */
+
+@font-face {
+    font-family: 'Miso Light';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Miso Light'), url('miso-light.woff') format('woff');
+
+
+}
+
+
+@font-face {
+    font-family: 'Miso';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Miso'), url('miso.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Miso Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Miso Bold'), url('miso-bold.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'nexa_lightregular';
+    src: url('Nexa_Free_Light-webfont.eot');
+    src: url('Nexa_Free_Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Nexa_Free_Light-webfont.woff2') format('woff2'),
+         url('Nexa_Free_Light-webfont.woff') format('woff'),
+         url('Nexa_Free_Light-webfont.ttf') format('truetype'),
+         url('Nexa_Free_Light-webfont.svg#nexa_lightregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+/* ================================================================================================== */
+/*  BODY STUFF. WILL BE APPLIED TO ALL THINGS UNLESS OTHERWISE SPECFIEID*/
+/* ================================================================================================== */
+body{
+    width: 100%;
+    margin: 0px;
+    font-family: "Miso Light";
+    background-image: url("nice.jpg");
+    background-repeat: no-repeat;
+	background-size: cover;
+}
+
+
+
+/* ================================================================================================== */
+/* CALENDAR PAGE STYLING */
+/* ================================================================================================== */
+.fc-bg td{
+/* Code for each individual date box. */
+}
+
+#calendar{
+   width: 95%;
+    position: absolute;
+    float: left;
+    padding-left: 30px;
+/*  */
+}
+
+.menu-container{
+    position: absolute;
+    right: 0px;
+    width: 20%;
+}
+
+.powerbutton{
+	margin-top: 5px;
+	padding-top: 3px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 3px;
+	background-color: rgb(244, 244, 255);
+	border: solid rgb(54, 132, 213) 2px;
+	border-radius: 2px;
+}
+.cancel{
+	color: rgb(53, 74, 93);
+	text-decoration: underline;
+   background-color: none;
+   margin-left: 5px;
+   font-size: 15px;
+   margin-top: 5px;
+   
+}
+
+.newFile{
+	margin: auto;
+	width: 20%;
+	display: block;
+	right: 35%;
+	background-color: rgba(61,77,83, 0.6); 
+	border-radius: 20px;
+	padding: 5%;
+	-webkit-filter: blur(0px);
+}
+
+#descriptiontxt{
+	background-color: rgba(127, 4, 202, 0.32); 
+	border: none;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	padding-left: 5px;
+	color: white;
+}
+
+.newFile input{
+	background-color: rgba(127, 4, 202, 0.32); 
+	border: none;
+	height: 20px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	padding-left: 5px;
+	color: white;
+}
+
+.everythingButNewFileForm{
+    /*opacity: 0.4;!important;*/
+}
+
+
+#newFileSubmitBtn, #newFileCnclBtn{
+	text-transform: uppercase;
+	background-color: black;
+	border: none;
+	padding: 10px 30px;
+	color: white;
+	overflow: auto;
+	font-family: "nexa_lightregular";
+	font-size: 10px;
+	letter-spacing: 1px;
+	margin-top: 50px;
+	margin-right: 20px;
+	margin-left: 5px;
+}
+
+#newFileCnclBtn{
+	margin-right: 0px;
+}
+
+#newFileSubmitBtn:hover, #newFileCnclBtn:hover,#cancelUpdfile:hover, #DeleteAssignment:hover{
+	cursor:pointer;
+}
+
+
+/* ================================================================================================== */
+/* STYLING FOR LOGIN PAGE  */
+/* ================================================================================================== */
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+form.homepage-loginform,form.homepage-signUpForm {
+	padding-left: 50px;
+    text-align: left;
+    width: 300px;
+    margin: auto;
+    border: 3px solid #1ab188;
+    background-color: #fff;
+    opacity: 0.8;
+    border-radius: 10px;
+    padding-top: 1px;
+    padding-right: 70px;
+    padding-bottom: 50px;
+    color: white;
+    font-family: "Work Sans";
+    font-weight: 100;
+    font-size: 20px;
+}
+
+.navbarul{margin-top: -20px;}
+
+.navbaritem{
+    list-style: none;
+    display: inline;
+    padding:4% 2%;
+    float: right;
+}
+
+.navbarrightitem{
+    padding-right:5%;
+}
+
+/*.navbaritem:hover{
+	background-color:black;
+}*/
+
+.link {
+    color: black;
+    text-decoration: none;
+    font-size: 25px;
+    font-family: "Work Sans";
+    font-weight: 200;
+}
+
+.link:hover{
+    color:gray;
+}
+
+#homepageImage{
+	opacity: 0.7;
+	position: fixed;
+	z-index: -1252151245;
+}
+
+#header-logos{
+    float: left;
+    color: transparent !important;
+    background-image: url("TSWBATLOGO.png");
+    background-size: contain;
+    margin-left: 1%;
+    width: 200px;
+    height: 200px;
+	position:absolute;
+    margin-top: 20px;
+    background-repeat: no-repeat
+}
+.homeheader{
+    width: 100%;
+    background-color: transparent;
+    height: 75px;
+    position: fixed;
+    top:0px;
+}
+
+#homepage-container{
+    padding-top:150px;
+    text-align: center;
+    
+    background-color: transparent;
+}
+#newprofile{
+    margin-top: 15%;
+    margin-left: 25%;
+    text-align: center;
+    height: 500px;
+    width: 50%;
+    background-color: rgba(53, 50, 51, 0.5);
+}
+
+#homepage{
+margin: 0px;
+
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+
+
+#homepage-LoginHeader{
+margin-bottom: 40px;
+text-transform: uppercase;
+color: #1ab188;
+font-family: "Work Sans";
+font-weight: 200;
+letter-spacing: 1px;
+}
+
+#id_username,.signUpInput{
+	border: 1px solid #a0b3b0;
+    display: block;
+    width: 100%;
+    height: 40px;
+    color: #000;
+    background: #fff;
+    font-size: 20px;
+    border: 2px solid #1ab188;
+    border-radius: 10px;
+    text-transform: none;
+    margin-top: 10px;
+    padding-left: 10px;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 200;
+
+}
+
+#SignUpHeader{
+    color:#1ab188;
+}
+
+.signUpInput{
+	float:none;
+}
+
+#id_password {
+	margin-top:10px;
+	border: 1px solid #a0b3b0;
+    display: block;
+    width: 100%;
+    height: 40px;
+    color: #000;
+    background: #fff;
+    font-size: 20px;
+    border: 2px solid #1ab188;
+    border-radius: 10px;
+    text-transform: none;
+    margin-top: 10px;
+    padding-left: 10px;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 200;
+
+}
+
+#loginbutton,#filesubmitbutton, #DeleteAssignment, #cancelsubmitfile,#cancelNewFile,#cancelUpdfile,#signUpButton,#signUpSubmitButton,#cancelSignUp {
+	text-transform: uppercase;
+	background-color: #1ab188;
+	border: 0px white;
+	border-radius: 10px;
+	width: 30%;
+	height: 40px;
+	color: white;
+	overflow: auto;
+	/* font-family: "nexa_lightregular"; */
+	font-size: 15px;
+	letter-spacing: 1px;
+	margin-top: 25px;
+	font-family: "Work Sans";
+	font-weight: 100;
+}
+#loginbutton:hover { 
+    background-color: #009a71;
+}
+#signUpButton:hover {
+	background-color: #e2e2e2;
+}
+#signUpSubmitButton:hover {
+	background-color: #009a71;
+}
+#cancelSignUp:hover {
+	background-color: #e2e2e2;
+}
+button#DeleteAssignment{
+	margin-left: 20px !important;
+	margin-top:20px !important;
+	background-color: red !important;
+}
+
+#signUpButton,#cancelSignUp{
+	background-color: white;
+    color: #1ab188;
+    margin-left: 20px;
+    border: 2px solid #1ab188;
+}
+
+#loginbutton:hover,#filesubmitbutton:hover,#cancelsubmitfile:hover,.closemodal:hover,#signUpButton:hover,#signUpSubmitButton:hover,#cancelSignUp:hover{
+	cursor:pointer;
+}
+
+
+
+.homepage-signUpForm{
+	height:520px;
+	padding-bottom: 0px !important;
+}
+
+input#Teacher.studteachradio{
+	margin-left: 10%;
+margin-top: 20px;
+}
+
+
+
+/* ================================================================================================== */
+
+
+
+
+
+
+
+/* ================================================================================================== */
+/* STYLING FOR THE EVENT POPUP THING */
+/* ================================================================================================== */
+.ui-dialog{
+	z-index: 1251;
+	background-color: rgba(51, 136, 170, 0.9);
+	border: white solid 5px;
+}
+
+
+
+/* ================================================================================================== */
+/* CODE FOR THE SIDEBAR */
+/* ================================================================================================== */
+#classes-header{
+	color: black;
+}
+.classroomclass{
+	color: black;
+	font-size: 18px;
+}
+
+.classSelectionChoices{
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	margin-left: 0px;
+	
+}
+.classSelectionChoices:hover{
+	background-color:blue;
+}
+
+#dropdownSelectClasses{
+	list-style: none;
+display: block;
+margin: auto;
+background-color: rgba(255, 255, 255, 0.4);
+/*  */
+}
+
+.settings-container{
+   float: left;
+	margin-left: -500px;
+	/*uncomment that ^ in order to move it off screen*/
+	position: absolute;
+	height: 100%;
+	width: 17%;
+	background-color: #ecf0f1;
+	margin-top: 82px;
+	z-index: 15252;
+}
+
+.navbar-items{
+    display: inline;
+
+}
+
+h1#navbar_classname.navbar-items{
+	font-family: "Miso Light";
+	position: absolute;
+	font-size: 2.3em;
+	right:42%;
+	top:27px;
+}
+
+#navbar_classname{
+    text-align: center;
+}
+
+#navbar_settings{
+    float: left;
+    color: transparent !important;
+    background-image: url("menuButton.png");
+    background-size: contain;
+    margin-left: 1%;
+    width: 50px;
+    height: 50px;
+    margin-top: 20px;
+}
+
+
+#navbar{
+    background-color: #34495e;
+    width: 100%;
+    height: 70px;
+    color: white;
+    position: relative;
+    top: -8px;
+    left: -8px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    text-align: center;
+    padding-top: 20px;
+}
+
+#navbar_range,#navbar_scoolyear{
+    padding-bottom: 0px;
+    padding-left: 0px;
+    top:47%;
+    position: absolute;
+}
+#navbar_range{
+    right: 15%;
+}
+
+#navbar_scoolyear{
+    right: 10%;
+}
+#selectbutton{
+	padding-top: 5px;
+    padding-right: 7.5px;
+    padding-bottom: 5px;
+    padding-left: 7.5px;
+    background-color: #20bcfb;  
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 3px;
+    border-color: blue;
+}
+#selectbutton:hover{
+	background-color: #2195d9;
+	border-style: solid;
+    border-width: 1.5px;
+    border-color: #220efe;
+}
+/* #viewQ{
+	padding-top: 5px;
+    padding-right: 7.5px;
+    padding-bottom: 5px;
+    padding-left: 7.5px;
+    background-color: #20bcfb;
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 3px;
+    border-color: blue;
+	
+}
+#viewQ:hover{
+	background-color: #2195d9;
+	border-style: solid;
+    border-width: 1.5px;
+    border-color: #220efe;
+
+} */
+
+#joinClassForm,#resetform{
+	color: rgb(53, 74, 93);
+}
+
+
+#removeclassID:hover{
+	cursor:pointer;
+}
+
+/* ================================================================================================== */
+
+
+
+
+
+
+
+
+/* ================================================================================================== */
+/* ANDY'S CODE FOR SUBMISSIONS QUERY BUTTONS */
+/* ================================================================================================== */
+/* #logout{
+	padding-top: 5px;
+    padding-right: 7.5px;
+    padding-bottom: 5px;
+    padding-left: 7.5px;
+    background-color: #20bcfb;
+    float: right;
+    display: inline-block;
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 3px;
+    border-color: blue;
+
+}
+#logout:hover{
+	background-color: #2195d9;
+	border-style: solid;
+    border-width: 1.5px;
+    border-color: #220efe;
+    } */
+
+/* #reset{
+	padding-top: 5px;
+    padding-right: 7.5px;
+    padding-bottom: 5px;
+    padding-left: 7.5px;
+    background-color: #20bcfb;  
+    float: right;
+    display: inline-block;
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 3px;
+    border-color: blue;
+    
+}
+#reset:hover{
+	background-color: #2195d9;
+	border-style: solid;
+    border-width: 1.5px;
+    border-color: #220efe;
+} */
+/* ================================================================================================== */
+/*Button class*/
+/*=================================================================================================== */
+.side_button{
+	width: 99%;
+	height: 40px;
+	margin-top: 5px;
+	background: transparent;
+	color: black;
+	font-family: "Miso Light";
+	font-size: 1.5em;
+	border: none;
+	/* background-color: rgba(0,0,0,0.0);!important */	
+}
+.side_button:hover{
+	border-color: white;
+	border-width: 2px;
+	border-style: solid;
+	background-color:rgba(0,0,0,0.5) !important;
+}
+
+
+
+/* ================================================================================================== */
+/*Submit File Form*/
+/*=================================================================================================== */
+.submitFileModal,.editFileModal{
+	display: block;
+	margin: auto;
+	margin-top: 10%;
+	width: 350px;
+	height: auto;
+	background-color: rgba(61, 77, 83, 0.52);
+	-webkit-filter: blur(0px);
+	border-radius: 20px;
+	padding: 20px;
+}
+
+.closemodal{
+	float: right;
+	margin-top: -61px;
+	margin-right: -30px;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+	background-color: white;
+	font-size: 20px;
+	border-color: rgba(0,0,0,1.0);
+}
+
+#filesubmitbutton, #cancelsubmitfile{
+	margin-top: 20px !important;
+	margin-left: 20px;
+	margin-right: 20px;
+	background-color: black;
+border: 0px white;
+border-radius: 4px;
+width: auto;
+height: 40px;
+color: white;
+overflow: auto;
+font-family: "nexa_lightregular";
+font-size: 13px;
+letter-spacing: 1px;
+padding: 10px;
+/* font-family: "Work Sans"; */
+font-weight: 100;
+}
+
+.modal-title{
+	font-size: 1.5em;
+	margin-bottom: 0px;
+}
+
+
+#titletitle{
+	background-color: rgba(236, 240, 241, 0.32); 
+	margin-top:9px;
+	border: none;
+	height: 20px;
+	color: white;
+	border-radius: 5px;
+	padding-left: 10px;
+}
+
+
+/* ================================================================================================== */
+/*Edit File Form*/
+/*=================================================================================================== */
+#editFile input{
+	background-color: rgba(236, 240, 241, 0.32); 
+	border: none;
+	height: 20px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	padding-left: 5px;
+	color: white;
+}
+
+#editFile #descriptiontext{
+	background-color: rgba(236, 240, 241, 0.32); 
+	border: none;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	padding-left: 5px;
+	color: white;
+}
+
+#cancelUpdfile{
+	margin-top:20px;
+}
+
+#editFile #modalTitle{
+	margin-bottom:20px;
+}
+
+/* Mobile web style sheet */
+@media only screen and (max-device-width: 480px) {
+		div#wrapper {
+			width: 480px;
+		}
+
+		div#header h1 {
+			font-size: 140%;
+		}
+
+		#content {
+			float: none;
+			width: 100%;
+		}
+
+		#navigation {
+			float:none;
+			width: auto;
+		}
+		
+		form.homepage-loginform {
+			padding-left: 10px;
+			width: 80%;
+			font-size: 100%;
+		}
+		
+		form.homepage-loginitems{
+			font-size: 100%;
+		}
+		
+		#homepage-container{
+		    padding-top:100px;
+		    text-align: center;
+		    
+		    background-color: transparent;
+		}
+
+		#homepageImage{
+		    width: 100%;
+		    content:url("nice.jpg");
+		}
+		
+}
+

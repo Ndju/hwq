@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,200,100' rel='stylesheet' type='text/css'>
+	<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    <script src="jquery-1.8.2.min.js"></script>
+</head>
+<!--BACKGROUND IMAGE-->
+<!--<img id = "homepageImage" src = "css/background/1.jpg" width  = "100%" height = "100%;">-->
+<body id = "homepage" style = "background-image: none;!important">
+<div class = "homeheader">
+    <div id = "homeheaderdiv">
+        <h4 id = "header-logos"></h4>
+    </div>
+	<div id = items>
+    	<ul class = "navbarul">        
+	        <li class = "navbaritem navbarrightitem" class = "route" id = "contact">
+	        <a href = "contact.html" class = "link" id = "contacthref">Contact</a>
+	        </li>  
+	        
+	        
+	        <li class = "navbaritem" class = "route" id = "about">
+	        <a href = "about.html" class = "link" id = "abouthref">About</a>
+	        </li> 
+    	</ul>  
+    
+    
+    </div>
+</div>
+<!--  -->
+<div id = "homepage-container">
+    <form class="homepage-loginform" method="post" action="login">
+        <h1 id="homepage-LoginHeader"> LOG IN</h1>
+        <div class="homepage-loginitems" id="homepage-username">
+            <input placeholder="username" id="id_username" maxlength="254" name="username" type="text" style="padding-left: 10px;font-family: 'Work Sans', sans-serif; font-weight: 200;">
+        </div>
+        <div class="homepage-loginitems" id="homepage-password">
+            <input placeholder="password" id="id_password" name="password" type="password" style="padding-left: 10px;font-family: 'Work Sans', sans-serif; font-weight: 200;">
+        </div>
+        <br>
+        <input id = "loginbutton" type="submit" value="Log in">
+        <input id = "signUpButton" type="button" value="Sign Up">
+    </form>
+	<form class = "homepage-signUpForm" method="post" action="signup" style="color: #1ab188;">
+		<h1 id="SignUpHeader" style="font-weight:100;"> SIGN UP</h1>
+		<input class = "signUpInput" id = "signUpFName" placeholder = "first name" type = "text"  name = "signUpFName" required>
+		<input class = "signUpInput" id = "signUpLName" placeholder = "last name" type = "text"  name = "signUpLName" required>
+        <input class="signUpInput" id="signUpUName" placeholder="username" type="text" name="signUpUName" required>
+        <input class = "signUpInput" id = "signUpPass" placeholder = "password" type = "password" name = "signUpPass" required>
+        <input class = "signUpInput" id = "signUpRepeatPass" placeholder = "repeat password" type = "password" name = "signUpRepeatPass" required>
+        <br><input class = "studteachradio" id = "Student" value = "0" type = "radio" name="isTeacher"> Student
+        <input class = "studteachradio" id = "Teacher" type = "radio" value = "1" name="isTeacher"> Teacher
+        <br><input class = "signUpButton" id = "signUpSubmitButton" type="submit" value="Sign Up">
+        <input class = "signUpButton" id = "cancelSignUp" type="button" value="Cancel">
+	</form>
+</div>
+
+<script>
+$(document).ready(function() {
+  $("#signUpRepeatPass").keyup(validate);
+  $("#signUpPass").keyup(validate);
+});
+
+
+function validate() {
+  var password1 = $("#signUpPass").val();
+  var password2 = $("#signUpRepeatPass").val();
+
+    
+ 
+    if(password1 == password2) {
+       $("#signUpRepeatPass").css("border", "green 2px solid");        
+    }
+    else {
+    	$("#signUpRepeatPass").css("border", "red 2px solid");  
+    }
+    
+}
+
+</script>
+
+<script>
+/* just have this show the actual sign up page later  */
+    $(document).ready(function() {
+    	$('.homepage-signUpForm').hide();
+      	$('#signUpButton').bind('click touchstart', function(e){
+    		$('.homepage-loginform').hide();
+    	  	$('.homepage-signUpForm').show();
+    	  	$('#homepage-container').css("padding-top", "90px");
+    	   
+       })
+       $('#cancelSignUp').bind('click touchstart', function(e){
+    		$('.homepage-loginform').show();
+    	  	$('.homepage-signUpForm').hide();
+    	  	$('#homepage-container').css("padding-top", "150px");
+    	   
+       })
+       
+    });
+</script>
+
+<script>
+
+	
+    /* $(document).ready(function(){
+        var first;
+        var last;
+        var email;
+        var username;
+        var password;
+        $('#newprofilebutton').bind('click touchstart', function(e){
+            first = $('#newprofile_firstname').val();
+            last = $('#newprofile_lastname').val();
+            email = $('#newprofile_id_email').val();
+            username = $('#newprofile_id_username').val();
+            password = $('#newprofile_id_password').val();
+
+        });
+    }) */
+
+</script>
+
+
+
+
+</body>
+</html>
