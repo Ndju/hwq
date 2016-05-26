@@ -1,0 +1,676 @@
+<html><head>
+<title>Period 1 APCS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="jquery-1.8.2.min.js"></script>
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="/fullcalendar/fullcalendar.css">
+<link href="/fullcalendar/fullcalendar.print.css" rel="stylesheet" media="print">
+	
+<script src="/fullcalendar/lib/jquery.min.js"></script>
+<script src="/fullcalendar/lib/moment.min.js"></script>
+<script src="/fullcalendar/fullcalendar.js"></script>
+<script type="text/javascript" src="jquery/jquery.qtip.js"></script>
+<script type="text/javascript" src="jquery/jquery-ui.js"></script>
+
+
+<script>
+        $(document).ready(function() {
+/* ================================================================================================== */
+ //get today's date
+ /* ================================================================================================== */
+			var date = new Date();
+			var m = String(date.getMonth()+1);
+			if (m.length === 1){
+				m = "0" + (m);
+				
+			}
+			var d = String(date.getDate());
+			if (d.length === 1){
+				d = "0" + d;
+			}
+			var y = String(date.getFullYear());
+			var teacher = false; //mark to true if teacher
+			
+			
+/* ================================================================================================== */
+ //initialize the calendar
+ /* ================================================================================================== */			
+
+			$('#calendar').fullCalendar({
+		        header: {
+		            left: 'prev,next today',
+		            center: 'title',
+		            right: 'month,agendaWeek,agendaDay'
+		        },
+		        defaultDate: y + "-" + (m) + "-" + d,
+		        allDaySlot: true,
+				slotEventOverlap: false,
+		        dayClick: dayClickCallback,
+		        eventRender: eventRenderCallback,
+		        editable: false, //make true if teacher 
+		        eventLimit: true, // allow "more" link when too many events
+		        events: [
+		        
+		 				{
+		 					id: '1108',
+		 					title: 'Test',
+		 					start: '2016-05-11', /* start date */
+		 					end: '2016-05-16', /* due date */
+		 					description: '<h2>123</h2>',
+		 					
+		 				},
+		 		
+		        ],    
+		    });
+
+/* ================================================================================================== */	
+		    var slotDate;
+		    var clientEvents = $('#calendar').fullCalendar('clientEvents');   
+		    
+		    
+/* ================================================================================================== */	
+// These are just functions that are to work with client-side stuff.
+/* ================================================================================================== */
+ 
+//When newFile/assignment form is submitted, it gets the values, and creates the new event with that...
+
+
+		 $('.newFileform').submit(function(){
+			 
+				var startdate = $('#assigneddate').val();
+				var enddate = $('#duedate').val();
+				enddate = enddate.substring(0,4)  + (parseInt(enddate[4])+1) + enddate.substring(5,enddate.length);
+				var title = $('#titletitle').val();
+				var description = $('#descriptiontxt').val();
+				var newevent = {
+						title: title,
+						start: startdate, /* start date */
+						end: enddate, /* due date */ 
+						description: description,
+				}
+				
+				$('#calendar').fullCalendar( 'renderEvent', newevent);
+				$(".newFile").hide();
+	            $(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
+           		$("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
+				
+			});
+ 
+ 
+ //Shift+click -> pop up window of events for that day clicked
+ 
+		    $('.fc-bg td').click(function(event) {
+		    	var dayTitles = []
+		    	$('#daySchedUL li').remove();
+		    	
+		        if (event.shiftKey) {
+		        	for (var i = 0; i<clientEvents.length;i++){
+				    	var clientMonth = (clientEvents[i]["start"].month()+1);
+					    var clientDate = (clientEvents[i]["start"].date());
+					    var clientYear = (clientEvents[i]["start"].year());
+					    if ((clickDate === clientDate) && (clickMonth === clientMonth) && (clickYear === clientYear)){
+					    	dayTitles.push(clientEvents[i]["title"]);
+					    	$('#daySchedUL').append('<li>' + clientEvents[i]["title"] + '</li>');	
+					    	$(".daySchedule").dialog({ modal: true});
+					    }
+				    }
+		        } 
+		    
+		    	
+		    });
+		    
+		    
+// Get's the date of clicked day
+		    function dayClickCallback(date){
+		    	clickDate = date.date();
+		    	clickMonth = date.month()+1;
+		    	clickYear = date.year();
+		    	
+		    
+		    	//idk what this stuff is for...
+		        slotDate = date;
+		        $("#calendar").on("mousemove", forgetSlot);
+		    }
+		    
+		    
+//when you click on an event 	    
+		    function eventRenderCallback(event,element){
+							    
+			//double clicking on a day does this stuff -- basicaly just says "when the element is double clicked on, go to 
+			// that dblclickfunction
+		      element.on("dblclick",function(){
+		      		
+		            dblClickFunction(event.start)          
+	        	});   
+			//this is code for showing the event description stuff 
+			
+		      element.attr('href', 'javascript:void(0);');
+		      
+		      
+		      element.click(function() {
+			    $("#assignment_id").val(event.id);
+		      	$('#submitFile').show();
+		      	$('#modalTitle').empty();
+		      	$('#eventDescription').empty();
+		      	$('#modalTitle').append("Title: " + event.title);
+		      	$('#eventDescription').append(event.description);
+		      	$('#titletitle').val(event.title);
+		      	$(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' });  //makes everything in background a bit blurred	
+			 	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
+			 	
+			 	//EXEMPTION CODE
+				var curdate = new Date();
+				var exemption;
+			 	if(event.end<curdate && event.end != null){
+			 		exemption = prompt("Please provide an exemption code provided by your teacher");
+			 	}
+			 	
+			 	
+			 	
+			 	
+			 	//
+			 	
+		        });
+		      
+		    } 
+		     
+		    
+		    
+//not sure
+		    function forgetSlot(){
+		        slotDate = null;
+		        $("#calendar").off("mousemove", forgetSlot);
+		    }
+		    
+		    
+		    
+//this gets the date of the double clicked box
+		    function dblClickFunction(date){
+			    clickeddate = date.format();
+		        yearyear = clickeddate.substring(0, 4);
+		        monthmonth = clickeddate.substring(5, 7);
+		        dayday = clickeddate.substring(8,10);
+		        clickeddate = new Date(clickeddate);
+		        clickeddate = "" + monthmonth + "/" + dayday + "/" + yearyear;
+		    }
+		    
+		    
+		    
+		    
+//this works with opening the form for new assignment after something a box is double clicked.
+  
+		    });
+		    
+		
+		
+
+
+
+
+    </script>
+</head>
+
+
+<!-- THIS IS CODE FOR THE STYLING OF THE DELETE CLASS 
+
+<a href="#" style="float: right;
+margin-right: 5px;
+text-decoration: none;
+margin-top: 05px;
+color: black;">x</a> 
+
+-->
+
+
+
+<body style="background-image: none;">
+	<div class="everythingButNewFileForm" style="opacity: 1; filter: blur(0px); pointer-events: auto;">
+		<div class="settings-container" style="left: -500px;">
+			<div class="sidebarMinusReset">
+				<!-- <form id="class_select_form" class="settings-form" method='get' action='/assignments'> -->
+					<button class="side_button" id="classes-header">Select Classes</button>
+					<form id="class_select_form" class="settings-form" method="get" action="/assignments">
+						<ul id="dropdownSelectClasses" style="list-style: none; display: none;">
+	
+							<div class="classroomclass">		
+								
+									<li>
+										<input type="radio" name="classperiodid" value="10011" class="classSelectionChoices" id="classselection1">
+										Period 1 APCS (id:10011)
+										 
+										<!--<a method="post" href="/remove" name="removeclass"  value=10011 style="float: right; margin-right: 10px; margin-top: 5px; text-decoration: none;
+											color: black;
+											"> x </a> -->
+										<button value="removeclass" name="removeclass" style="float: right; margin-right: 10px; margin-top: 5px; text-decoration: none;
+											color: black;
+											" id="removeclassID" type="button" onclick="location.href='/remove'">
+    								x
+									</button>	
+											
+											
+											
+									</li>
+									
+								
+							</div>
+						</ul>
+						</form>
+		
+		
+		
+
+				<!-- <input type="checkbox" name="class1" id="classselection1"
+					class="classroomclass" value="period1">Period 1<br> <input
+					type="checkbox" name="class2" id="classselection2"
+					class="classroomclass" value="period2">Period 2<br> <input
+					type="checkbox" name="class3" id="classselection3"
+					class="classroomclass" value="period3">Period 3<br> -->
+		
+			<!-- </form> -->
+			
+			<button id="viewQ0" class="side_button">Join Class</button>
+			
+			
+			
+			
+			<button id="viewQ" class="side_button">View Submissions</button>
+			
+			<br>
+
+			<script type="text/javascript">
+    			document.getElementById("viewQ").onclick = function () {
+        			location.href = "/query";
+    			};
+			</script>
+
+
+			<!-- </form> -->
+			
+
+			<script type="text/javascript">
+    			document.getElementById("viewQ2").onclick = function () {
+        			location.href = "/query2";
+    			};
+			</script>
+			
+			<button id="changePassword" class="side_button">Change Password</button>
+			
+			<br>
+
+			<script type="text/javascript">
+    			document.getElementById("changePassword").onclick = function () {
+        			location.href = "#navbar";
+    			};
+    			document.getElementById("classes-header").onclick = function () {
+        			location.href = "#";
+    			};
+    			
+    			document.getElementById("viewQ0").onclick = function () {
+        			location.href = "#navbar";
+    			};
+    			
+			</script>
+			<script>
+			
+			$(document).ready(function(){
+				var dropdownshow = false;
+				
+				$('#classes-header').click(function(){
+					if (!dropdownshow){
+					$('#dropdownSelectClasses').show();
+					dropdownshow = true;
+					}
+					else{
+					$('#dropdownSelectClasses').hide();
+					dropdownshow = false;
+					}
+				});
+				
+			});
+			
+			</script>
+			
+			<!-- Old link to change password -->
+			<!-- <a class="side_button" id="changePassword" href = "#navbar">Change Password.</a> -->
+			
+			
+			
+			<form class="query-logoutform" method="post" action="logout">
+				<input class="side_button" id="logout" type="submit" value="Logout">
+			</form>
+
+
+
+		</div>
+		
+		
+		<!-- THIS FORM IS THE PAGE IN SIDEBAR THAT SHOWS FOR RESETTING PASSWORD -->
+		<form id="resetform" method="post" action="reset" style="display:none;">
+	        <h1 id="resetHeader"> Change Password</h1>
+	        <h2 id="resetDescription"> Please reset your password so that your classmates don't steal your work</h2>
+	      
+		        <div class="resetitems" id="homepage-password">
+		            <input placeholder="new password" id="password2" name="newpassword" type="password">
+		        </div>
+		        <input class="powerbutton" type="submit" value="Change">
+	        <a class="cancel" id="cancelChangePass" href="#navbar">Cancel</a>
+    	</form>
+    	
+    	
+    	<!-- THIS FORM IS THE PAGE IN SIDEBAR THAT LETS TEACHERS ADD A CLASS -->
+		<form id="addClassForm" method="post" action="addclass" style="display:none; color:white;">
+	        <h1 id="addHeader">Create Class</h1>
+	        <h2 id="addDescription">Please enter the information below to add your new class.</h2>
+	      
+		        <div class="additems" id="homepage-password">
+		            <input placeholder="class name" id="newClassName" name="newClass" type="text">
+		        </div>
+		        <input class="powerbutton" type="submit" value="add">
+	        <a class="cancel" id="cancelAddClass" href="#navbar">Cancel</a>
+    	</form>
+    	
+    	
+    	<!-- THIS FORM IS TO JOIN CLASS -->
+    	<form id="joinClassForm" method="post" action="/join-class" style="display:none;">
+	        <h1 id="joinHeader"> Join Class</h1>
+	        <h2 id="joinDescription">Enter Class code your teacher provided you</h2>
+		        <div class="joinitems" id="class-code">
+		            <input placeholder="Enter Class Code" id="classcode" name="joinClass" type="text">
+		        </div>
+	        <input class="powerbutton" type="submit" value="Join Class">
+	        <a class="cancel" id="cancelJoinClass" href="#navbar">Cancel</a>
+    	</form>
+    	
+		</div>
+		
+		<script>
+			//shows reset form if the change password button in sidebar is clicked
+			$("#changePassword").click(function(){
+				$('#resetform').show();
+				$('.sidebarMinusReset').hide();
+			});
+			
+			// does opposite of the first one
+			$("#cancelChangePass").click(function(){
+				$('#resetform').hide();
+				$('.sidebarMinusReset').show();
+			});
+			
+			
+			$("#viewQ9").click(function(){
+				$('#addClassForm').show();
+				$('.sidebarMinusReset').hide();
+			});
+			
+			
+			$("#cancelAddClass").click(function(){
+				$('#addClassForm').hide();
+				$('.sidebarMinusReset').show();
+			});
+			
+			
+			$("#viewQ0").click(function(){
+				$('#joinClassForm').show();
+				$('.sidebarMinusReset').hide();
+			});
+			
+			
+			$("#cancelJoinClass").click(function(){
+				$('#joinClassForm').hide();
+				$('.sidebarMinusReset').show();
+			});
+			
+		</script>
+		
+		
+		
+		
+
+
+		<div id="navbar">
+			<div id="navbar_menu">
+				<h4 id="navbar_settings"></h4>
+			</div>
+				<h1 class="navbar-items" id="navbar_classname">Period 1 APCS</h1>
+			<h4 class="navbar-items" id="navbar_range"></h4>
+			<h4 class="navbar-items" id="navbar_scoolyear"></h4>
+		</div>
+
+
+        <div id = "calendar">
+        <table style="width: 100%;">
+            <tr>
+                <th>Sunday</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+            </tr>
+            
+                
+            
+        </table>    
+            
+            
+            
+        </div>
+		
+
+
+		
+            <script>
+            <!--basically put all the stuff push back stuff here-->
+
+        </script>
+			<script>
+            $(document).ready(function() {
+                var menushow = false;
+                $('#navbar_settings').bind('click touchstart', function(e){
+                    if (menushow != true) {
+                        $('.settings-container').animate({left: '500px'});
+                        menushow = true;
+
+                    }
+                    else if (menushow != false) {
+                        $('.settings-container').animate({left: '-500px'});
+                        menushow = false;
+                    }
+                })
+
+                
+                $('input[name=classperiodid]').change(function(){
+		     		$('form[id=class_select_form]').submit();
+	   			});
+                
+                var newfileshow = false;
+                $('#newFileButton')
+
+
+            });
+
+
+        </script>
+
+		</div>
+
+
+	</div>
+	
+	
+	
+	
+	
+	<!-- ================================= -->
+	<!-- THIS IS OLD NEW ASSIGNMENT FORM.  -->
+	<!-- ================================= -->
+	<!-- <div class="newFile">
+		<form class="subfileform" action="#">
+			
+			<input type="file" value="newFile"><br> 
+			<input id = "titletitle" type="input" value = event.title><br>
+			<button type="submit" name="submitfile"
+				id="filesubmitbutton">Submit New File</button>
+		</form>
+	</div>  -->
+	<!-- ================================= -->
+	<!-- ================================= -->
+	<!-- ================================= -->
+	
+	
+	
+	
+	
+	<div class="newFile" style="display: none;">
+		<form class="newFileform" action="new-assignment" method="post">
+			<h1 id="NewFileHeader">New Assignment</h1>
+			Assigned Date:
+			<br><input type="date" placeholder="mm/dd/yyyy" name="startdate" id="assigneddate"><br> 
+			Due Date:
+			<br><input type="date" placeholder="mm/dd/yyyy" name="duedate" id="duedate"><br> 
+			Title:
+			<br><input id="title" name="title" placeholder="Title"><br>
+			Description:
+			<br><textarea id="descriptiontxt" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea>
+			<button type="submit" name="submitfile" value="submitFile" id="newFileSubmitBtn">Submit</button>
+			<button type="button" name="cancelnewFile" value="cancelnewFile" id="newFileCnclBtn">Cancel</button>
+
+		</form>
+	</div>
+	<div class="submitFileModal" id="submitFile" style="display: none;">
+	
+	
+		<div class="modal-header">
+          <button type="button" class="closemodal">×</button>
+          <h4 class="modal-title" id="modalTitle">Title: Test</h4>
+        </div>
+		<form id="subfileform" method="post" action="/submission" enctype="multipart/form-data">
+		<p id="eventDescription"><h2>123</h2></p><br>
+			<input type="hidden" name="assignment_id" id="assignment_id" value="1108"><br> Attach File:
+			<input type="file" name="file1"><br> 
+			File Name:<input name="title" id="titletitle" type="input"><br>
+			<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Submit New File</button>
+			<button type="button" name="cancelSubmit" id="cancelsubmitfile">Cancel</button>
+		</form>
+		
+    </div>
+    
+    <div class="editFileModal" id="editFile" style="display: none;">
+	    <div class="modal-header">
+	          <button type="button" class="closemodal">×</button>
+	          <h4 class="modal-title" id="modalTitle">Edit Assignment</h4>
+		</div>
+		<form action="edit-assignment" method="post">
+		<input type="hidden" id="assignmentId" name="assignmentId" value="">
+			Start:
+	    	<input type="date" placeholder="mm/dd/yyyy" name="start" id="start_date"><br>
+	    	End: 
+	    	<input type="date" placeholder="mm/dd/yyyy" name="end" id="end_date"><br>
+	    	Title:
+	    	<input type="text" name="title_assignment" placeholder="Title" id="title_assignment"><br>
+	    	
+	    	Exemption: <input type="text" name="exemptioncode" placeholder="exemption" id="exemptionname"><br>
+	    	
+	    	Description: <br>
+	    	<textarea id="descriptiontext" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea><br>
+	    	<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Update</button>
+	    	<button type="button" value="cancelUpdfile" id="cancelUpdfile">Cancel</button>
+	    	<button type="button" value="DeleteAssignment" id="DeleteAssignment">Delete</button>
+		</form>
+    </div>
+ 
+	<!-- old modal type for edit assignment -->
+	<!-- 
+	<div id="editAssignment" style="display:none;">
+	<form action="edit-assignment" method="post">
+	<h3>Edit Assignment</h3>
+	<input type="hidden" id="assignment_id" name="assignment_id" value=""></input>
+		Start:
+    	<input type="date" placeholder="mm/dd/yyyy" name="start" id="start_date"></input><br>
+    	End: 
+    	<input type="date" placeholder="mm/dd/yyyy" name="end" id="end_date"></input><br>
+    	Title:
+    	<input type="text" name="title_assignment" placeholder="Title" id="title_assignment"></input><br>
+    	Description: <br>
+    	<textarea id="descriptiontext" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea><br>
+    	<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Update</button>
+    </form>
+	</div>
+	-->
+	
+	
+	<div id="eventContent" title="Event Details" style="display:none;">
+    Start: <span id="startTime"></span><br>
+    End: <span id="endTime"></span><br><br>
+    <p id="eventInfo"></p>
+    <p><strong><a id="eventLink" href="" target="_blank">Read More</a></strong></p>
+	</div>
+	
+	<div class="daySchedule" title="Daily Schedule">
+		<ul id="daySchedUL">
+		</ul>
+	</div>
+
+	<script>
+
+    $(document).ready(function() {
+    	$('#submitFile').hide();
+    	$('#editFile').hide();
+        $('.newFile').hide();
+
+
+        $('#newFileButton').bind('click touchstart',function(e){
+        	$("#assigneddate").val(null);
+        	$("#titletitle").val(null);
+            $('.newFile').show();
+            $(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' });  //makes everything in background a bit blurred
+		      	
+			$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
+
+        });
+        $('#newFileCnclBtn').bind('click touchstart',function(e){
+            $('.newFile').hide();
+            $(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
+            $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
+
+        })
+        
+        
+        
+          
+        
+    });
+</script>
+	<script>
+	$('.closemodal').bind('click touchstart',function(e){
+		$("#submitFile").hide();
+		$('#editFile').hide();
+		$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
+        $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
+	})
+	
+	$('#cancelsubmitfile').bind('click touchstart',function(e){
+		
+		$("#submitFile").hide();
+		$("#editFile").hide();
+		$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
+        $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
+	})
+	
+	$('#cancelUpdfile').bind('click touchstart',function(e){
+		console.log('hello');
+		
+		$("#editFile").hide();
+		$(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
+        $("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
+	})
+	
+
+
+	</script>
+
+
+
+
+</body></html>
