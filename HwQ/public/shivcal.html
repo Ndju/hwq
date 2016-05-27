@@ -15,195 +15,57 @@
 
 <script>
         $(document).ready(function() {
-/* ================================================================================================== */
- //get today's date
- /* ================================================================================================== */
-			var date = new Date();
-			var m = String(date.getMonth()+1);
-			if (m.length === 1){
-				m = "0" + (m);
+			var date = new Date();										// new Date object
+			var regMonths = [31,28, 31,30,31,30,31,31,30,31,30,31];		// gets the lengths of months for a regular year
+			var leapMonths = [31,29, 31,30,31,30,31,31,30,31,30,31];	// gets the lengths of months for a leap year
+			var year = date.getFullYear();								// Gets the full year
+			var curMo = date.getMonth();
+			var date2 = new Date(year, curMo, 1);
+			
+			
+			
+			var isLeap; 				
+		    if (year/400){												//This if/else-if/else statement gets whether it is a leap year or not
+		    	isLeap = true
+		    }
+		    else if(year/100){
+		    	isLeap = false
+		    }
+		    else if(year/4){
+		    	isLeap= true
+		    }
+		    else{
+		    	isLeap= false
+		    }
+		    
+			var prevMonthEnd;
+			if(isLeap) prevMonthEnd = leapMonths[curMo-1];
+			else prevMonthEnd = regMonths[curMo-1];
+			
+			var remains = date2.getDay()-1;
+			
+			
+			for(var i = remains; i >=0;i--){
 				
+				$('.week1').append("<td style = 'width: 10%; text-align: right;'>" +  (prevMonthEnd - i) +"</td>");
 			}
-			var d = String(date.getDate());
-			if (d.length === 1){
-				d = "0" + d;
+			var iter = 1;
+			remains++;
+			while(remains<=6){
+				$('.week1').append("<td style = 'width: 10%; text-align: right;'>" +  iter +"</td>");
+				iter++;
+				remains++;
 			}
-			var y = String(date.getFullYear());
-			var teacher = false; //mark to true if teacher
 			
 			
-/* ================================================================================================== */
- //initialize the calendar
- /* ================================================================================================== */			
-
-			$('#calendar').fullCalendar({
-		        header: {
-		            left: 'prev,next today',
-		            center: 'title',
-		            right: 'month,agendaWeek,agendaDay'
-		        },
-		        defaultDate: y + "-" + (m) + "-" + d,
-		        allDaySlot: true,
-				slotEventOverlap: false,
-		        dayClick: dayClickCallback,
-		        eventRender: eventRenderCallback,
-		        editable: false, //make true if teacher 
-		        eventLimit: true, // allow "more" link when too many events
-		        events: [
-		        
-		 				{
-		 					id: '1108',
-		 					title: 'Test',
-		 					start: '2016-05-11', /* start date */
-		 					end: '2016-05-16', /* due date */
-		 					description: '<h2>123</h2>',
-		 					
-		 				},
-		 		
-		        ],    
-		    });
-
-/* ================================================================================================== */	
-		    var slotDate;
-		    var clientEvents = $('#calendar').fullCalendar('clientEvents');   
 		    
-		    
-/* ================================================================================================== */	
-// These are just functions that are to work with client-side stuff.
-/* ================================================================================================== */
- 
-//When newFile/assignment form is submitted, it gets the values, and creates the new event with that...
-
-
-		 $('.newFileform').submit(function(){
-			 
-				var startdate = $('#assigneddate').val();
-				var enddate = $('#duedate').val();
-				enddate = enddate.substring(0,4)  + (parseInt(enddate[4])+1) + enddate.substring(5,enddate.length);
-				var title = $('#titletitle').val();
-				var description = $('#descriptiontxt').val();
-				var newevent = {
-						title: title,
-						start: startdate, /* start date */
-						end: enddate, /* due date */ 
-						description: description,
-				}
-				
-				$('#calendar').fullCalendar( 'renderEvent', newevent);
-				$(".newFile").hide();
-	            $(".everythingButNewFileForm").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)','pointer-events':'auto' });
-           		$("#calendar").css({ 'opacity': '1.0', '-webkit-filter':'blur(0px)' });
-				
-			});
- 
- 
- //Shift+click -> pop up window of events for that day clicked
- 
-		    $('.fc-bg td').click(function(event) {
-		    	var dayTitles = []
-		    	$('#daySchedUL li').remove();
-		    	
-		        if (event.shiftKey) {
-		        	for (var i = 0; i<clientEvents.length;i++){
-				    	var clientMonth = (clientEvents[i]["start"].month()+1);
-					    var clientDate = (clientEvents[i]["start"].date());
-					    var clientYear = (clientEvents[i]["start"].year());
-					    if ((clickDate === clientDate) && (clickMonth === clientMonth) && (clickYear === clientYear)){
-					    	dayTitles.push(clientEvents[i]["title"]);
-					    	$('#daySchedUL').append('<li>' + clientEvents[i]["title"] + '</li>');	
-					    	$(".daySchedule").dialog({ modal: true});
-					    }
-				    }
-		        } 
-		    
-		    	
+			var teacher = false;
+	
 		    });
 		    
-		    
-// Get's the date of clicked day
-		    function dayClickCallback(date){
-		    	clickDate = date.date();
-		    	clickMonth = date.month()+1;
-		    	clickYear = date.year();
-		    	
-		    
-		    	//idk what this stuff is for...
-		        slotDate = date;
-		        $("#calendar").on("mousemove", forgetSlot);
-		    }
-		    
-		    
-//when you click on an event 	    
-		    function eventRenderCallback(event,element){
-							    
-			//double clicking on a day does this stuff -- basicaly just says "when the element is double clicked on, go to 
-			// that dblclickfunction
-		      element.on("dblclick",function(){
-		      		
-		            dblClickFunction(event.start)          
-	        	});   
-			//this is code for showing the event description stuff 
 			
-		      element.attr('href', 'javascript:void(0);');
-		      
-		      
-		      element.click(function() {
-			    $("#assignment_id").val(event.id);
-		      	$('#submitFile').show();
-		      	$('#modalTitle').empty();
-		      	$('#eventDescription').empty();
-		      	$('#modalTitle').append("Title: " + event.title);
-		      	$('#eventDescription').append(event.description);
-		      	$('#titletitle').val(event.title);
-		      	$(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' });  //makes everything in background a bit blurred	
-			 	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
-			 	
-			 	//EXEMPTION CODE
-				var curdate = new Date();
-				var exemption;
-			 	if(event.end<curdate && event.end != null){
-			 		exemption = prompt("Please provide an exemption code provided by your teacher");
-			 	}
-			 	
-			 	
-			 	
-			 	
-			 	//
-			 	
-		        });
-		      
-		    } 
-		     
-		    
-		    
-//not sure
-		    function forgetSlot(){
-		        slotDate = null;
-		        $("#calendar").off("mousemove", forgetSlot);
-		    }
-		    
-		    
-		    
-//this gets the date of the double clicked box
-		    function dblClickFunction(date){
-			    clickeddate = date.format();
-		        yearyear = clickeddate.substring(0, 4);
-		        monthmonth = clickeddate.substring(5, 7);
-		        dayday = clickeddate.substring(8,10);
-		        clickeddate = new Date(clickeddate);
-		        clickeddate = "" + monthmonth + "/" + dayday + "/" + yearyear;
-		    }
-		    
-		    
-		    
-		    
-//this works with opening the form for new assignment after something a box is double clicked.
-  
-		    });
-		    
-		
-		
-
+			
+	
 
 
 
@@ -211,15 +73,6 @@
 </head>
 
 
-<!-- THIS IS CODE FOR THE STYLING OF THE DELETE CLASS 
-
-<a href="#" style="float: right;
-margin-right: 5px;
-text-decoration: none;
-margin-top: 05px;
-color: black;">x</a> 
-
--->
 
 
 
@@ -259,14 +112,6 @@ color: black;">x</a>
 		
 		
 
-				<!-- <input type="checkbox" name="class1" id="classselection1"
-					class="classroomclass" value="period1">Period 1<br> <input
-					type="checkbox" name="class2" id="classselection2"
-					class="classroomclass" value="period2">Period 2<br> <input
-					type="checkbox" name="class3" id="classselection3"
-					class="classroomclass" value="period3">Period 3<br> -->
-		
-			<!-- </form> -->
 			
 			<button id="viewQ0" class="side_button">Join Class</button>
 			
@@ -329,10 +174,6 @@ color: black;">x</a>
 			});
 			
 			</script>
-			
-			<!-- Old link to change password -->
-			<!-- <a class="side_button" id="changePassword" href = "#navbar">Change Password.</a> -->
-			
 			
 			
 			<form class="query-logoutform" method="post" action="logout">
@@ -422,11 +263,6 @@ color: black;">x</a>
 			
 		</script>
 		
-		
-		
-		
-
-
 		<div id="navbar">
 			<div id="navbar_menu">
 				<h4 id="navbar_settings"></h4>
@@ -437,33 +273,39 @@ color: black;">x</a>
 		</div>
 
 
+
+
+
         <div id = "calendar">
-        <table style="width: 100%;">
-            <tr>
-                <th>Sunday</th>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Saturday</th>
-            </tr>
-            
-                
-            
-        </table>    
-            
-            
-            
+	        <table id = "calMainTable" style="width: 100%; border:1px solid grey">
+	            <thead id  = "calDaysHeader">
+		            <tr>
+		                <th class = "daysOfWeek">Sunday</th>
+		                <th class = "daysOfWeek">Monday</th>
+		                <th class = "daysOfWeek">Tuesday</th>
+		                <th class = "daysOfWeek">Wednesday</th>
+		                <th class = "daysOfWeek">Thursday</th>
+		                <th class = "daysOfWeek">Friday</th>
+		                <th class = "daysOfWeek">Saturday</th>
+		            </tr> 
+		         </thead>
+		         <tbody id = "mainCalBody">
+		         	<tr class = "week1">
+		         	</tr>
+		         </tbody>
+	            
+	            <!--      so first, just get the month and year that the user is in and 
+	            generate the calendar based off that. (so like that would be the initial
+	             basis parameter on document's load) but then like after that, 
+	             let the user move up a month or back a month or even select which weeks 
+	             they want to see or which dates they want to see.     -->
+	        </table>    
         </div>
 		
 
 
 		
-            <script>
-            <!--basically put all the stuff push back stuff here-->
-
-        </script>
+           
 			<script>
             $(document).ready(function() {
                 var menushow = false;
