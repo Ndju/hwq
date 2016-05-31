@@ -101,6 +101,18 @@ body{
 /*  */
 }
 
+
+.daysOfWeek{
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+}
+
+#calMainTable{
+	width: 100%;
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+}
+
 .menu-container{
     position: absolute;
     right: 0px;
