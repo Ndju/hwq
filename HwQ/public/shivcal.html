@@ -15,6 +15,17 @@
 
 <script>
         $(document).ready(function() {
+        	//TO DO:
+        		/*
+        		*	
+        		*	Add functionality (buttons) to change the date (try using angular for that)
+        		*	How about adding in week rows more dynamically
+        		*	Being able to show a range
+				*	Events Functionality Add in
+        		*
+        		*/
+        	
+        	
 			var date = new Date();										// new Date object, -- sets date to be the current time and date on load
 			var regMonths = [31,28, 31,30,31,30,31,31,30,31,30,31];		// gets the lengths of months for a regular year
 			var leapMonths = [31,29, 31,30,31,30,31,31,30,31,30,31];	// gets the lengths of months for a leap year
@@ -45,8 +56,8 @@
 			var remains = date2.getDay()-1;
 			
 			
-			for(var i = remains; i >=0;i--){
-				$('.week1').append("<td style = 'border-right:1px #ddd solid; '><table style = 'width:100%;'><thead><tr><th style='text-align:right;color:#ddd'>" + (prevMonthEnd -1) + "</th> </tr></thead> <tbody><tr class = 'events' style = 'height:137px;'><td >" + /* ENTER EVENT HERE */""+ "</td> </tr></tbody></table></td>");
+			for(var i = remains; i >=0;i--){							// Iterates through and adds in the days of the last month (will probably have to go with new range functionality)
+				$('.week1').append("<td style = 'border-right:1px #ddd solid; '><table style = 'width:100%;'><thead><tr><th style='text-align:right;color:#ddd'>" + (prevMonthEnd -i) + "</th> </tr></thead> <tbody><tr class = 'events' style = 'height:137px;'><td >" + /* ENTER EVENT HERE */""+ "</td> </tr></tbody></table></td>");
 			}
 			
 			
