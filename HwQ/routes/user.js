@@ -1,10 +1,8 @@
-
-
 exports.login = function(req, res){
 	//sets the sql statement to retrieve values from the row with the specified username and password;
 	var capitalUser = [];
-	var sql = 'SELECT id, users.period, username,is_teacher, period_id_fk, class_fk FROM period, student_period, users '+
-		'where id = student_id_fk AND period.period_id = period_id_fk AND username = ? AND password = ? ';
+	var sql = 'SELECT users.id, users.username, users.first_name, users.last_name, users.is_teacher, student_period.period_id_fk, period.class_fk FROM period, student_period, users '+
+		'WHERE id = student_id_fk AND period.period_id = period_id_fk AND username = ? AND password = ? ';
 	console.log(sql);
 	req.app.get('connection').query(sql, [req.body.username, req.body.password], function(err, rows, fields) {
 	      if (err) {
@@ -17,20 +15,10 @@ exports.login = function(req, res){
 		     if( rows.length === 0 ){
 		    	 loginNewUser(req, res);
 		     }else{
-		    	 //if password is correct, the user name is saved into cookie-session for later 
+		    	 //if password is correct, the username, first name, and last name are saved into cookie-session for later 
 		    	 req.session.user = req.body.username;
-		    	 //takes the username and splits it at the period
-		    	 var user = req.session.user.split(".");
-		    	 //for loop capitalizes the first letter of both the first and last name
-		    	 for(var i = 0; i < user.length; i++){
-		 			capitalUser.push(user[i].charAt(0).toUpperCase() + user[i].slice(1));
-		 		}
-		    	 //Special case for admin user
-		    	 if( capitalUser.length==1)
-		    		 capitalUser.push("");
-		    	 
-		    	 //creates session variable that is the user's name
-		    	 req.session.usernameFL = capitalUser;
+		    	 req.session.first = rows[0].first_name;
+		    	 req.session.last = rows[0].last_name;
 		    	 
 		    	 //id is saved as a cookie so further editing can be done, id is the first value of the rows dictionary
 			     //(id is the safe access point for mysql database)
@@ -43,7 +31,7 @@ exports.login = function(req, res){
 		    	 req.session.APCS_PERIOD = rows[0].period;
 		    	 
 		    	 console.log("Login successfully! Store user in session:" 
-		    			 + req.session.usernameFL + "(id=" + req.session.id +")" + req.session.APCS_PERIOD) ;
+		    			 + "first name: " + req.session.first + "last name: " + req.session.last + "(id=" + req.session.id +")" + req.session.APCS_PERIOD) ;
 		    	 console.log("[DEBUG]: " + req.session );
 		    	 res.redirect('/calendar');
 		     }
@@ -62,7 +50,8 @@ function loginNewUser(req, res){
 	    	 return;
 	     }
 	     req.session.user =  req.body.username;
-    	 req.session.usernameFL = req.session.user ;
+	     req.session.first = rows[0].first_name;
+	     req.session.last = rows[0].last_name;
 	     
     	 req.session.id = rows[0].id;
     	 req.session.is_teacher  = rows[0].is_teacher;
@@ -80,7 +69,7 @@ exports.logout = function(req, res){
 };
 exports.reset = function(req,res){
 	//sets update statement up, the statement changes the password at certain id.
-	var sql = 'UPDATE users SET password=?, change_password=0 WHERE id =?';
+	var sql = 'UPDATE users SET password=? WHERE id =?';
 	//replaces password at the "cookie-d" id (user who is logged on) with the new password given by change-password.html
 	req.app.get('connection').query(sql, [req.body.newpassword, req.session.id], function(err, rows, fields) {
 	      if (err) {
@@ -109,23 +98,15 @@ exports.join = function(req,res){
 	
 }
 exports.signup = function(req, res){
-	username = req.body.signUpFName + "." + req.body.signUpLName;
-	console.log(username);
-	console.log(req.body.signUpRepeatPass);
-	console.log(req.body.signUpPass);
-	console.log(req.body.signUpRepeatPass === req.body.signUpPass);
+	console.log("matching: " + req.body.signUpRepeatPass === req.body.signUpPass);
 	//if not the same
 	if(!(req.body.signUpRepeatPass === req.body.signUpPass)){
 		  res.redirect('/login-failure.html')
 	  }
-	//if doesn't actually submit
-	if(username == "."){
-		res.redirect('/login-failure')
-	}
 	//inserts a new user's information into the user.users data table.
-	var sql = 'INSERT INTO user.users (id, username, password, period, change_password, is_teacher)' + 
-	'VALUES (null, ?, ?, null, 0, ?);';
-	req.app.get('connection').query(sql, [username, req.body.signUpPass, req.body.isTeacher], function(err, rows, fields) {
+	var sql = 'INSERT INTO user.users (username, first, last, password, is_teacher)' + 
+	'VALUES (?, ?, ?, ?, ?, ?);';
+	req.app.get('connection').query(sql, [req.body.signUpUName, req.body.signUpFName, req.body.SignUpLName, req.body.signUpPass,req.body.isTeacher], function(err, rows, fields) {
 	      if (err){
 	    	  //very unlikely, hopefully this never happens
 	    	  res.redirect('/login-failure.html');
@@ -133,7 +114,4 @@ exports.signup = function(req, res){
 	    	  //returns the page back to query
 	    	  res.redirect('/');		    }
 	   });
-}
-exports.addClass = function(req, res){
-	
 }
