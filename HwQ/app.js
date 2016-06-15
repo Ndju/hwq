@@ -99,7 +99,6 @@ function init() {
   app.post('/edit-assignment', checkAuth, bodyParser.urlencoded(), calendar.editAssignment);
   app.post('/signup', bodyParser.urlencoded(), user.signup)
   app.get('/remove', bodyParser.urlencoded(), calendar.remove)
-  app.post('/addClass',checkAuth, bodyParser.urlencoded(), user.addClass)
 
   http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
@@ -110,7 +109,8 @@ function init() {
 console.log(process.env);
 
 //Test MySQL connection
-var client = app.get('development');
+var client = app.get('connection');
+console.log(client);
 console.log( "Connecting to MySql=====> :  "+ client.config.user + "@" + client.config.host  );
 
 async.series([
@@ -119,7 +119,7 @@ async.series([
   },
 
   function use_db(callback) {
-    client.query('USE user', callback);
+    client.query('USE tswbatDB', callback);
   }
 
 ], function (err, results) {
