@@ -16,11 +16,10 @@ exports.cal = function(req, res) {
 	var classPeriodList = [];
 	//this statement goes through database to draw out class name and class period_id and period.
 	var sql = 'SELECT DISTINCT class.class_name, period.period_id, period.period '
-		+ 'FROM user.student_period, user.period, user.class '
-		+ 'WHERE user.student_period.student_id_fk = ? '
-		+ 'AND user.period.period_id = user.student_period.period_id_fk '
-		+ 'AND user.class.class_id = user.period.class_fk ';
-	console.log(sql);
+		+ 'FROM tswbatDB.student_period, tswbatDB.period, tswbatDB.class '
+		+ 'WHERE tswbatDB.student_period.student_id_fk = ? '
+		+ 'AND tswbatDB.period.period_id = tswbatDB.student_period.period_id_fk '
+		+ 'AND tswbatDB.class.class_id = tswbatDB.period.class_fk ';
 	console.log(req.session.id)
 	//creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(sql, [ req.session.id ],
@@ -41,6 +40,7 @@ exports.cal = function(req, res) {
 					if( classperiodid != -1 ){
 						//Load the calendar for first class found
 						res.redirect("assignments?classperiodid=" + classperiodid );
+					//no classes so just show this
 					}else{
 						res.render('calendar', { /*
 													 * Put the code that passes
@@ -49,9 +49,10 @@ exports.cal = function(req, res) {
 													 * for the calendar here. check
 													 * submissions for this)
 													 */
-							classTitle: "Welcome",
+							classTitle: "T/SWBAT",
 							assignmentList : assignmentList,
 							classList : classPeriodList,
+							isTeacher: req.session.is_teacher
 						});
 						
 					}
@@ -73,7 +74,7 @@ exports.assignments = function(req, res) {
 	req.session.classid = classid;
 	var assignmentList = [];
 	var sql = 'SELECT DATE_FORMAT(assigned_date, \'%Y-%m-%d\') AS assigned_date, title, DATE_FORMAT(due_date, \'%Y-%m-%d\') AS due_date, id, description, class_name '
-			+ 'FROM user.assignments1, user.class WHERE classcode_fk = class_id AND class_id = ?';
+			+ 'FROM tswbatDB.assignments1, tswbatDB.class WHERE classcode_fk = class_id AND class_id = ?';
 	console.log(sql + "\n===>" + req.session.classid );
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(sql, [ req.session.classid ],
@@ -155,7 +156,7 @@ exports.newAssignments = function(req, res) {
 	var classCode = req.session.classid;
 
 	var description = req.body.descriptiontext;
-	var sql = 'INSERT INTO user.assignments1 (id, title, assigned_date, due_date, classcode_fk, description)'
+	var sql = 'INSERT INTO tswbatDB.assignments1 (id, title, assigned_date, due_date, classcode_fk, description)'
 			+ 'VALUES (?, ?, ?, ?, ?, ?)';
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(
@@ -294,7 +295,7 @@ function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
 	for(var i = 0; i<files.length; i++){
 		urlNames[i] = "https://apcs-dev.s3.amazonaws.com/" + req.session.periodid + "/" + userId + "_" + files[i];
 	}
-	var sql = 'INSERT INTO user.submissions1 (assignment_id, submission_id, date_submitted, student_id, IP_Address, first_name, last_name, file1_url, file2_url, file3_url)'
+	var sql = 'INSERT INTO tswbatDB.submissions1 (assignment_id, submission_id, date_submitted, student_id, IP_Address, first_name, last_name, file1_url, file2_url, file3_url)'
 		+ 'VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)';
 	console.log(assignmentId)
 	// creates the connection with mysql database and executes statement.
@@ -319,7 +320,7 @@ exports.editAssignment = function(req, res){
 	console.log(req.body);
 	var start = convertdate(req.body.start);
 	var end = convertdate(req.body.end);
-	var sql = "UPDATE user.assignments1 SET title = ?, assigned_date = ?, due_date = ?, description = ? WHERE id = ?";
+	var sql = "UPDATE tswbatDB.assignments1 SET title = ?, assigned_date = ?, due_date = ?, description = ? WHERE id = ?";
 	req.app.get('connection').query(sql,[req.body.title_assignment, start, end, req.body.descriptiontext, req.body.assignmentId],
 			function(err, rows, fields){
 		if(err){
@@ -333,7 +334,7 @@ exports.editAssignment = function(req, res){
 
 exports.remove = function(req, res){
 	console.log(req.body.removeclass)
-	var sql = "DELETE FROM user.student_period WHERE student_id_fk = ? and period_id_fk = ?";
+	var sql = "DELETE FROM tswbatDB.student_period WHERE student_id_fk = ? and period_id_fk = ?";
 	console.log("delete this");
 	req.app.get('connection').query(sql,[req.session.id, req.body.removeclass],
 			function(err, rows, fields){

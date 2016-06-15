@@ -299,7 +299,7 @@ letter-spacing: 1px;
     color: #fff;
     background: #000;
     font-size: 16px;
-    text-transform: Uppercase;
+    /* text-transform: Uppercase; */
     margin-top:10px;
     padding-left: 10px;
     font-family: 'Work Sans', sans-serif;
@@ -320,7 +320,7 @@ letter-spacing: 1px;
     color: #fff;
     background: #000;
     font-size: 16px;
-    text-transform: Uppercase;
+   /*  text-transform: Uppercase; */
 
 }
 

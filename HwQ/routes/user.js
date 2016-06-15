@@ -40,7 +40,8 @@ exports.login = function(req, res){
 };
 
 function loginNewUser(req, res){
-	var sql = 'SELECT * FROM users where username = ? AND password = ? ';
+	console.log("no classes")
+	var sql = 'SELECT * FROM tswbatDB.users WHERE username = ? AND password = ?;';
 	req.app.get('connection').query(sql, [req.body.username, req.body.password], function(err, rows, fields) {
       if (err) {
     	  res.redirect('/login-failure.html');
@@ -52,9 +53,11 @@ function loginNewUser(req, res){
 	     req.session.user =  req.body.username;
 	     req.session.first = rows[0].first_name;
 	     req.session.last = rows[0].last_name;
-	     
     	 req.session.id = rows[0].id;
     	 req.session.is_teacher  = rows[0].is_teacher;
+    	 req.session.periodid = -1;
+    	 req.session.classid = -1;
+
     	 res.redirect('/calendar');
       }
 	});
@@ -85,7 +88,7 @@ exports.reset = function(req,res){
 exports.join = function(req,res){
 	//gets the period id from the join Class Form
 	var classCode = req.body.joinClass;
-	var sql = 'INSERT INTO user.student_period (student_id_fk, period_id_fk) VALUES (?, ?)';
+	var sql = 'INSERT INTO tswbatDB.student_period (student_id_fk, period_id_fk) VALUES (?, ?)';
 	req.app.get('connection').query(sql, [req.session.id, classCode], function(err, rows, fields) {
 	      if (err){
 	    	  //very unlikely, hopefully this never happens
@@ -98,15 +101,16 @@ exports.join = function(req,res){
 	
 }
 exports.signup = function(req, res){
-	console.log("matching: " + req.body.signUpRepeatPass === req.body.signUpPass);
+	console.log("matching:")
+	console.log(req.body.signUpRepeatPass === req.body.signUpPass);
 	//if not the same
 	if(!(req.body.signUpRepeatPass === req.body.signUpPass)){
 		  res.redirect('/login-failure.html')
 	  }
 	//inserts a new user's information into the user.users data table.
-	var sql = 'INSERT INTO user.users (username, first, last, password, is_teacher)' + 
-	'VALUES (?, ?, ?, ?, ?, ?);';
-	req.app.get('connection').query(sql, [req.body.signUpUName, req.body.signUpFName, req.body.SignUpLName, req.body.signUpPass,req.body.isTeacher], function(err, rows, fields) {
+	var sql = 'INSERT INTO tswbatDB.users (username, first_name, last_name, password, is_teacher)' + 
+	'VALUES (?, ?, ?, ?, ?);';
+	req.app.get('connection').query(sql, [req.body.signUpUName, req.body.signUpFName, req.body.signUpLName, req.body.signUpPass, req.body.isTeacher], function(err, rows, fields) {
 	      if (err){
 	    	  //very unlikely, hopefully this never happens
 	    	  res.redirect('/login-failure.html');
