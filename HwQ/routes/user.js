@@ -87,9 +87,9 @@ exports.reset = function(req,res){
 }
 exports.join = function(req,res){
 	//gets the period id from the join Class Form
-	var classCode = req.body.joinClass;
-	var sql = 'INSERT INTO tswbatDB.student_period (student_id_fk, period_id_fk) VALUES (?, ?)';
-	req.app.get('connection').query(sql, [req.session.id, classCode], function(err, rows, fields) {
+	var pCode = req.body.joinClass;
+	var sql = 'INSERT INTO tswbatDB.student_period (student_id_fk, period_id_fk, disabeled) VALUES (?, ?, 0)';
+	req.app.get('connection').query(sql, [req.session.id, pCode], function(err, rows, fields) {
 	      if (err){
 	    	  //very unlikely, hopefully this never happens
 	    	  res.send('ERROR AT EXPORTS.JOIN' + err);
