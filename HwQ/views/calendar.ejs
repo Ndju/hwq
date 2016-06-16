@@ -394,13 +394,27 @@ color: black;">x</a>
     	
     	
     	<!-- THIS FORM IS THE PAGE IN SIDEBAR THAT LETS TEACHERS ADD A CLASS -->
-		<form id="addClassForm" method="post" action="addclass" style="display:none; color:white;">
+		<form id="addClassForm" method="post" action="addclass" style="display:none; color:black; margin: 0px 20px;">
 	        <h1 id="addHeader">Create Class</h1>
 	        <h2 id ="addDescription">Please enter the information below to add your new class.</h2>
 	      
 		        <div class="additems" id="homepage-password">
-		            <input placeholder="class name" id="newClassName" name="newClass" type="text">
+		            <input placeholder="class name" id="newClassName" name="newClass" type="text" style = "margin: 0px 10px;border-radius: 10px;background-color: white;
+height: 25px;
+padding-left: 5px;">
 		        </div>
+		        <h3 style = "margin-bottom:0px">Periods</h3><br>
+		        <input class="periodNumberClass" id="periodNumberID" value="0" type="checkbox" name="periodNumber"> 0
+		        <input class="periodNumberClass" id="periodNumberID" value="1" type="checkbox" name="periodNumber"> 1
+		        <input class="periodNumberClass" id="periodNumberID" value="2" type="checkbox" name="periodNumber"> 2
+		        <input class="periodNumberClass" id="periodNumberID" value="3" type="checkbox" name="periodNumber"> 3
+		        <input class="periodNumberClass" id="periodNumberID" value="4" type="checkbox" name="periodNumber"> 4
+		        <input class="periodNumberClass" id="periodNumberID" value="5" type="checkbox" name="periodNumber"> 5
+		        <input class="periodNumberClass" id="periodNumberID" value="6" type="checkbox" name="periodNumber"> 6
+		        <input class="periodNumberClass" id="periodNumberID" value="7" type="checkbox" name="periodNumber"> 7
+		        <input class="periodNumberClass" id="periodNumberID" value="8" type="checkbox" name="periodNumber"> 8
+		        <input class="periodNumberClass" id="periodNumberID" value="9" type="checkbox" name="periodNumber"> 8
+		        <input class="periodNumberClass" id="periodNumberID" value="10" type="checkbox" name="periodNumber"> 10
 		        <input class = "powerbutton" type="submit" value="add">
 	        <a class="cancel" id="cancelAddClass" href = "#navbar">Cancel</a>
     	</form>

@@ -445,14 +445,13 @@ background-color: rgba(255, 255, 255, 0.4);
 
 .navbar-items{
     display: inline;
-
 }
 
 h1#navbar_classname.navbar-items{
 	font-family: "Miso Light";
 	position: absolute;
 	font-size: 2.3em;
-	right:42%;
+	right:44.5%;
 	top:27px;
 }
 
