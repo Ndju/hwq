@@ -121,17 +121,42 @@ exports.signup = function(req, res){
 }
 exports.addClass = function(req,res){
 	console.log(req.body.newClass);
-	
-	var sql = 'INSERT INTO tswbatDB.users (username, first_name, last_name, password, is_teacher)' + 
-	'VALUES (?, ?, ?, ?, ?);';
-	req.app.get('connection').query(sql, [req.body.signUpUName, req.body.signUpFName, req.body.signUpLName, req.body.signUpPass, req.body.isTeacher], function(err, rows, fields) {
+	//generate classCode
+	var cCode = randomString();
+	// insert data into class table
+	var classSql = 'INSERT INTO tswbatDB.class (class_id, class_name, disabled) VALUES (?, ?, 0);';
+	req.app.get('connection').query(classSql, [cCode, req.body.newClass], function(err, rows, fields) {
 	      if (err){
 	    	  //very unlikely, hopefully this never happens
 	    	  res.redirect('/login-failure.html');
+	    // if that works, insert data into owner table
 	      } else {
-	    	  //returns the page back to query
-	    	  res.redirect('/');		    }
+	    	 var ownerSql = 'INSERT INTO tswbatDB.owner (owner_id, class_id_fk) VALUES (?, ?);'
+	    	 req.app.get('connection').query(ownerSql, [req.session.id, cCode], function(err, rows, fields) {
+	    		 if (err){
+	   	    	  //very unlikely, hopefully this never happens
+	   	    	  res.redirect('/login-failure.html');
+	   	      	} else {
+	   	      	//for loop through every check box
+	   	      	for(i = 0; i < req.body.periodNumber.length; i++){
+	   	      		//because mysql connections are async, need to set value of index before you begin in order to go into the database at the correct time.
+	   	      		var ivalue = req.body.periodNumber[i];
+	   	      		//generates random period number
+	   	      		var rPeriod = Math.floor(Math.random()*(99900000)+100000);
+	   	      		var periodSql = 'INSERT INTO tswbatDB.period (period, period_id, class_fk) VALUES (?, ?, ?);'
+	   	      		req.app.get('connection').query(periodSql, [ivalue ,rPeriod, cCode], function(err, rows, fields) {
+		    		 if (err){
+		   	    	  //very unlikely, hopefully this never happens
+		   	    	  res.redirect('/login-failure.html');
+		   	      	} else {
+		   	      	}
+	   		   	   });
+	   	    	 }
+	   	      	}
+	   	   });
+	    	 }
 	   });
+	res.redirect('/calendar')
 }
 //generates a random classcode
 function randomString(req, res){
@@ -142,7 +167,7 @@ function randomString(req, res){
 	//creates a key that is a three digit int + 2 letter string + three digit integer + 2 letter string + three digit integer
 	for(i = 0; i < 2; i++){
 		var random = Math.floor(Math.random()*(52));
-		result = Malphabet.slice(random, random+2) + Math.floor(Math.random()*(900)+100);
+		result = result + Malphabet.slice(random, random+2) + Math.floor(Math.random()*(900)+100);
 	}
 	return result;
 	
