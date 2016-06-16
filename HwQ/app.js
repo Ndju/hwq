@@ -52,7 +52,7 @@ app.configure('development', function() {
   app.set('connection', mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '234sonam',
+    password: 'password',
     port: '3306'}));
 app.use(express.errorHandler());
 });
@@ -97,8 +97,9 @@ function init() {
   app.post('/join-class', checkAuth, bodyParser.urlencoded(), user.join)
   app.post('/upload',  checkAuth, s3upload.doUpload )
   app.post('/edit-assignment', checkAuth, bodyParser.urlencoded(), calendar.editAssignment);
-  app.post('/signup', bodyParser.urlencoded(), user.signup)
-  app.get('/remove', bodyParser.urlencoded(), calendar.remove)
+  app.post('/signup', checkAuth, bodyParser.urlencoded(), user.signup)
+  app.get('/remove', checkAuth, bodyParser.urlencoded(), calendar.remove)
+  app.post('/add-class', checkAuth, bodyParser.urlencoded(), user.addClass)
 
   http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

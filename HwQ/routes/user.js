@@ -119,3 +119,32 @@ exports.signup = function(req, res){
 	    	  res.redirect('/');		    }
 	   });
 }
+exports.addClass = function(req,res){
+	console.log(req.body.newClass);
+	
+	var sql = 'INSERT INTO tswbatDB.users (username, first_name, last_name, password, is_teacher)' + 
+	'VALUES (?, ?, ?, ?, ?);';
+	req.app.get('connection').query(sql, [req.body.signUpUName, req.body.signUpFName, req.body.signUpLName, req.body.signUpPass, req.body.isTeacher], function(err, rows, fields) {
+	      if (err){
+	    	  //very unlikely, hopefully this never happens
+	    	  res.redirect('/login-failure.html');
+	      } else {
+	    	  //returns the page back to query
+	    	  res.redirect('/');		    }
+	   });
+}
+//generates a random classcode
+function randomString(req, res){
+	//key
+	var Malphabet = "abcdeABVWXtuvwxyzIJfghijCDEFGHnopqrsRSTUklmKLMNOPQYZ";
+	//random integer from 100 to 999
+	var result = "" + Math.floor(Math.random()*(900)+100);
+	//creates a key that is a three digit int + 2 letter string + three digit integer + 2 letter string + three digit integer
+	for(i = 0; i < 2; i++){
+		var random = Math.floor(Math.random()*(52));
+		result = Malphabet.slice(random, random+2) + Math.floor(Math.random()*(900)+100);
+	}
+	return result;
+	
+
+}
