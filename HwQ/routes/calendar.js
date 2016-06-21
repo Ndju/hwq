@@ -11,16 +11,24 @@ var s3 = new aws.S3();
 
 //THIS FUNCTION LOADS THE SIDEBAR FOR STUDENT;
 exports.cal = function(req, res) {
+	console.log('id:' + req.session.id);
 	var assignmentList = [];
 	//initializes list of information to be rendered on calendar.ejs
 	var classPeriodList = [];
 	//this statement goes through database to draw out class name and class period_id and period.
-	var sql = 'SELECT DISTINCT class.class_name, period.period_id, period.period '
-		+ 'FROM tswbatDB.student_period, tswbatDB.period, tswbatDB.class '
-		+ 'WHERE tswbatDB.student_period.student_id_fk = ? '
-		+ 'AND tswbatDB.period.period_id = tswbatDB.student_period.period_id_fk '
-		+ 'AND tswbatDB.class.class_id = tswbatDB.period.class_fk ';
-	console.log(req.session.id)
+	if(req.session.is_teacher == 1){
+		console.log("user is teacher")
+		var sql = 'SELECT DISTINCT tswbatDB.class.class_name, tswbatDB.class.class_id '  + 
+		'FROM tswbatDB.class, tswbatDB.owner_table WHERE tswbatDB.owner_table.owner_id = ? ' + 
+		'AND tswbatDB.class.class_id = tswbatDB.owner_table.class_id_fk;';
+	}else{
+		console.log("user is teacher")
+		var sql = 'SELECT DISTINCT class.class_name, period.period_id, period.period '
+			+ 'FROM tswbatDB.student_period, tswbatDB.period, tswbatDB.class '
+			+ 'WHERE tswbatDB.student_period.student_id_fk = ? '
+			+ 'AND tswbatDB.period.period_id = tswbatDB.student_period.period_id_fk '
+			+ 'AND tswbatDB.class.class_id = tswbatDB.period.class_fk;';
+	}
 	//creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(sql, [ req.session.id ],
 			function(err, rows, fields) {
@@ -42,6 +50,7 @@ exports.cal = function(req, res) {
 						res.redirect("assignments?classperiodid=" + classperiodid );
 					//no classes so just show this
 					}else{
+						console.log('sending to calendar');
 						res.render('calendar', { /*
 													 * Put the code that passes
 													 * variables to homepage so that
@@ -74,7 +83,7 @@ exports.assignments = function(req, res) {
 	req.session.classid = classid;
 	var assignmentList = [];
 	var sql = 'SELECT DATE_FORMAT(assigned_date, \'%Y-%m-%d\') AS assigned_date, title, DATE_FORMAT(due_date, \'%Y-%m-%d\') AS due_date, id, description, class_name '
-			+ 'FROM tswbatDB.assignments1, tswbatDB.class WHERE classcode_fk = class_id AND class_id = ?';
+			+ 'FROM tswbatDB.assignments, tswbatDB.class WHERE classcode_fk = class_id AND class_id = ?';
 	console.log(sql + "\n===>" + req.session.classid );
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(sql, [ req.session.classid ],

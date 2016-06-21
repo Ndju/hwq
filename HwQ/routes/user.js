@@ -1,8 +1,8 @@
 exports.login = function(req, res){
 	//sets the sql statement to retrieve values from the row with the specified username and password;
 	var capitalUser = [];
-	var sql = 'SELECT users.id, users.username, users.first_name, users.last_name, users.is_teacher, student_period.period_id_fk, period.class_fk FROM period, student_period, users '+
-		'WHERE id = student_id_fk AND period.period_id = period_id_fk AND username = ? AND password = ? ';
+	var sql = 'SELECT users.id, users.username, users.first_name, users.last_name, users.is_teacher FROM users '+
+		'WHERE username = ? AND password = ? ';
 	console.log(sql);
 	req.app.get('connection').query(sql, [req.body.username, req.body.password], function(err, rows, fields) {
 	      if (err) {
@@ -13,7 +13,8 @@ exports.login = function(req, res){
 	    	 console.log(rows);
 		     //console.log(fields);
 		     if( rows.length === 0 ){
-		    	 loginNewUser(req, res);
+		    	 res.redirect('/login-failure.html');
+		    	 //loginNewUser(req, res);
 		     }else{
 		    	 //if password is correct, the username, first name, and last name are saved into cookie-session for later 
 		    	 req.session.user = req.body.username;
@@ -24,14 +25,12 @@ exports.login = function(req, res){
 			     //(id is the safe access point for mysql database)
 		    	 req.session.id = rows[0].id;
 		    	 req.session.is_teacher  = rows[0].is_teacher;
-		    	 req.session.periodid = rows[0].period_id_fk;
-		    	 req.session.classid = rows[0].class_fk;
+		    	 req.session.periodid = -1;
+		    	 req.session.classid = -1;
 		    	 
-		    	 //FOR backward compatible with APCS Weebly integration
-		    	 req.session.APCS_PERIOD = rows[0].period;
 		    	 
-		    	 console.log("Login successfully! Store user in session:" 
-		    			 + "first name: " + req.session.first + "last name: " + req.session.last + "(id=" + req.session.id +")" + req.session.APCS_PERIOD) ;
+		    	 console.log("Login successfully! Storing user in session --> " 
+		    			 + "FIRST NAME: " + req.session.first + " LAST NAME: " + req.session.last + " (id=" + req.session.id +")") ;
 		    	 console.log("[DEBUG]: " + req.session );
 		    	 res.redirect('/calendar');
 		     }
@@ -131,32 +130,45 @@ exports.addClass = function(req,res){
 	    	  res.redirect('/login-failure.html');
 	    // if that works, insert data into owner table
 	      } else {
-	    	 var ownerSql = 'INSERT INTO tswbatDB.owner (owner_id, class_id_fk) VALUES (?, ?);'
-	    	 req.app.get('connection').query(ownerSql, [req.session.id, cCode], function(err, rows, fields) {
-	    		 if (err){
-	   	    	  //very unlikely, hopefully this never happens
-	   	    	  res.redirect('/login-failure.html');
-	   	      	} else {
-	   	      	//for loop through every check box
-	   	      	for(i = 0; i < req.body.periodNumber.length; i++){
-	   	      		//because mysql connections are async, need to set value of index before you begin in order to go into the database at the correct time.
-	   	      		var ivalue = req.body.periodNumber[i];
-	   	      		//generates random period number
-	   	      		var rPeriod = Math.floor(Math.random()*(99900000)+100000);
-	   	      		var periodSql = 'INSERT INTO tswbatDB.period (period, period_id, class_fk) VALUES (?, ?, ?);'
-	   	      		req.app.get('connection').query(periodSql, [ivalue ,rPeriod, cCode], function(err, rows, fields) {
-		    		 if (err){
-		   	    	  //very unlikely, hopefully this never happens
-		   	    	  res.redirect('/login-failure.html');
-		   	      	} else {
-		   	      	}
-	   		   	   });
-	   	    	 }
-	   	      	}
-	   	   });
+	    	 
 	    	 }
 	   });
-	res.redirect('/calendar')
+	var ownerSql = 'INSERT INTO tswbatDB.owner (owner_id, class_id_fk) VALUES (?, ?);'
+   	 req.app.get('connection').query(ownerSql, [req.session.id, cCode], function(i, err, rows, fields) {
+   		 if (err){
+  	    	  //very unlikely, hopefully this never happens
+  	    	  res.redirect('/login-failure.html');
+  	      	} else {
+  	      	
+  	    	// for loop }
+  	      	}
+  	   });
+	//for loop through every check box
+    	var pArray = new Array(req.body.periodNumber.length);
+    	for(i = 0; i < req.body.periodNumber.length; i++){
+    		pArray[i] = new Array(3);
+    	}
+    	for(i = 0; i < req.body.periodNumber.length; i++){
+    		//because mysql connections are async, need to set value of index before you begin in order to go into the database at the correct time.
+	      		var ivalue = req.body.periodNumber[i];
+	      		pArray[i][0] = ivalue;
+	      		//generates random period number
+	      		var rPeriod = Math.floor(Math.random()*(99900000)+100000);
+	      		pArray[i][1] = rPeriod;
+	      		pArray[i][2] = cCode;
+    	}
+    	console.log(pArray);
+//    		var periodSql = 'INSERT INTO tswbatDB.period (period, period_id, class_fk) VALUES (?, ?, ?);'
+    		var periodSql = 'INSERT INTO tswbat.period (period, period_id, class_fk) VALUES ?';
+    		values = 
+    		req.app.get('connection').query(periodSql, [pArray], function(err, rows, fields) {
+    		if (err){
+	    	  //very unlikely, hopefully this never happens
+	    	  res.redirect('/login-failure.html');
+	      	} else {
+	      		res.redirect('/calendar')
+	      	}
+	   	   });
 }
 //generates a random classcode
 function randomString(req, res){

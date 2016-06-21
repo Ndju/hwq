@@ -266,9 +266,13 @@ color: black;">x</a>
 							<div class="classroomclass">		
 								<% classList.forEach(function(classInfo){ %>
 									<li>
-										<input type="radio" name="classperiodid" value=<%=classInfo.period_id%> class = "classSelectionChoices" id="classselection1">
-										Period <%= classInfo.period + " " + classInfo.class_name + " (id:" + classInfo.period_id+")"%>
-										 <% if(isTeacher == 0){%>
+										<% if(isTeacher == 0){%>
+											<input type="radio" name="classperiodid" value=<%=classInfo.class_id%> class = "classSelectionChoices" id="classselection1">
+											<%= classInfo.class_name%>
+										<%}else{%>
+											<input type="radio" name="classperiodid" value=<%=classInfo.period_id%> class = "classSelectionChoices" id="classselection1">
+											Period <%= classInfo.period + " " + classInfo.class_name + " (id:" + classInfo.period_id+")"%>
+										 <%}%>
 										<!--<a method="post" href="/remove" name="removeclass"  value=<%=classInfo.period_id%> style="float: right; margin-right: 10px; margin-top: 5px; text-decoration: none;
 											color: black;
 											"> x </a> -->
@@ -279,7 +283,7 @@ color: black;">x</a>
 									</button>	
 											
 											
-											<%}%>
+											
 									</li>
 									
 								<% }) %>
