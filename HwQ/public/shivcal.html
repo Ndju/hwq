@@ -57,19 +57,18 @@
 			
 			
 			for(var i = remains; i >=0;i--){							// Iterates through and adds in the days of the last month (will probably have to go with new range functionality)
-				$('.week1').append("<td style = 'border-right:1px #ddd solid; '><table style = 'width:100%;'><thead><tr><th style='text-align:right;color:#ddd'>" + (prevMonthEnd -i) + "</th> </tr></thead> <tbody><tr class = 'events' style = 'height:137px;'><td >" + /* ENTER EVENT HERE */""+ "</td> </tr></tbody></table></td>");
+				$('.week1').append("<td style = 'border-right:1px #ddd solid; '><table class = 'boxDate' style = 'width:100%;' date-date='"+(curMo+"-"+(prevMonthEnd -i)+"-"+year)+"'><thead><tr><th style='text-align:right;color:#ddd'>" + (prevMonthEnd -i) + "</th> </tr></thead> <tbody><tr class = 'events' style = 'height:137px;'><td >" + /* ENTER EVENT HERE */""+ "</td> </tr></tbody></table></td>");
 			}
 			
 			
 			var iter = 1;
 			remains++;
 			while(remains<=6){
-				$('.week1').append("<td style = 'border-right:1px #ddd solid; '><table style = 'width:100%;'><thead><tr><th style='text-align:right'>" + iter + "</th> </tr></thead> <tbody><tr class = 'events' style = 'height:137px;'><td >" + /* ENTER EVENT HERE */""+ "</td> </tr></tbody></table></td>");
+				$('.week1').append("<td style = 'border-right:1px #ddd solid; '><table class = 'boxDate' style = 'width:100%;' date-date='"+ (curMo+1) +"-"+ iter +"-"+ year +"'><thead><tr><th style='text-align:right'>" + iter + "</th> </tr></thead> <tbody><tr class = 'events' style = 'height:137px;'><td>" + /* ENTER EVENT HERE */""+ "</td> </tr></tbody></table></td>");
 				iter++;
 				remains++;
 			}
-			
-			
+				
 			var week = 2;
 			console.log('.week' + week);
 			 if(isLeap){
@@ -79,19 +78,17 @@
 						
 						if(iter>leapMonths[curMo]){
 							
-							$('.week' + week).append("<td style = 'border-right:1px #ddd solid; '><table style = 'width:100%;'><thead><tr><th style='text-align:right;color:#ddd'>" + iter%leapMonths[curMo] + "</th> </tr></thead> <tbody><tr class = 'events' style = 'height:137px;'><td >" + /* ENTER EVENT HERE */""+ "</td> </tr></tbody></table></td>");
+							$('.week' + week).append("<td style = 'border-right:1px #ddd solid; '><table class = 'boxDate' style = 'width:100%;' date-date='"+ (curMo+2) +"-"+ iter%leapMonths[curMo] +"-"+ year +"' ><thead><tr><th style='text-align:right;color:#ddd'>" + iter%leapMonths[curMo] + "</th> </tr></thead> <tbody><tr class = 'events' style = 'height:137px;'><td >" + /* ENTER EVENT HERE */""+ "</td> </tr></tbody></table></td>");
 							weekIter++;
 							iter++;
 						}
 						else{
-							$('.week' + week).append("<td style = 'border-right:1px #ddd solid; '><table style = 'width:100%;'><thead><tr><th style='text-align:right'>" + iter + "</th> </tr></thead> <tbody><tr class = 'events' style = 'height:137px;'><td >" + /* ENTER EVENT HERE */""+ "</td> </tr></tbody></table></td>");
+							$('.week' + week).append("<td style = 'border-right:1px #ddd solid; '><table class = 'boxDate' style = 'width:100%;' date-date='"+ (curMo+1) +"-"+ iter +"-"+ year +"'><thead><tr><th style='text-align:right'>" + iter + "</th> </tr></thead> <tbody><tr class = 'events' style = 'height:137px;'><td >" + /* ENTER EVENT HERE */""+ "</td> </tr></tbody></table></td>");
 							weekIter++;
 							iter++;
-						}
-						
+						}	
 					}
-					week++;
-					
+					week++;	
 				}
 			}
 			 else{
@@ -110,21 +107,22 @@
 							}
 							
 						}
-						week++;
-						
+						week++;		
 					}
 			 }
-			 
-			
-			
 			
 			var teacher = false;
+            $(".boxDate").dblclick(function(){
+                $("#assigneddate").val($(this).attr('date-date'));
+                $("#titletitle").val(null);
+                $('.newFile').show();
+                $(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' });  
+                    //makes everything in background a bit blurred
+                $("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
+            });
 		    });
     </script>
 </head>
-
-
-
 
 
 <body style="background-image: none;">
@@ -159,40 +157,21 @@
 							</div>
 						</ul>
 						</form>
-		
-		
-		
-
-			
 			<button id="viewQ0" class="side_button">Join Class</button>
-			
-			
-			
-			
-			<button id="viewQ" class="side_button">View Submissions</button>
-			
+            <button id="viewQ" class="side_button">View Submissions</button>
 			<br>
-
 			<script type="text/javascript">
     			document.getElementById("viewQ").onclick = function () {
         			location.href = "/query";
     			};
 			</script>
-
-
-			<!-- </form> -->
-			
-
 			<script type="text/javascript">
     			document.getElementById("viewQ2").onclick = function () {
         			location.href = "/query2";
     			};
-			</script>
-			
+			</script>	
 			<button id="changePassword" class="side_button">Change Password</button>
-			
 			<br>
-
 			<script type="text/javascript">
     			document.getElementById("changePassword").onclick = function () {
         			location.href = "#navbar";
@@ -503,10 +482,8 @@
 	    	<button type="button" value="DeleteAssignment" id="DeleteAssignment">Delete</button>
 		</form>
     </div>
- 
-	
-	
-	
+    
+    
 	<div id="eventContent" title="Event Details" style="display:none;">
     Start: <span id="startTime"></span><br>
     End: <span id="endTime"></span><br><br>
