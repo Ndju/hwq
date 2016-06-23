@@ -84,7 +84,7 @@ exports.assignments = function(req, res) {
 		//teachers don't give a shit about period id
 		req.session.periodid = -1;
 		//sets current session class id from query
-		req.session.classid = req.query.classperiodid.split;
+		req.session.classid = req.query.classperiodid;
 	}
 	
 	var assignmentList = [];
@@ -119,12 +119,18 @@ exports.assignments = function(req, res) {
 					var classTitle = "T/SWBAT";
 					//extracts the class name chosen by searching through classPeriodList and matching period id
 					for(var i = 0; i < classPeriodList.length; i++){
-						//if the periodid (turned into string) is equal the the class period that the student selected...
-						if( classPeriodList[i].period_id.toString() === req.query.classperiodid){
+						//if the class_id equivalent to the class_id that the student selected...
+						if( classPeriodList[i].class_id === req.session.classid){
 							console.log("setting title....")
-							req.session.periodnumber = classPeriodList[i].period;
-							//...then the class name will be displayed as Period x 'classname'
-							classTitle = "Period" + " " + classPeriodList[i].period +  " " + classPeriodList[i].class_name;
+							//if student, then the title will display the period number along w/ class name.
+							if(req.session.is_teacher == 0){
+								req.session.periodnumber = classPeriodList[i].period;
+								//...then the class name will be displayed as Period x 'classname'
+								classTitle = "Period" + " " + req.session.periodnumber +  " " + classPeriodList[i].class_name;
+							// if it's a teacher the title will solely display the class name
+							}else{
+								classTitle = classPeriodList[i].class_name;
+							}
 						}
 					}
 					console.log(classTitle)
