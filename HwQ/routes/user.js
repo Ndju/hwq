@@ -1,8 +1,7 @@
 exports.login = function(req, res){
 	//sets the sql statement to retrieve values from the row with the specified username and password;
 	var capitalUser = [];
-	var sql = 'SELECT users.id, users.username, users.first_name, users.last_name, users.is_teacher FROM users'+
-		' WHERE username = ? AND password = ? ';
+	var sql = 'SELECT * FROM tswbatDB.users WHERE username = ? AND password = ? ';
 	console.log(sql);
 	req.app.get('connection').query(sql, [req.body.username, req.body.password], function(err, rows, fields) {
 	      if (err) {
@@ -10,57 +9,33 @@ exports.login = function(req, res){
 	    	  res.redirect('/login-failure.html');
 	      } else {
 	    	  //if password is incorrect then there will be 0 rows returned, hence the rows.length will equal 0
-	    	 console.log(rows);
-		     //console.log(fields);
 		     if( rows.length === 0 ){
 		    	 res.redirect('/login-failure.html');
-		    	 //loginNewUser(req, res);
 		     }else{
-		    	 //if password is correct, the username, first name, and last name are saved into cookie-session for later 
+		    	 console.log(rows);
+		    	 // all values from user table are saved as cookies
+		    	 //username
 		    	 req.session.user = req.body.username;
+		    	 //first name
 		    	 req.session.first = rows[0].first_name;
+		    	 //last name
 		    	 req.session.last = rows[0].last_name;
-		    	 
-		    	 //id is saved as a cookie so further editing can be done, id is the first value of the rows dictionary
-			     //(id is the safe access point for mysql database)
+		    	 //id
 		    	 req.session.id = rows[0].id;
+		    	 //is_teacher
 		    	 req.session.is_teacher  = rows[0].is_teacher;
+		    	 //set to null
 		    	 req.session.periodid = -1;
 		    	 req.session.classid = -1;
 		    	 
 		    	 
-		    	 console.log("Login successfully! Storing user in session --> " 
-		    			 + "FIRST NAME: " + req.session.first + " LAST NAME: " + req.session.last + " (id=" + req.session.id +")") ;
-		    	 console.log("[DEBUG]: " + req.session );
+		    	 console.log("User profile ==>" 
+		    			 + "FIRST NAME: " + req.session.first + " LAST NAME: " + req.session.last + "USERNAME: " + req.session.username +" [id=" + req.session.id +"]") ;
 		    	 res.redirect('/calendar');
 		     }
 	      }
 	   });
 };
-
-function loginNewUser(req, res){
-	console.log("no classes")
-	var sql = 'SELECT * FROM tswbatDB.users WHERE username = ? AND password = ?;';
-	req.app.get('connection').query(sql, [req.body.username, req.body.password], function(err, rows, fields) {
-      if (err) {
-    	  res.redirect('/login-failure.html');
-      } else {
-	     if( rows.length === 0 ){
-	    	 res.redirect('/login-failure.html');	         
-	    	 return;
-	     }
-	     req.session.user =  req.body.username;
-	     req.session.first = rows[0].first_name;
-	     req.session.last = rows[0].last_name;
-    	 req.session.id = rows[0].id;
-    	 req.session.is_teacher  = rows[0].is_teacher;
-    	 req.session.periodid = -1;
-    	 req.session.classid = -1;
-
-    	 res.redirect('/calendar');
-      }
-	});
-}
 	
 exports.logout = function(req, res){
 	//clears all cookies
@@ -80,7 +55,7 @@ exports.reset = function(req,res){
 	      } else {
 	    	  //returns the page back to query
 	        	res.redirect('/assignments?classperiodid='
-						+ req.session.periodid);
+						+ req.session.urlid);
 		    }
 	   });
 }

@@ -80,11 +80,15 @@ exports.assignments = function(req, res) {
 		req.session.periodid = req.session.cpid[0]
 		//sets current class id as the class id from cpid
 		req.session.classid = req.session.cpid[1];
+		//sets the current url
+		req.session.urlid = req.session.cpid[0]+"%2C"+req.session.cpid[1];
 	}else{
 		//teachers don't give a shit about period id
 		req.session.periodid = -1;
 		//sets current session class id from query
 		req.session.classid = req.query.classperiodid;
+		//sets the current url
+		req.session.urlid = req.session.classid;
 	}
 	
 	var assignmentList = [];
@@ -133,7 +137,6 @@ exports.assignments = function(req, res) {
 							}
 						}
 					}
-					console.log(classTitle)
 					
 					res.render('calendar', {
 						classTitle: classTitle,
@@ -191,7 +194,7 @@ exports.newAssignments = function(req, res) {
 					// easily refreshed by simply plugging in the periodid into
 					// the url statement.
 					res.redirect('/assignments?classperiodid='
-							+ req.session.periodid);
+							+ req.session.urlid);
 				}
 			});
 
@@ -331,7 +334,7 @@ function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
 				// easily refreshed by simply plugging in the periodid into
 				// the url statement.
 				res.redirect('/assignments?classperiodid='
-						+ req.session.periodid);
+						+ req.session.urlid);
 			}
 		});
 }
@@ -346,7 +349,7 @@ exports.editAssignment = function(req, res){
 			res.send('SQL Error ' + err);
 		}else{
 			res.redirect('/assignments?classperiodid='
-					+ req.session.periodid);
+					+ req.session.urlid);
 		}
 	})
 }
