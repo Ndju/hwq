@@ -1,8 +1,8 @@
 exports.login = function(req, res){
 	//sets the sql statement to retrieve values from the row with the specified username and password;
 	var capitalUser = [];
-	var sql = 'SELECT users.id, users.username, users.first_name, users.last_name, users.is_teacher FROM users '+
-		'WHERE username = ? AND password = ? ';
+	var sql = 'SELECT users.id, users.username, users.first_name, users.last_name, users.is_teacher FROM users'+
+		' WHERE username = ? AND password = ? ';
 	console.log(sql);
 	req.app.get('connection').query(sql, [req.body.username, req.body.password], function(err, rows, fields) {
 	      if (err) {
@@ -119,6 +119,7 @@ exports.signup = function(req, res){
 	   });
 }
 exports.addClass = function(req,res){
+	var finish = 0;
 	console.log(req.body.newClass);
 	//generate classCode
 	var cCode = randomString();
@@ -130,20 +131,27 @@ exports.addClass = function(req,res){
 	    	  res.redirect('/login-failure.html');
 	    // if that works, insert data into owner table
 	      } else {
-	    	 
-	    	 }
+	    	  ++finish;
+	    	  console.log(1); 
+	    }
 	   });
-	var ownerSql = 'INSERT INTO tswbatDB.owner (owner_id, class_id_fk) VALUES (?, ?);'
-   	 req.app.get('connection').query(ownerSql, [req.session.id, cCode], function(i, err, rows, fields) {
+	console.log('finished w/ 1')
+	var ownerSql = 'INSERT INTO tswbatDB.owner_table (owner_id, class_id_fk) VALUES (?, ?);'
+   	 req.app.get('connection').query(ownerSql, [req.session.id, cCode], function(err, rows, fields) {
    		 if (err){
+   			 console.log(err);
   	    	  //very unlikely, hopefully this never happens
   	    	  res.redirect('/login-failure.html');
   	      	} else {
-  	      	
-  	    	// for loop }
+  	      	++finish
+  	    	  console.log(2);
   	      	}
   	   });
+	console.log('finished w/ 2')
 	//for loop through every check box
+	if(req.body.periodNumber.length <= 0){
+		res.redirect('/login-failure.html');
+	}
     	var pArray = new Array(req.body.periodNumber.length);
     	for(i = 0; i < req.body.periodNumber.length; i++){
     		pArray[i] = new Array(3);
@@ -151,7 +159,7 @@ exports.addClass = function(req,res){
     	for(i = 0; i < req.body.periodNumber.length; i++){
     		//because mysql connections are async, need to set value of index before you begin in order to go into the database at the correct time.
 	      		var ivalue = req.body.periodNumber[i];
-	      		pArray[i][0] = ivalue;
+	      		pArray[i][0] = parseInt(ivalue);
 	      		//generates random period number
 	      		var rPeriod = Math.floor(Math.random()*(99900000)+100000);
 	      		pArray[i][1] = rPeriod;
@@ -159,16 +167,24 @@ exports.addClass = function(req,res){
     	}
     	console.log(pArray);
 //    		var periodSql = 'INSERT INTO tswbatDB.period (period, period_id, class_fk) VALUES (?, ?, ?);'
-    		var periodSql = 'INSERT INTO tswbat.period (period, period_id, class_fk) VALUES ?';
+    		var periodSql = 'INSERT INTO tswbatDB.period (period, period_id, class_fk) VALUES ?';
     		values = 
     		req.app.get('connection').query(periodSql, [pArray], function(err, rows, fields) {
     		if (err){
+    			console.log(err)
 	    	  //very unlikely, hopefully this never happens
 	    	  res.redirect('/login-failure.html');
 	      	} else {
-	      		res.redirect('/calendar')
+	      			++finish
+		    	  console.log(3);
 	      	}
 	   	   });
+    		setTimeout(function() {
+				if (finish == 3) {
+					res.redirect('/calendar');
+				}
+				console.log("what is this");
+			}, 5 * 100);
 }
 //generates a random classcode
 function randomString(req, res){

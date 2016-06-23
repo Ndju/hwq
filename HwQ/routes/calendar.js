@@ -22,8 +22,8 @@ exports.cal = function(req, res) {
 		'FROM tswbatDB.class, tswbatDB.owner_table WHERE tswbatDB.owner_table.owner_id = ? ' + 
 		'AND tswbatDB.class.class_id = tswbatDB.owner_table.class_id_fk;';
 	}else{
-		console.log("user is teacher")
-		var sql = 'SELECT DISTINCT class.class_name, period.period_id, period.period '
+		console.log("user is student")
+		var sql = 'SELECT DISTINCT class.class_name, class.class_id, period.period_id, period.period '
 			+ 'FROM tswbatDB.student_period, tswbatDB.period, tswbatDB.class '
 			+ 'WHERE tswbatDB.student_period.student_id_fk = ? '
 			+ 'AND tswbatDB.period.period_id = tswbatDB.student_period.period_id_fk '
@@ -70,27 +70,31 @@ exports.cal = function(req, res) {
 };
 //THIS FUNCTION LOADS THE EVENTS ON A CALENDAR BASED ON WHAT CLASS IS CHOSEN
 exports.assignments = function(req, res) {
-	// gets the classPeriod list for sidebar
+	// gets the classPeriod list for side bar
 	var classPeriodList = req.session.classPeriodList;
-	// sets current period as periodsession to be used in other functions (see
-	// below)
-	req.session.periodid = req.query.classperiodid;
 	
-	//Simple calculation of class id based on class period id.
-	//The classperiod id is constructed from [CLASS_ID][period] 
-	var classid =  req.query.classperiodid;
-	classid = classid.substring(0,  classid.length-1);
-	req.session.classid = classid;
+	if(req.session.is_teacher == 0){
+		// creates a list that contains the period id then the class id
+		req.session.cpid = req.query.classperiodid.split(",");
+		//sets current period id as the period id from cpid
+		req.session.periodid = req.session.cpid[0]
+		//sets current class id as the class id from cpid
+		req.session.classid = req.session.cpid[1];
+	}else{
+		//teachers don't give a shit about period id
+		req.session.periodid = -1;
+		//sets current session class id from query
+		req.session.classid = req.query.classperiodid.split;
+	}
+	
 	var assignmentList = [];
 	var sql = 'SELECT DATE_FORMAT(assigned_date, \'%Y-%m-%d\') AS assigned_date, title, DATE_FORMAT(due_date, \'%Y-%m-%d\') AS due_date, id, description, class_name '
 			+ 'FROM tswbatDB.assignments, tswbatDB.class WHERE classcode_fk = class_id AND class_id = ?';
-	console.log(sql + "\n===>" + req.session.classid );
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(sql, [ req.session.classid ],
 			function(err, rows, fields) {
 				if (err) {
-					// connection mess-up handler --> very unlikely as the
-					// statement is static and consistent
+					// connection mess-up handler --> very unlikely as the statement is static and consistent
 					res.send('ERROR AT EXPORTS.ASSIGNMENTS');
 				} else {
 					console.log(rows.length)
@@ -100,7 +104,7 @@ exports.assignments = function(req, res) {
 
 						//Format assignment description into HTML for better UI
 						var descText = rows[i].description;
-						if( req.session.is_teacher == '0' ){
+						if( req.session.is_teacher == 0){
 							descText = descText.split("\n").join("<br/>");
 							descText = descText.split("\r").join("");
 							descText = descText.split("*").join("<li>");
@@ -112,9 +116,9 @@ exports.assignments = function(req, res) {
 						}						
 						assignmentList.push(rows[i]);
 					}
-					var classTitle = "NA";
+					var classTitle = "T/SWBAT";
 					//extracts the class name chosen by searching through classPeriodList and matching period id
-					for(var i = 0; i < classPeriodList.length; i ++ ){
+					for(var i = 0; i < classPeriodList.length; i++){
 						//if the periodid (turned into string) is equal the the class period that the student selected...
 						if( classPeriodList[i].period_id.toString() === req.query.classperiodid){
 							console.log("setting title....")
