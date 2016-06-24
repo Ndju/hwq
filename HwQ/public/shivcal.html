@@ -114,8 +114,13 @@
 			var teacher = false;
             $(".boxDate").dblclick(function(){
                 $("#assigneddate").val($(this).attr('date-date'));
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                for( var i=0; i < 5; i++ )
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
                 $("#titletitle").val(null);
                 $('.newFile').show();
+                $('#exemption').val(text);
                 $(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' });  
                     //makes everything in background a bit blurred
                 $("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^
@@ -435,7 +440,9 @@
 			Title:
 			<br><input id="title" name="title" placeholder="Title"><br>
 			Description:
-			<br><textarea id="descriptiontxt" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea>
+			<br><textarea id="descriptiontxt" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea><br>
+            Exemption Code:
+			<br><input id="exemption" name="exemption" placeholder="exemption"><br>
 			<button type="submit" name="submitfile" value="submitFile" id="newFileSubmitBtn">Submit</button>
 			<button type="button" name="cancelnewFile" value="cancelnewFile" id="newFileCnclBtn">Cancel</button>
 
@@ -473,7 +480,7 @@
 	    	Title:
 	    	<input type="text" name="title_assignment" placeholder="Title" id="title_assignment"><br>
 	    	
-	    	Exemption: <input type="text" name="exemptioncode" placeholder="exemption" id="exemptionname"><br>
+	    	Exemption: <input id = "exemption" type="text" name="exemptioncode" placeholder="exemption" id="exemptionname"><br>
 	    	
 	    	Description: <br>
 	    	<textarea id="descriptiontext" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea><br>
@@ -505,9 +512,19 @@
 
 
         $('#newFileButton').bind('click touchstart',function(e){
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            for( var i=0; i < 5; i++ )
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            
+            
         	$("#assigneddate").val(null);
         	$("#titletitle").val(null);
             $('.newFile').show();
+            alert(text);
+            $('#exemption').val(text);
+            
             $(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' });  //makes everything in background a bit blurred
 		      	
 			$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)' }); //same^

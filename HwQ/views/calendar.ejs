@@ -176,6 +176,7 @@
 		        });
 		      <%}else{%>
 		      element.click(function() {  	
+		    	  	
 		    	  	$("#editFile").show();
 			      	$("#start_date").val(moment(event.start).format('MM/DD/YYYY'));
 			      	$("#assignmentId").val(event.id);
@@ -184,6 +185,7 @@
 			      	$("#end_date").val(moment(event.end).format('MM/' + (endduedate.getDate()-1) + '/YYYY'));
 			      	$("#eventLink").attr('href', event.url);
 			      	$("#descriptiontext").val(event.description);
+			      	
 			      	$("#subfileform").remove();   	
 			      	$("#editAssignment").dialog({ modal: true, title: event.title, width:350});
 			      	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' }); //same^
@@ -222,6 +224,16 @@
 		    	if(slotDate){ 
 		            dblClickFunction(slotDate); //do something with the date
 		        }
+		    	var text = "";
+	            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	            for( var i=0; i < 8; i++ )
+	                text += possible.charAt(Math.floor(Math.random() * possible.length));
+	            
+		      	
+		      	$("#exemption").val(text);
+		    	
+		    	
 			 	$(".newFile").show();  //shows the form 
 			 	$(".everythingButNewFileForm").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none'});  //makes everything in background a bit blurred
 		      	
@@ -568,6 +580,9 @@ padding-left: 5px;">
 			<br><input id = "title" name = "title" placeholder="Title"><br>
 			Description:
 			<br><textarea id = "descriptiontxt" name="descriptiontext" cols="30" rows="5" placeholder = "Description"></textarea>
+			<br>
+            Exemption Code:
+			<br><input id="exemption" name="exemption" placeholder="exemption"><br>
 			<button type="submit" name="submitfile" value="submitFile" id = "newFileSubmitBtn" id="filesubmitbutton">Submit</button>
 			<button type="button" name="cancelnewFile" value="cancelnewFile" id = "newFileCnclBtn" id="cancelNewFile">Cancel</button>
 
