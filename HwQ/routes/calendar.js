@@ -164,18 +164,28 @@ function convertdate(date) {
 }
 // THIS FUNCTION CREATES NEW EVENTS AND REFRESHES PAGE TO SHOW THE EVENT
 exports.newAssignments = function(req, res) {
-	//converts date so it can be plugged into mysql database
-	
 
-	// gets values to plug into assignment table
+	// start date
 	var start = req.body.startdate;
-	var end = req.body.duedate;
-	end = end.substring(0,4)  + (parseInt(end[4])+1) + end.substring(5,end.length);
+	//converts date so it can be plugged into mysql database
 	start = convertdate(start);
+
+	//end date
+	var end = req.body.duedate;
+	//converts date so it can be plugged into mysql database
+	end = end.substring(0,4)  + (parseInt(end[4])+1) + end.substring(5,end.length);
 	end = convertdate(end);
+	
+	//title
 	var title = req.body.title;
+	
+	//randomly generated assignment_id
 	var id = Math.random() * (999999) + 1000;
+	
+	//randomly generated exemption code from user side
 	var exemption = req.body.exemption;
+	
+	//description text
 	var description = req.body.descriptiontext;
 	
 	var sql = 'INSERT INTO tswbatDB.assignments (id, title, assigned_date, due_date, classcode_fk, description, exemption)'
