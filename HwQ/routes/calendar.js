@@ -174,20 +174,19 @@ exports.newAssignments = function(req, res) {
 	start = convertdate(start);
 	end = convertdate(end);
 	var title = req.body.title;
-	var id = Math.random() * (9000 - 1) + 1;
-	var classCode = req.session.classid;
-
+	var id = Math.random() * (999999) + 1000;
+	var exemption = req.body.exemption;
 	var description = req.body.descriptiontext;
-	var sql = 'INSERT INTO tswbatDB.assignments1 (id, title, assigned_date, due_date, classcode_fk, description)'
-			+ 'VALUES (?, ?, ?, ?, ?, ?)';
+	
+	var sql = 'INSERT INTO tswbatDB.assignments (id, title, assigned_date, due_date, classcode_fk, description, exemption)'
+			+ 'VALUES (?, ?, ?, ?, ?, ?, ?)';
 	// creates the connection with mysql database and executes statement.
-	req.app.get('connection').query(
-			sql,
-			[ id, title, start, end, req.session.classid, description ],
+	req.app.get('connection').query(sql,[id, title, start, end, req.session.classid, description, exemption],
 			function(err, rows, fields) {
 				if (err) {
 					// connection mess-up handler --> very unlikely as the
 					// statement is static and consistent
+					console.log('Sql error: ' + err);
 					res.send('ERROR AT EXPORTS.NEWASSIGNMENTS');
 				} else {
 					// by using a get statement instead of post, the page is
@@ -221,7 +220,7 @@ exports.submission = function(req, res) {
 		if(fieldname === 'title'){
 			title = val;
 		}else if(fieldname === 'assignment_id'){
-			console.log('HEREEEE: ' + val);
+			console.log('HERE: ' + val);
 			assignmentId = val;
 		}
 	});
@@ -311,7 +310,7 @@ exports.submission = function(req, res) {
 function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
 	var userId = req.session.id;
 	console.log(assignmentId);
-	console.log( 'files:::::: '+files );
+	console.log( 'files::::::> '+ files);
 	
 	var urlNames = [" "," "," "];
 	for(var i = 0; i<files.length; i++){
