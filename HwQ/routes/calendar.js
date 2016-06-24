@@ -204,23 +204,19 @@ exports.newAssignments = function(req, res) {
 exports.submission = function(req, res) {
 	var assignmentId = "";
 	var title = "";
-	//since most ips are IPV6 there is a '::ffff:' in front of the ip address, next 3 lines removes it
-	var IPFromRequest=req.connection.remoteAddress;
-    var indexOfColon = IPFromRequest.lastIndexOf(':');
-    var ip = IPFromRequest.substring(indexOfColon+1,IPFromRequest.length);
-	console.log(ip);
-	console.log('Handle upload');
+	console.log('Handling upload');
 	//initiates busboy
-	var busboy = new Busboy({headers : req.headers	});
+	var busboy = new Busboy({headers : req.headers});
 
 	var files = [], finished = false;
 	busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
 		console.log('anomally:' + val + " " + fieldname);
 		//goes through each field of html form and takes value depending on input type
 		if(fieldname === 'title'){
+			console.log('title: ' + val);
 			title = val;
 		}else if(fieldname === 'assignment_id'){
-			console.log('HERE: ' + val);
+			console.log('assignment_id: ' + val);
 			assignmentId = val;
 		}
 	});
@@ -230,7 +226,7 @@ exports.submission = function(req, res) {
 		console.log('busboy finished');
 		finished = true;
 		//puts data in databse
-		unploadDatabase(req, res, assignmentId, title, ip, files);
+		unploadDatabase(req, res, assignmentId, title, files);
 	});
 	
 	busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
@@ -249,7 +245,7 @@ exports.submission = function(req, res) {
 		file.on('data', function(chunk) {
 			// Push chunks into the fileRead array
 			this.fileRead.push(chunk);
-			console.log(".....   ");
+			console.log(".....");
 			// moves onto next chunk of data
 			file.resume();
 		});
@@ -307,8 +303,8 @@ exports.submission = function(req, res) {
 
 }
 //This function is used in calendar.submission to load the file's data into the mysql submission table.
-function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
-	var userId = req.session.id;
+function unploadDatabase(req, res, assignmentId, title, files){
+
 	console.log(assignmentId);
 	console.log( 'files::::::> '+ files);
 	
@@ -316,13 +312,13 @@ function unploadDatabase(req, res, assignmentId, title, ipAddress, files){
 	for(var i = 0; i<files.length; i++){
 		urlNames[i] = "https://apcs-dev.s3.amazonaws.com/" + req.session.periodid + "/" + userId + "_" + files[i];
 	}
-	var sql = 'INSERT INTO tswbatDB.submissions1 (assignment_id, submission_id, date_submitted, student_id, IP_Address, first_name, last_name, file1_url, file2_url, file3_url)'
+	var sql = 'INSERT INTO tswbatDB.submissions (assignment_id, submission_id, date_submitted, student_id, first_name, last_name, file1_url, file2_url, file3_url, period_id)'
 		+ 'VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)';
 	console.log(assignmentId)
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(
 		sql,
-		[ assignmentId, title, userId, ipAddress, req.session.usernameFL[0], req.session.usernameFL[1], urlNames[0], urlNames[1], urlNames[2]],
+		[ assignmentId, title, req.session.id, req.session.first, req.session.last, urlNames[0], urlNames[1], urlNames[2], req.session.periodid],
 		function(err, rows, fields) {
 			if (err) {
 				// connection mess-up handler --> very unlikely as the
