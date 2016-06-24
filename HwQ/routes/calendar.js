@@ -169,12 +169,14 @@ exports.newAssignments = function(req, res) {
 	var start = req.body.startdate;
 	//converts date so it can be plugged into mysql database
 	start = convertdate(start);
+	console.log('start date: ' + start);
 
 	//end date
 	var end = req.body.duedate;
 	//converts date so it can be plugged into mysql database
-	end = end.substring(0,4)  + (parseInt(end[4])+1) + end.substring(5,end.length);
+	//end = end.substring(0,4)  + (parseInt(end[4])+1) + end.substring(5,end.length);
 	end = convertdate(end);
+	console.log('end date: ' + end);
 	
 	//title
 	var title = req.body.title;

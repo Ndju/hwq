@@ -52,7 +52,7 @@ app.configure('development', function() {
   app.set('connection', mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '234sonam',
+    password: 'password',
     port: '3306'}));
 app.use(express.errorHandler());
 });

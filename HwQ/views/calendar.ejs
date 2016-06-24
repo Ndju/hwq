@@ -218,7 +218,7 @@
 		    
 		    
 //this works with opening the form for new assignment after something a box is double clicked.
-<% if(isTeacher == 1){%>
+<% if(isTeacher == 1 && classTitle != "T/SWBAT"){%>
 		    $( "#calendar" ).dblclick(function() {
 		    	$("#titletitle").val(null); //clears any previous value for title 
 		    	if(slotDate){ 
@@ -573,9 +573,9 @@ padding-left: 5px;">
 		<form class="newFileform" action = "new-assignment" method = "post">
 			<h1 id="NewFileHeader">New Assignment</h1>
 			Assigned Date:
-			<br><input type="date" placeholder="mm/dd/yyyy" name = "startdate" id = "assigneddate"><br> 
+			<br><input type="date" placeholder="mm/dd/yyyy" name="startdate" id="assigneddate"><br> 
 			Due Date:
-			<br><input type="date"  placeholder="mm/dd/yyyy" name = "duedate" id = "duedate"><br> 
+			<br><input type="date"  placeholder="mm/dd/yyyy" name ="duedate" id ="duedate"><br> 
 			Title:
 			<br><input id = "title" name = "title" placeholder="Title"><br>
 			Description:
@@ -620,7 +620,7 @@ padding-left: 5px;">
 	    	Title:
 	    	<input type="text" name="title_assignment" placeholder="Title" id="title_assignment"></input><br>
 	    	
-	    	Exemption: <input type="text" name="exemptioncode" placeholder="exemption" id="exemptionname"></input><br>
+	    	Exemption Code: <input type="text" name="exemptioncode" placeholder="exemption" id="exemptionname"></input><br>
 	    	
 	    	Description: <br>
 	    	<textarea id="descriptiontext" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea><br>
