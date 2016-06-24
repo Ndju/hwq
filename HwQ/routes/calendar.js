@@ -350,16 +350,5 @@ exports.editAssignment = function(req, res){
 }
 
 exports.remove = function(req, res){
-	console.log(req.body.removeclass)
-	var sql = "DELETE FROM tswbatDB.student_period WHERE student_id_fk = ? and period_id_fk = ?";
-	console.log("delete this");
-	req.app.get('connection').query(sql,[req.session.id, req.body.removeclass],
-			function(err, rows, fields){
-		if(err){
-			res.send('SQL Error ' + err);
-		}else{
-			console.log("delete this");
-			res.redirect('/calendar');
-		}
-	})
+	
 }
