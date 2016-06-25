@@ -36,14 +36,14 @@ exports.query2 = function(req, res) {
 exports.querySubmission = function(req, res){
 	var results = [];
 	//links submission table with assignment table and returns total result
-	var sql ='SELECT date_submitted, last_name, first_name, submission_id, file1_url, file2_url, file3_url, period_id'
+	var sql ='SELECT date_submitted, last_name, first_name, submission_id, file1_url, file2_url, file3_url, period_number '
 		+'FROM tswbatDB.submissions, tswbatDB.assignments ' +
-		'WHERE classcode_fk = ?  AND student_id = ?' +
-		'AND id = assignment_id';
+		'WHERE classcode_fk = ? AND student_id = ? ' +
+		'AND assignments.id = submissions.assignment_id';
 	
 	if( req.session.is_teacher == 1 ){
-		sql ='SELECT date_submitted, last_name, first_name, submission_id, file1_url, file2_url, file3_url, period_id'
-			+'FROM tswbatDB.submissions1, tswbatDB.assignments1 ' +
+		sql ='SELECT date_submitted, last_name, first_name, submission_id, file1_url, file2_url, file3_url, period_number '
+			+'FROM tswbatDB.submissions, tswbatDB.assignments ' +
 			'WHERE classcode_fk = ?  ' +
 			'AND id = assignment_id';
 	}
@@ -58,18 +58,17 @@ exports.querySubmission = function(req, res){
 				if( rows.length === 0 ){
 					console.log("No submission found!");
 				}else{
-				    console.log("Found rows " + rows.length );
-				    
+				    console.log("Found rows " + rows.length );				    
 				}
 				//this for loop goes through each row, each row is a dictionary that contains the values requested from the sql statement
 				//then after every value is drawn, it is pushed into another array, to create a two dimensional array for each row of data.
 				for (var i = 0; i < rows.length; i++) {
 					var data = [];
 					data.push( rows[i].date_submitted );
-					data.push(req.session.periodnumber);
+					data.push(rows[i].submission_id);
 					data.push(rows[i].first_name);
 					data.push(rows[i].last_name);
-					data.push(rows[i].submission_id);
+					data.push(rows[i].period_number);
 					//this checks if the file is empty, nameStart finds the name of the file (last section of the url) and displays it as the link
 					if(rows[i].file1_url != null){
 						var nameStart = rows[i].file1_url.indexOf("_") + 1;
@@ -93,9 +92,10 @@ exports.querySubmission = function(req, res){
 				}
 			}
 		res.render('submissionList', {
-			user : req.session.usernameFL,
+			user : [req.session.first, req.session.last],
 			submissions : results,
-			classList: req.session.classPeriodList
+			classList: req.session.classPeriodList,
+			isTeacher: req.session.is_teacher == 1
 			});
 
 	});

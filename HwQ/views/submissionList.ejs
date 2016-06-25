@@ -184,11 +184,12 @@
         <thead>
 			<tr>
 			<td>Date Submitted</td>
-			<td>IP Address</td>
-			<td>Period</td>
+			<td>Assignment Title</td>
 			<td>First Name</td>
 			<td>Last Name</td>
-			<td>Assignment Title</td>
+		<% if(isTeacher){ %>
+			<td>Period</td>
+		<% } %>	
 			<td>Upload File 1</td>
 			<td>Upload File 2</td>
 			<td>Upload File 3</td>
@@ -204,7 +205,9 @@
 				<td><%= submission[1] %></td>
 				<td><%= submission[2] %></td>
 				<td><%= submission[3] %></td>
+			<% if(isTeacher){ %>
 				<td><%= submission[4] %></td>
+			<% } %>
 				<td><%= submission[5] %></td>
 				<td><%- submission[6] %></td>
 				<td><%- submission[7] %></td>
