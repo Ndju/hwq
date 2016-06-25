@@ -92,7 +92,7 @@ exports.assignments = function(req, res) {
 	}
 	
 	var assignmentList = [];
-	var sql = 'SELECT DATE_FORMAT(assigned_date, \'%Y-%m-%d\') AS assigned_date, title, DATE_FORMAT(due_date, \'%Y-%m-%d\') AS due_date, id, description, class_name '
+	var sql = 'SELECT DATE_FORMAT(assigned_date, \'%Y-%m-%d\') AS assigned_date, title, DATE_FORMAT(due_date, \'%Y-%m-%d\') AS due_date, id, description, class_name, exemption '
 			+ 'FROM tswbatDB.assignments, tswbatDB.class WHERE classcode_fk = class_id AND class_id = ?';
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(sql, [ req.session.classid ],
@@ -102,6 +102,7 @@ exports.assignments = function(req, res) {
 					res.send('ERROR AT EXPORTS.ASSIGNMENTS');
 				} else {
 					console.log(rows.length)
+					console.log(rows[0].exemption)
 					// for loops through each line of data from mysql
 					for (var i = 0; i < rows.length; i++) {
 						// each row index = dictionary of values from mysql
@@ -349,8 +350,8 @@ exports.editAssignment = function(req, res){
 	console.log(req.body);
 	var start = convertdate(req.body.start);
 	var end = convertdate(req.body.end);
-	var sql = "UPDATE tswbatDB.assignments SET title = ?, assigned_date = ?, due_date = ?, description = ? WHERE id = ?";
-	req.app.get('connection').query(sql,[req.body.title_assignment, start, end, req.body.descriptiontext, req.body.assignmentId],
+	var sql = "UPDATE tswbatDB.assignments SET title = ?, assigned_date = ?, due_date = ?, description = ?, exemption = ? WHERE id = ?";
+	req.app.get('connection').query(sql,[req.body.title_assignment, start, end, req.body.descriptiontext, req.body.exemption, req.body.assignmentId],
 			function(err, rows, fields){
 		if(err){
 			res.send('SQL Error ' + err);

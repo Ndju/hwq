@@ -59,7 +59,8 @@
 		 					title: '<%= assignmentInfo.title%>',
 		 					start: '<%= assignmentInfo.assigned_date%>', /* start date */
 		 					end: '<%= assignmentInfo.due_date%>', /* due date */
-		 					description: '<%- assignmentInfo.description%>',
+		 					description: '<%= assignmentInfo.description%>',
+		 					exemption: '<%= assignmentInfo.exemption%>',
 		 					
 		 				},
 		 		<% }) %>
@@ -185,7 +186,7 @@
 			      	$("#end_date").val(moment(event.end).format('MM/' + (endduedate.getDate()-1) + '/YYYY'));
 			      	$("#eventLink").attr('href', event.url);
 			      	$("#descriptiontext").val(event.description);
-			      	
+			      	$("#exemption_code").val(event.exemption);
 			      	$("#subfileform").remove();   	
 			      	$("#editAssignment").dialog({ modal: true, title: event.title, width:350});
 			      	$("#calendar").css({ 'opacity': '0.5', '-webkit-filter':'blur(5px)','pointer-events':'none' }); //same^
@@ -358,11 +359,7 @@ color: black;">x</a>
 			});
 			
 			</script>
-			
-			<!-- Old link to change password -->
-			<!-- <a class="side_button" id="changePassword" href = "#navbar">Change Password.</a> -->
-			
-			
+
 			
 			<form class="query-logoutform" method="post" action="logout">
 				<input class="side_button" id="logout" type="submit" value="Logout">
@@ -584,7 +581,7 @@ padding-left: 5px;">
 	    	Title:
 	    	<input type="text" name="title_assignment" placeholder="Title" id="title_assignment"></input><br>
 	    	
-	    	Exemption Code: <input type="text" name="exemption" placeholder="exemption" id="exemption"></input><br>
+	    	Exemption Code: <input type="text" name="exemption" placeholder="exemption" id="exemption_code"></input><br>
 	    	
 	    	Description: <br>
 	    	<textarea id="descriptiontext" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea><br>
