@@ -263,14 +263,11 @@ margin-top: 05px;
 color: black;">x</a> 
 
 -->
-
-
-
+<!-- Sidebar development -->
 <body style="background-image: none;">
 	<div class="everythingButNewFileForm">
 		<div class="settings-container">
 			<div class = "sidebarMinusReset">
-				<!-- <form id="class_select_form" class="settings-form" method='get' action='/assignments'> -->
 					<button class="side_button" id="classes-header">Select Classes</button>
 					<form id="class_select_form" class="settings-form" method='get' action='/assignments'>
 						<ul id = "dropdownSelectClasses" style = "list-style: none; display: none;">
@@ -293,17 +290,6 @@ color: black;">x</a>
 						</ul>
 						</form>
 		
-		
-		
-
-				<!-- <input type="checkbox" name="class1" id="classselection1"
-					class="classroomclass" value="period1">Period 1<br> <input
-					type="checkbox" name="class2" id="classselection2"
-					class="classroomclass" value="period2">Period 2<br> <input
-					type="checkbox" name="class3" id="classselection3"
-					class="classroomclass" value="period3">Period 3<br> -->
-		
-			<!-- </form> -->
 			<% if(isTeacher == 0){%>
 			<button id="viewQ0" class="side_button">Join Class</button>
 			<%}%>
@@ -323,11 +309,12 @@ color: black;">x</a>
 			</script>
 
 
-			<!-- </form> -->
+			<!-- </Weebly form> 
 			<% if(isTeacher == 1){%>
 			<button id="viewQ2" class="side_button">Weebly Submissions</button>
 			<br>
 			<%}%>
+			-->
 
 			<script type="text/javascript">
     			document.getElementById("viewQ2").onclick = function () {
@@ -546,29 +533,6 @@ padding-left: 5px;">
 	</div>
 	
 	
-	
-	
-	
-	<!-- ================================= -->
-	<!-- THIS IS OLD NEW ASSIGNMENT FORM.  -->
-	<!-- ================================= -->
-	<!-- <div class="newFile">
-		<form class="subfileform" action="#">
-			
-			<input type="file" value="newFile"><br> 
-			<input id = "titletitle" type="input" value = event.title><br>
-			<button type="submit" name="submitfile"
-				id="filesubmitbutton">Submit New File</button>
-		</form>
-	</div>  -->
-	<!-- ================================= -->
-	<!-- ================================= -->
-	<!-- ================================= -->
-	
-	
-	
-	
-	
 	<div class="newFile">
 		<form class="newFileform" action = "new-assignment" method = "post">
 			<h1 id="NewFileHeader">New Assignment</h1>
@@ -620,7 +584,7 @@ padding-left: 5px;">
 	    	Title:
 	    	<input type="text" name="title_assignment" placeholder="Title" id="title_assignment"></input><br>
 	    	
-	    	Exemption Code: <input type="text" name="exemptioncode" placeholder="exemption" id="exemptionname"></input><br>
+	    	Exemption Code: <input type="text" name="exemption" placeholder="exemption" id="exemption"></input><br>
 	    	
 	    	Description: <br>
 	    	<textarea id="descriptiontext" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea><br>
@@ -630,25 +594,6 @@ padding-left: 5px;">
 		</form>
     </div>
  
-	<!-- old modal type for edit assignment -->
-	<!-- 
-	<div id="editAssignment" style="display:none;">
-	<form action="edit-assignment" method="post">
-	<h3>Edit Assignment</h3>
-	<input type="hidden" id="assignment_id" name="assignment_id" value=""></input>
-		Start:
-    	<input type="date" placeholder="mm/dd/yyyy" name="start" id="start_date"></input><br>
-    	End: 
-    	<input type="date" placeholder="mm/dd/yyyy" name="end" id="end_date"></input><br>
-    	Title:
-    	<input type="text" name="title_assignment" placeholder="Title" id="title_assignment"></input><br>
-    	Description: <br>
-    	<textarea id="descriptiontext" name="descriptiontext" cols="30" rows="5" placeholder="Description"></textarea><br>
-    	<button type="submit" name="submitfile" value="submitFile" id="filesubmitbutton">Update</button>
-    </form>
-	</div>
-	-->
-	
 	
 	<div id="eventContent" title="Event Details" style="display:none;">
     Start: <span id="startTime"></span><br>

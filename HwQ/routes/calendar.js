@@ -349,7 +349,7 @@ exports.editAssignment = function(req, res){
 	console.log(req.body);
 	var start = convertdate(req.body.start);
 	var end = convertdate(req.body.end);
-	var sql = "UPDATE tswbatDB.assignments1 SET title = ?, assigned_date = ?, due_date = ?, description = ? WHERE id = ?";
+	var sql = "UPDATE tswbatDB.assignments SET title = ?, assigned_date = ?, due_date = ?, description = ? WHERE id = ?";
 	req.app.get('connection').query(sql,[req.body.title_assignment, start, end, req.body.descriptiontext, req.body.assignmentId],
 			function(err, rows, fields){
 		if(err){
