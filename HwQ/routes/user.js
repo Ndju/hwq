@@ -164,7 +164,7 @@ exports.addClass = function(req,res){
 //generates a random classcode
 function randomString(req, res){
 	//key
-	var Malphabet = "abcdeABVWXtuvwxyzIJfghijCDEFGHnopqrsRSTUklmKLMNOPQYZ";
+	var Malphabet = "aWXtuyzIJfghVqrsRKoLMNFvwxGHnSTUklmOPQCDijbcdeABEpYZ";
 	//random integer from 100 to 999
 	var result = "" + Math.floor(Math.random()*(900)+100);
 	//creates a key that is a three digit int + 2 letter string + three digit integer + 2 letter string + three digit integer

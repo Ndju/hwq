@@ -82,6 +82,8 @@ exports.assignments = function(req, res) {
 		req.session.classid = req.session.cpid[1];
 		//sets the current url
 		req.session.urlid = req.session.cpid[0]+"%2C"+req.session.cpid[1];
+		//sets current period
+		req.session.periodnumber = req.session.cpid[2];
 	}else{
 		//teachers don't give a shit about period id
 		req.session.periodid = -1;
@@ -200,7 +202,7 @@ exports.newAssignments = function(req, res) {
 					// connection mess-up handler --> very unlikely as the
 					// statement is static and consistent
 					console.log('Sql error: ' + err);
-					res.send('/login-failure.html');
+					res.redirect('/login-failure.html');
 				} else {
 					// by using a get statement instead of post, the page is
 					// easily refreshed by simply plugging in the periodid into

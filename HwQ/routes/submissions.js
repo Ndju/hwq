@@ -36,14 +36,14 @@ exports.query2 = function(req, res) {
 exports.querySubmission = function(req, res){
 	var results = [];
 	//links submission table with assignment table and returns total result
-	var sql = 'SELECT date_submitted, IP_Address, last_name, first_name, submission_id, file1_url, file2_url, file3_url '
-		+'FROM user.submissions1, user.assignments1 ' +
-		'WHERE classcode_fk = ?  AND student_id = ? ' +
+	var sql ='SELECT date_submitted, last_name, first_name, submission_id, file1_url, file2_url, file3_url, period_id'
+		+'FROM tswbatDB.submissions, tswbatDB.assignments ' +
+		'WHERE classcode_fk = ?  AND student_id = ?' +
 		'AND id = assignment_id';
 	
-	if( req.session.is_teacher ){
-		sql = 'SELECT date_submitted, IP_Address, last_name, first_name, submission_id, file1_url, file2_url, file3_url '
-			+'FROM user.submissions1, user.assignments1 ' +
+	if( req.session.is_teacher == 1 ){
+		sql ='SELECT date_submitted, last_name, first_name, submission_id, file1_url, file2_url, file3_url, period_id'
+			+'FROM tswbatDB.submissions1, tswbatDB.assignments1 ' +
 			'WHERE classcode_fk = ?  ' +
 			'AND id = assignment_id';
 	}
@@ -58,14 +58,14 @@ exports.querySubmission = function(req, res){
 				if( rows.length === 0 ){
 					console.log("No submission found!");
 				}else{
-				    console.log("Found rows " + rows.length );	
+				    console.log("Found rows " + rows.length );
+				    
 				}
 				//this for loop goes through each row, each row is a dictionary that contains the values requested from the sql statement
 				//then after every value is drawn, it is pushed into another array, to create a two dimensional array for each row of data.
 				for (var i = 0; i < rows.length; i++) {
 					var data = [];
 					data.push( rows[i].date_submitted );
-					data.push( rows[i].IP_Address );
 					data.push(req.session.periodnumber);
 					data.push(rows[i].first_name);
 					data.push(rows[i].last_name);
