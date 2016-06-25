@@ -327,13 +327,13 @@ function unploadDatabase(req, res, assignmentId, title, files){
 	for(var i = 0; i<files.length; i++){
 		urlNames[i] = "https://apcs-dev.s3.amazonaws.com/" + req.session.periodid + "/" + req.session.id + "_" + files[i];
 	}
-	var sql = 'INSERT INTO tswbatDB.submissions (assignment_id, submission_id, date_submitted, student_id, first_name, last_name, file1_url, file2_url, file3_url, period_id)'
+	var sql = 'INSERT INTO tswbatDB.submissions (assignment_id, submission_id, date_submitted, student_id, first_name, last_name, file1_url, file2_url, file3_url, period_number)'
 		+ 'VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)';
 	console.log(assignmentId)
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(
 		sql,
-		[ assignmentId, title, req.session.id, req.session.first, req.session.last, urlNames[0], urlNames[1], urlNames[2], req.session.periodid],
+		[ assignmentId, title, req.session.id, req.session.first, req.session.last, urlNames[0], urlNames[1], urlNames[2], req.session.periodnumber],
 		function(err, rows, fields) {
 			if (err) {
 				// connection mess-up handler --> very unlikely as the
