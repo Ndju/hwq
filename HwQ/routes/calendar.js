@@ -199,7 +199,7 @@ exports.newAssignments = function(req, res) {
 					// connection mess-up handler --> very unlikely as the
 					// statement is static and consistent
 					console.log('Sql error: ' + err);
-					res.send('ERROR AT EXPORTS.NEWASSIGNMENTS');
+					res.send('/login-failure.html');
 				} else {
 					// by using a get statement instead of post, the page is
 					// easily refreshed by simply plugging in the periodid into
@@ -322,7 +322,7 @@ function unploadDatabase(req, res, assignmentId, title, files){
 	
 	var urlNames = [" "," "," "];
 	for(var i = 0; i<files.length; i++){
-		urlNames[i] = "https://apcs-dev.s3.amazonaws.com/" + req.session.periodid + "/" + userId + "_" + files[i];
+		urlNames[i] = "https://apcs-dev.s3.amazonaws.com/" + req.session.periodid + "/" + req.session.id + "_" + files[i];
 	}
 	var sql = 'INSERT INTO tswbatDB.submissions (assignment_id, submission_id, date_submitted, student_id, first_name, last_name, file1_url, file2_url, file3_url, period_id)'
 		+ 'VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)';
