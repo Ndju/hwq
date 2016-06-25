@@ -40,8 +40,13 @@
 							<div class="classroomclass">		
 								<% classList.forEach(function(classInfo){ %>
 									<li>
-										<input type="radio" name="classperiodid" value=<%=classInfo.period_id%> class = "classSelectionChoices" id="classselection1">
-										Period <%= classInfo.period + " " + classInfo.class_name%>
+										<% if(isTeacher == 1){%>
+											<input type="radio" name="classperiodid" value=<%=classInfo.class_id%> class = "classSelectionChoices" id="classselection1">
+											<%= classInfo.class_name%>
+										<%}else{%>
+											<input type="radio" name="classperiodid" value=<%=[classInfo.period_id, classInfo.class_id, classInfo.period]%> class = "classSelectionChoices" id="classselection1">
+											Period <%= classInfo.period + " " + classInfo.class_name + " (id:" + classInfo.period_id+")"%>
+										 <%}%>
 									</li>
 			
 								<% }) %>
