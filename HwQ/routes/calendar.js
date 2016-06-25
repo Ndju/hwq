@@ -315,7 +315,6 @@ exports.submission = function(req, res) {
 	});
 	req.pipe(busboy);
 	
-
 }
 //This function is used in calendar.submission to load the file's data into the mysql submission table.
 function unploadDatabase(req, res, assignmentId, title, files){
