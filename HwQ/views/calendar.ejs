@@ -281,7 +281,7 @@ color: black;">x</a>
 											<%= classInfo.class_name%>
 										<%}else{%>
 											<input type="radio" name="classperiodid" value=<%=[classInfo.period_id, classInfo.class_id, classInfo.period]%> class = "classSelectionChoices" id="classselection1">
-											Period <%= classInfo.period + " " + classInfo.class_name + " (id:" + classInfo.period_id+")"%>
+											Period <%= classInfo.period + " " + classInfo.class_name%>
 										 <%}%>
 											
 									</li>
@@ -298,9 +298,9 @@ color: black;">x</a>
 			<% if(isTeacher == 1){%>
 			<button id="viewQ9" class="side_button">Create Class</button>
 			<%}%>
-			
+			<% if(classTitle != "T/SWBAT"){%>
 			<button id="viewQ" class="side_button">View Submissions</button>
-			
+			<%}%>
 			<br>
 
 			<script type="text/javascript">

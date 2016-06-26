@@ -45,7 +45,7 @@
 											<%= classInfo.class_name%>
 										<%}else{%>
 											<input type="radio" name="classperiodid" value=<%=[classInfo.period_id, classInfo.class_id, classInfo.period]%> class = "classSelectionChoices" id="classselection1">
-											Period <%= classInfo.period + " " + classInfo.class_name + " (id:" + classInfo.period_id+")"%>
+											Period <%= classInfo.period + " " + classInfo.class_name%>
 										 <%}%>
 									</li>
 			
@@ -149,7 +149,7 @@
 	<div id="navbar_menu">
 		<h4 id="navbar_settings"></h4>
 	</div>
-	<h1 class="navbar-items" id="navbar_classname"><%= " " + user[0] + " " + user[1] %></h1>
+	<h1 class="navbar-items" id="navbar_classname"><%= className %></h1>
 	<h4 class="navbar-items" id="navbar_range"></h4>
 	<h4 class="navbar-items" id="navbar_scoolyear"></h4>
 </div>
@@ -213,10 +213,9 @@
 			<% if(isTeacher){ %>
 				<td><%= submission[4] %></td>
 			<% } %>
-				<td><%= submission[5] %></td>
-				<td><%- submission[6] %></td>
-				<td><%- submission[7] %></td>
-				<td><%- submission[8] %></td>
+				<td><a href="<%= submission[5] %>"><%= submission[6] %></a></td>
+				<td><a href="<%= submission[7] %>"><%= submission[8] %></a></td>
+				<td><a href="<%= submission[9] %>"><%= submission[10] %></a></td>
 			</tr>
 		<% }) %>
 		</table>

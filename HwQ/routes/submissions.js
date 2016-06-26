@@ -70,22 +70,30 @@ exports.querySubmission = function(req, res){
 					data.push(rows[i].last_name);
 					data.push(rows[i].period_number);
 					//this checks if the file is empty, nameStart finds the name of the file (last section of the url) and displays it as the link
-					if(rows[i].file1_url != null){
+					if(rows[i].file1_url != " "){
 						var nameStart = rows[i].file1_url.indexOf("_") + 1;
-						data.push("<a href ='" + rows[i].file1_url + "'>" + rows[i].file1_url.substring(nameStart) + "</a>");
+//						data.push("<a href=\"" + rows[i].file1_url + "\">" + rows[i].file1_url.substring(nameStart) + "</a>");
+						data.push(rows[i].file1_url);
+						data.push(rows[i].file1_url.substring(nameStart));
 					}else{
 						data.push("");
+						data.push("");
+
 					}
-					if(rows[i].file2_url != null){
+					if(rows[i].file2_url != " "){
 						var nameStart = rows[i].file2_url.indexOf("_") + 1;
-						data.push("<a href ='" + rows[i].file2_url + "'>" + rows[i].file2_url.substring(nameStart) + "</a>");
+						data.push(rows[i].file2_url);
+						data.push(rows[i].file2_url.substring(nameStart));
 					}else{
 						data.push("");
+						data.push("");
 					}
-					if(rows[i].file3_url != null){
+					if(rows[i].file3_url != " "){
 						var nameStart = rows[i].file3_url.indexOf("_") + 1;
-						data.push("<a href ='" + rows[i].file3_url + "'>" + rows[i].file3_url.substring(nameStart) + "</a>");
+						data.push(rows[i].file3_url);
+						data.push(rows[i].file3_url.substring(nameStart));
 					}else{
+						data.push("");
 						data.push("");
 					}
 					results.push(data);
@@ -95,7 +103,8 @@ exports.querySubmission = function(req, res){
 			user : [req.session.first, req.session.last],
 			submissions : results,
 			classList: req.session.classPeriodList,
-			isTeacher: req.session.is_teacher == 1
+			isTeacher: req.session.is_teacher == 1,
+			className: req.session.className
 			});
 
 	});

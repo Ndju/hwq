@@ -115,7 +115,7 @@ exports.assignments = function(req, res) {
 							descText = descText.split("\n").join("<br/>");
 							descText = descText.split("\r").join("");
 							descText = descText.split("*").join("<li>");
-							rows[i].description = "<h2>" + descText +"</h2>";
+							//rows[i].description = "<h2>" + descText +"</h2>";
 						}else{
 							descText = descText.split("\n").join(" *");
 							descText = descText.split("\r").join(" *");
@@ -138,6 +138,8 @@ exports.assignments = function(req, res) {
 							}else{
 								classTitle = classPeriodList[i].class_name;
 							}
+							//sets it ass the className;
+							req.session.className = classTitle
 						}
 					}
 					
