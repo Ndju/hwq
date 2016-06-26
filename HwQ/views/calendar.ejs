@@ -183,7 +183,7 @@
 			      	$("#assignmentId").val(event.id);
 			      	$("#title_assignment").val(event.title);
 					var endduedate = new Date(moment(event.end).format('MM/DD/YYYY'));
-			      	$("#end_date").val(moment(event.end).format('MM/' + (endduedate.getDate()-1) + '/YYYY'));
+			      	$("#end_date").val(moment(event.end).format('MM/' + (endduedate.getDate()) + '/YYYY'));
 			      	$("#eventLink").attr('href', event.url);
 			      	$("#descriptiontext").val(event.description);
 			      	$("#exemption_code").val(event.exemption);

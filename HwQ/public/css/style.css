@@ -324,7 +324,7 @@ letter-spacing: 1px;
 
 }
 
-#loginbutton,#filesubmitbutton, #DeleteAssignment, #cancelsubmitfile,#cancelNewFile,#cancelUpdfile,#signUpButton,#signUpSubmitButton,#cancelSignUp {
+#loginbutton,#filesubmitbutton, #DeleteAssignment, #cancelsubmitfile,#cancelNewFile,#cancelUpdfile,#signUpButton,#signUpSubmitButton,#cancelSignUp,#deleteClassSettingsButton {
 	text-transform: uppercase;
 	background-color: #1ab188;
 	border: 0px white;
@@ -339,6 +339,14 @@ letter-spacing: 1px;
 	margin-top: 25px;
 	font-family: "Work Sans";
 	font-weight: 100;
+}
+#deleteClassSettingsButton{
+    float: right;
+    width: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 7%;
+    background-color: red;
 }
 #loginbutton:hover { 
     background-color: #009a71;
@@ -478,7 +486,7 @@ h1#navbar_classname.navbar-items{
     color: white;
     position: relative;
     top: -8px;
-    left: -8px;
+
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
     letter-spacing: 1px;
@@ -714,6 +722,27 @@ font-weight: 100;
 	margin-bottom:20px;
 }
 
+
+.calSettingsCalendarContainer{
+    height:100vh;
+    z-index:125121424124;
+    background-color: rgba(255, 255, 255, 0.7);
+    position:absolute;
+    top:-100vh;
+    display:inline;width:100%;
+    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+}
+
+#calSettingsToggle:checked ~ .calSettingsCalendarContainer {
+    top: 82px;
+
+}
+
+#calSettingsToggle:checked ~ #calendar {
+    position: absolute;
+    filter: blur(5px);
+}
+
 /* Mobile web style sheet */
 @media only screen and (max-device-width: 480px) {
 		div#wrapper {
@@ -758,3 +787,7 @@ font-weight: 100;
 		
 }
 
+
+#deleteClassSettingsButton {
+    
+}
