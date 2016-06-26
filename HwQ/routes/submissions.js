@@ -104,7 +104,8 @@ exports.querySubmission = function(req, res){
 			submissions : results,
 			classList: req.session.classPeriodList,
 			isTeacher: req.session.is_teacher == 1,
-			className: req.session.className
+			className: req.session.className,
+			url: '/assignments?classperiodid=' + req.session.urlid
 			});
 
 	});
