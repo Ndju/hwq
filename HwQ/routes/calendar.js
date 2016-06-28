@@ -165,7 +165,8 @@ exports.assignments = function(req, res) {
 						
 										//sets a cookie for later use not now.
 										req.session.periodList = periodList;
-										req.session.settingsList = settingsList;
+										//sort the list in period order.
+										req.session.settingsList = settingsList.sort();
 										console.log('done');
 										res.render('calendar', {
 											classTitle: classTitle,
