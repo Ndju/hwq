@@ -61,7 +61,8 @@ exports.cal = function(req, res) {
 							classTitle: "T/SWBAT",
 							assignmentList : assignmentList,
 							classList : classPeriodList,
-							isTeacher: req.session.is_teacher
+							isTeacher: req.session.is_teacher,
+							settings: req.session.settingsList
 						});
 						
 					}
@@ -107,8 +108,6 @@ exports.assignments = function(req, res) {
 					// connection mess-up handler --> very unlikely as the statement is static and consistent
 					res.send('ERROR AT EXPORTS.ASSIGNMENTS');
 				} else {
-					console.log(rows.length)
-					console.log(rows[0].exemption)
 					// for loops through each line of data from mysql
 					for (var i = 0; i < rows.length; i++) {
 						// each row index = dictionary of values from mysql
@@ -147,27 +146,33 @@ exports.assignments = function(req, res) {
 						}
 					}
 					//get settings ids for teacher
-					if(is_teacher == 1){
+					if(req.session.is_teacher == 1){
 						var settingSql = 'SELECT period, period_id FROM tswbatDB.period WHERE class_fk = ?;';
-						req.app.get('connection').query(sql, [ req.session.classid ],
-								function(err, rows, fields) {
+						req.app.get('connection').query(settingSql, [ req.session.classid ],
+								//change rows to settings to differentiate
+								function(err, settings, fields) {
 									if (err) {
 										console.log(err);
 										res.send('ERROR AT EXPORTS.ASSIGNMENTS');
 									}else{
+										console.log(settings);
 										//fill up two seperate lists
-										for(i=0; i<rows.length; i++){
-											settingsList.push("Period "+rows[i].period + ": " + rows[i].period_id);
-											periodList.push(rows[i]);
+										for(i=0; i<settings.length; i++){
+											console.log(settings[i]);
+											settingsList.push("Period "+settings[i].period + " ID: " + settings[i].period_id);
+											periodList.push(settings[i]);
 										}
+						
 										//sets a cookie for later use not now.
 										req.session.periodList = periodList;
+										req.session.settingsList = settingsList;
+										console.log('done');
 										res.render('calendar', {
 											classTitle: classTitle,
 											classList : classPeriodList,
 											assignmentList : assignmentList,
 											isTeacher: req.session.is_teacher,
-											settings: settingsList
+											settings: req.session.settingsList
 										});
 									}
 						});

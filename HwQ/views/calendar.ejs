@@ -268,8 +268,12 @@ color: black;">x</a>
 <body style="background-image: none;">
 	<input type="checkbox" name="calSettingsToggle" id="calSettingsToggle" style = "display:none;"/>
 	<div class = "calSettingsCalendarContainer" style = "">
-
         <input type="button" value="DELETE" id = "deleteClassSettingsButton" name = "deleteClassSettingsButton">
+    	<ul>
+    		<% settings.forEach(function(setting){ %>
+				<li style = "margin-top:10px;"><%= setting%></li>
+			<% }) %>
+		</ul>
     </div>
 	<div class="everythingButNewFileForm">
 		<div class="settings-container">
@@ -277,7 +281,6 @@ color: black;">x</a>
 					<button class="side_button" id="classes-header">Select Classes</button>
 					<form id="class_select_form" class="settings-form" method='get' action='/assignments'>
 						<ul id = "dropdownSelectClasses" style = "list-style: none; display: none;">
-	
 							<div class="classroomclass">		
 								<% classList.forEach(function(classInfo){ %>
 									<li>
@@ -479,10 +482,14 @@ padding-left: 5px;">
 				<h1 class="navbar-items" id="navbar_classname"><%=classTitle%></h1>
 			<h4 class="navbar-items" id="navbar_range"></h4>
 			<h4 class="navbar-items" id="navbar_scoolyear"></h4>
+<!--  calendar settings button -->
+			<% if(classTitle != "T/SWBAT"){%>
 			<label id = "calSettingsLabel" for = "calSettingsToggle" style = "position: absolute;
                 right:50px;
                 bottom:0px;
                 font-size: 40px;cursor:pointer;">&#9881;</label>
+             <%}%>
+                
 		</div>
 
 

@@ -27,7 +27,7 @@ exports.login = function(req, res){
 		    	 //set to null
 		    	 req.session.periodid = -1;
 		    	 req.session.classid = -1;
-		    	 
+		    	 req.session.settingsList = [];
 		    	 
 		    	 console.log("User profile ==>" 
 		    			 + "FIRST NAME: " + req.session.first + " LAST NAME: " + req.session.last + "USERNAME: " + req.session.username +" [id=" + req.session.id +"]") ;
