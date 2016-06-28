@@ -82,7 +82,7 @@ exports.assignments = function(req, res) {
 		//sets current class id as the class id from cpid
 		req.session.classid = req.session.cpid[1];
 		//sets the current url
-		req.session.urlid = req.session.cpid[0]+"%2C"+req.session.cpid[1];
+		req.session.urlid = req.session.cpid[0]+"%2C"+req.session.cpid[1]+"%2C"+req.session.cpid[2];
 		//sets current period
 		req.session.periodnumber = req.session.cpid[2];
 	}else{
@@ -155,14 +155,11 @@ exports.assignments = function(req, res) {
 										console.log(err);
 										res.send('ERROR AT EXPORTS.ASSIGNMENTS');
 									}else{
-										console.log(settings);
 										//fill up two seperate lists
 										for(i=0; i<settings.length; i++){
-											console.log(settings[i]);
 											settingsList.push("Period "+settings[i].period + " ID: " + settings[i].period_id);
 											periodList.push(settings[i]);
 										}
-						
 										//sets a cookie for later use not now.
 										req.session.periodList = periodList;
 										//sort the list in period order.
@@ -178,6 +175,13 @@ exports.assignments = function(req, res) {
 									}
 						});
 					}
+					res.render('calendar', {
+						classTitle: classTitle,
+						classList : classPeriodList,
+						assignmentList : assignmentList,
+						isTeacher: req.session.is_teacher,
+						settings: req.session.settingsList
+					});
 				}
 			});
 }
