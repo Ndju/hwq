@@ -94,6 +94,10 @@ exports.assignments = function(req, res) {
 	}
 	
 	var assignmentList = [];
+	//period id and period strings for settings and others
+	var settingsList = [];
+	//period and id strings for query
+	var periodList = [];
 	var sql = 'SELECT DATE_FORMAT(assigned_date, \'%Y-%m-%d\') AS assigned_date, title, DATE_FORMAT(due_date, \'%Y-%m-%d\') AS due_date, id, description, class_name, exemption '
 			+ 'FROM tswbatDB.assignments, tswbatDB.class WHERE classcode_fk = class_id AND class_id = ?';
 	// creates the connection with mysql database and executes statement.
@@ -142,13 +146,32 @@ exports.assignments = function(req, res) {
 							req.session.className = classTitle
 						}
 					}
-					
-					res.render('calendar', {
-						classTitle: classTitle,
-						classList : classPeriodList,
-						assignmentList : assignmentList,
-						isTeacher: req.session.is_teacher
-					});
+					//get settings ids for teacher
+					if(is_teacher == 1){
+						var settingSql = 'SELECT period, period_id FROM tswbatDB.period WHERE class_fk = ?;';
+						req.app.get('connection').query(sql, [ req.session.classid ],
+								function(err, rows, fields) {
+									if (err) {
+										console.log(err);
+										res.send('ERROR AT EXPORTS.ASSIGNMENTS');
+									}else{
+										//fill up two seperate lists
+										for(i=0; i<rows.length; i++){
+											settingsList.push("Period "+rows[i].period + ": " + rows[i].period_id);
+											periodList.push(rows[i]);
+										}
+										//sets a cookie for later use not now.
+										req.session.periodList = periodList;
+										res.render('calendar', {
+											classTitle: classTitle,
+											classList : classPeriodList,
+											assignmentList : assignmentList,
+											isTeacher: req.session.is_teacher,
+											settings: settingsList
+										});
+									}
+						});
+					}
 				}
 			});
 }
