@@ -174,14 +174,16 @@ exports.assignments = function(req, res) {
 										});
 									}
 						});
-					}
+					}else{
 					res.render('calendar', {
 						classTitle: classTitle,
 						classList : classPeriodList,
 						assignmentList : assignmentList,
 						isTeacher: req.session.is_teacher,
 						settings: req.session.settingsList
+					
 					});
+					}
 				}
 			});
 }

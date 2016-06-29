@@ -30,7 +30,7 @@ exports.login = function(req, res){
 		    	 req.session.settingsList = [];
 		    	 
 		    	 console.log("User profile ==>" 
-		    			 + "FIRST NAME: " + req.session.first + " LAST NAME: " + req.session.last + "USERNAME: " + req.session.username +" [id=" + req.session.id +"]") ;
+		    			 + "FIRST NAME: " + req.session.first + " LAST NAME: " + req.session.last + "USERNAME: " + req.session.user +" [id=" + req.session.id +"]") ;
 		    	 res.redirect('/calendar');
 		     }
 	      }
