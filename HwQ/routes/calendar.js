@@ -20,14 +20,15 @@ exports.cal = function(req, res) {
 		console.log("user is teacher")
 		var sql = 'SELECT DISTINCT tswbatDB.class.class_name, tswbatDB.class.class_id '  + 
 		'FROM tswbatDB.class, tswbatDB.owner_table WHERE tswbatDB.owner_table.owner_id = ? ' + 
-		'AND tswbatDB.class.class_id = tswbatDB.owner_table.class_id_fk;';
+		'AND tswbatDB.class.class_id = tswbatDB.owner_table.class_id_fk AND tswbatDB.class.disabled = 0;';
 	}else{
 		console.log("user is student")
 		var sql = 'SELECT DISTINCT class.class_name, class.class_id, period.period_id, period.period '
 			+ 'FROM tswbatDB.student_period, tswbatDB.period, tswbatDB.class '
 			+ 'WHERE tswbatDB.student_period.student_id_fk = ? '
 			+ 'AND tswbatDB.period.period_id = tswbatDB.student_period.period_id_fk '
-			+ 'AND tswbatDB.class.class_id = tswbatDB.period.class_fk;';
+			+ 'AND tswbatDB.class.class_id = tswbatDB.period.class_fk '
+			+ 'AND tswbatDB.student_period.disabled = 0 AND tswbatDB.class.disabled = 0;';
 	}
 	//creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(sql, [ req.session.id ],

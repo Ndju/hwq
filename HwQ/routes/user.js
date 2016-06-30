@@ -24,6 +24,8 @@ exports.login = function(req, res){
 		    	 req.session.id = rows[0].id;
 		    	 //is_teacher
 		    	 req.session.is_teacher  = rows[0].is_teacher;
+		    	 //set calendar color
+		    	 req.session.color = rows[0].color;
 		    	 //set to null
 		    	 req.session.periodid = -1;
 		    	 req.session.classid = -1;
@@ -62,7 +64,7 @@ exports.reset = function(req,res){
 exports.join = function(req,res){
 	//gets the period id from the join Class Form
 	var pCode = req.body.joinClass;
-	var sql = 'INSERT INTO tswbatDB.student_period (student_id_fk, period_id_fk, disabeled) VALUES (?, ?, 0)';
+	var sql = 'INSERT INTO tswbatDB.student_period (student_id_fk, period_id_fk, disabled) VALUES (?, ?, 0)';
 	req.app.get('connection').query(sql, [req.session.id, pCode], function(err, rows, fields) {
 	      if (err){
 	    	  //very unlikely, hopefully this never happens
