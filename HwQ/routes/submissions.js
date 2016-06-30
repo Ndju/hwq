@@ -48,7 +48,7 @@ exports.querySubmission = function(req, res){
 			'AND id = assignment_id';
 	}
 	
-	console.log('HELLO::::' + req.session.id + " AND " + req.session.periodid + " AND \n" + sql );
+	console.log('HELLO::::' + req.session.id + " AND " + req.session.periodid + " AND " + req.session.classid+ " AND \n" + sql );
 	
 	// creates the connection with mysql database and executes statement.
 	req.app.get('connection').query(sql, [req.session.classid, req.session.id],function(err, rows, fields) {
