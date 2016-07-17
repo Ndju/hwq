@@ -267,14 +267,54 @@ color: black;">x</a>
 <!-- Sidebar development -->
 <body style="background-image: none;">
 	<input type="checkbox" name="calSettingsToggle" id="calSettingsToggle" style = "display:none;"/>
-	<div class = "calSettingsCalendarContainer" style = "">
+	<!-- <div class = "calSettingsCalendarContainer" style = "">
         <input type="button" value="DELETE" id = "deleteClassSettingsButton" name = "deleteClassSettingsButton">
     	<ul>
     		<% settings.forEach(function(setting){ %>
 				<li style = "margin-top:10px;"><%= setting%></li>
 			<% }) %>
 		</ul>
+    </div> -->
+<!--
+    <div class = "calSettingsCalendarContainer" style = "">
+        <ul class = "calSettingsTabs" style="">
+
+            <a class = "calTab"  href = "#idSettingsInfo">Period ID</a>
+            <a  class = "calTab" href = "#studentsSettingsInfo">Students</a>
+            <a class = "calTab" href = "#personalSettingsInfo">Personal Settings</a>
+        </ul>
+        
+        
+        <ul style = "padding:0px; margin-top:0px;">
+			<% settings.forEach(function(setting){ %>
+            
+				<li style="margin-top: 0px; list-style: none; width: auto; border: 1px solid black; padding: 15px;"><%= setting%></li>
+
+			<% }) %>
+		</ul>
+        
     </div>
+-->
+    <div class = "calSettingsCalendarContainer" style = "">
+        <ul class = "calSettingsTabs" style="">
+
+            <a class = "calTab"  href = "#idSettingsInfo">Period ID</a>
+            <a  class = "calTab" href = "#studentsSettingsInfo">Students</a>
+            <a class = "calTab" href = "#personalSettingsInfo">Personal Settings</a>
+        </ul>
+        
+        
+        <table style = "padding:0px; margin-top:0px;border-collapse:collapse;width:100%;">
+			<% settings.forEach(function(setting){ %>
+            <tr>
+				<td style="margin-top: 0px; list-style: none; width: auto; border: 1px solid black; border-right: none; padding: 15px;border-left:none;"><%= setting%></td>
+            </tr>
+			<% }) %>
+		</table>
+        
+    </div>
+
+    
 	<div class="everythingButNewFileForm">
 		<div class="settings-container">
 			<div class = "sidebarMinusReset">
