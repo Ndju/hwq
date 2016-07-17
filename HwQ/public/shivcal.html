@@ -133,19 +133,26 @@
 <body style="background-image: none;">
     <input type="checkbox" name="calSettingsToggle" id="calSettingsToggle" style = "display:none;"/>
     <div class = "calSettingsCalendarContainer" style = "">
+        <ul class = "calSettingsTabs" style="">
+
+            <a class = "calTab"  href = "#idSettingsInfo">Period ID</a>
+            <a  class = "calTab" href = "#studentsSettingsInfo">Students</a>
+            <a class = "calTab" href = "#personalSettingsInfo">Personal Settings</a>
+        </ul>
+        
+        
         <ul>
 			
 				<li>Period 1: 2835u81</li>
 			<li style = "margin-top:10px;">Period 2: 2835u12712481</li>
 		</ul>
-        <input type="button" value="DELETE" id = "deleteClassSettingsButton" name = "deleteClassSettingsButton">
+        
     </div>
     
 	<div class="everythingButNewFileForm" style="opacity: 1; filter: blur(0px); pointer-events: auto;">
         
 		<div class="settings-container" style="left: -500px;">
 			<div class="sidebarMinusReset">
-				<!-- <form id="class_select_form" class="settings-form" method='get' action='/assignments'> -->
 					<button class="side_button" id="classes-header">Select Classes</button>
 					<form id="class_select_form" class="settings-form" method="get" action="/assignments">
 						<ul id="dropdownSelectClasses" style="list-style: none; display: none;">
@@ -307,8 +314,8 @@
 			});
 			
 		</script>
-		
-		<div id="navbar">
+<!--		ANDY JUUUUUUU OVER HERE-->
+		<div id="navbar" style = "background-color:#">
 			<div id="navbar_menu">
 				<h4 id="navbar_settings"></h4>
 			</div>

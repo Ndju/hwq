@@ -458,10 +458,14 @@ background-color: rgba(255, 255, 255, 0.4);
 
 h1#navbar_classname.navbar-items{
 	font-family: "Miso Light";
-	position: absolute;
-	font-size: 2.3em;
-	right:44.5%;
-	top:27px;
+    position: absolute;
+    font-size: 3em;
+    right: 44.5%;
+    /* top:24px; */
+    margin-top: 1%;
+}
+
+margin-top: 10px;
 }
 
 #navbar_classname{
@@ -726,7 +730,7 @@ font-weight: 100;
 
 .calSettingsCalendarContainer{
     height: 60vh;
-    border-radius: 10px;
+
     border: 2px solid black;
     position: absolute;
     z-index: 125121424124;
@@ -796,4 +800,29 @@ font-weight: 100;
 
 #deleteClassSettingsButton {
     
+}
+
+.calTab {
+    display: inline-block;
+    width: 33.33334%;
+    padding: 10px 0px;
+    margin-left: -4px;
+    background-color: #ecf0f1;
+    text-align: center;
+    border-left: 1px black solid;
+    text-decoration: none;
+    color: black;
+}
+
+.calTab:hover{
+    color:#ecf0f1;
+    background-color:black;
+}
+
+.calSettingsTabs {
+    padding: 0px;
+
+    margin-top: 0px;
+    border-bottom: 1px solid black;
+    text-align: right;
 }
