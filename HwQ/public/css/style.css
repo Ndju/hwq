@@ -729,7 +729,7 @@ font-weight: 100;
 
 
 .calSettingsCalendarContainer{
-    height: 80vh;
+    height: 60vh;
 
     border: 2px solid black;
     position: absolute;
@@ -743,7 +743,7 @@ font-weight: 100;
 }
 
 #calSettingsToggle:checked ~ .calSettingsCalendarContainer {
-    top: 30vh;
+    top: 20vh;
 
 }
 
