@@ -20,7 +20,10 @@ exports.cal = function(req, res) {
 		console.log("user is teacher")
 		var sql = 'SELECT DISTINCT tswbatDB.class.class_name, tswbatDB.class.class_id '  + 
 		'FROM tswbatDB.class, tswbatDB.owner_table WHERE tswbatDB.owner_table.owner_id = ? ' + 
-		'AND tswbatDB.class.class_id = tswbatDB.owner_table.class_id_fk AND tswbatDB.class.disabled = 0;';
+		'AND tswbatDB.class.class_id = tswbatDB.owner_table.class_id_fk AND tswbatDB.class.disabled = 0;'; 		
+		
+		console.log(sql);
+		
 	}else{
 		console.log("user is student")
 		var sql = 'SELECT DISTINCT class.class_name, class.class_id, period.period_id, period.period '
@@ -39,7 +42,8 @@ exports.cal = function(req, res) {
 				} else {
 					var classperiodid = req.session.periodid;
 					// for loops through each line of data from mysql
-					console.log(rows.length)
+					
+					console.log(rows.length);
 					for (var i = 0; i < rows.length; i++) {
 						console.log(rows[i])
 						classPeriodList.push(rows[i]);
@@ -64,6 +68,8 @@ exports.cal = function(req, res) {
 							classList : classPeriodList,
 							isTeacher: req.session.is_teacher,
 							settings: req.session.settingsList
+							
+							
 						});
 						
 					}
@@ -143,14 +149,16 @@ exports.assignments = function(req, res) {
 								classTitle = classPeriodList[i].class_name;
 							}
 							//sets it ass the className;
-							req.session.className = classTitle
+							req.session.className = classTitle;
 						}
 					}
 					//get settings ids for teacher
 					if(req.session.is_teacher == 1){
-						var settingSql = 'SELECT period, period_id FROM tswbatDB.period WHERE class_fk = ?;';
+						var settingSql = 'SELECT period.period, period.period_id FROM tswbatDB.period WHERE class_fk = ?;';
+						
 						req.app.get('connection').query(settingSql, [ req.session.classid ],
 								//change rows to settings to differentiate
+								
 								function(err, settings, fields) {
 									if (err) {
 										console.log(err);
@@ -165,16 +173,21 @@ exports.assignments = function(req, res) {
 										req.session.periodList = periodList;
 										//sort the list in period order.
 										req.session.settingsList = settingsList.sort();
-										console.log('done');
+										
 										res.render('calendar', {
 											classTitle: classTitle,
 											classList : classPeriodList,
 											assignmentList : assignmentList,
 											isTeacher: req.session.is_teacher,
-											settings: req.session.settingsList
+											settings: settingsList.sort()
 										});
+										console.log('done');
+										
 									}
 						});
+						
+						
+						
 					}else{
 					res.render('calendar', {
 						classTitle: classTitle,

@@ -298,16 +298,60 @@ color: black;">x</a>
     <div class = "calSettingsCalendarContainer" style = "">
         <ul class = "calSettingsTabs" style="">
 
-            <a class = "calTab"  href = "#idSettingsInfo">Period ID</a>
-            <a  class = "calTab" href = "#studentsSettingsInfo">Students</a>
-            <a class = "calTab" href = "#personalSettingsInfo">Personal Settings</a>
+            <a class = "calTab"  id = "periodIdSettingsButton" >Period ID</a>
+            <a  class = "calTab" id = "studentSettingsButton" >Students</a>
+            <a class = "calTab" id = "personalSettingsButton" >Personal Settings</a>
         </ul>
+        <script>
+        $(document).ready(function(){
+        	$("#idSettingsInfo").css({ 'display': 'none'}); 
+            $("#studentsSettingsInfo").css({ 'display': 'none'}); 
+            $("#personalSettingsInfo").css({ 'display': 'none'}); 
+            $('#periodIdSettingsButton').bind('click touchstart',function(e){
+                 $("#idSettingsInfo").css({ 'display': 'table'}); 
+                 $("#studentsSettingsInfo").css({ 'display': 'none'}); 
+                 $("#personalSettingsInfo").css({ 'display': 'none'}); 
+            })
+            $('#studentSettingsButton').bind('click touchstart',function(e){
+                 $("#idSettingsInfo").css({ 'display': 'none'}); 
+                 $("#studentsSettingsInfo").css({ 'display': 'table'}); 
+                 $("#personalSettingsInfo").css({ 'display': 'none'}); 
+            })
+            $('#personalSettingsButton').bind('click touchstart',function(e){
+                 $("#idSettingsInfo").css({ 'display': 'none'}); 
+                 $("#studentsSettingsInfo").css({ 'display': 'none'}); 
+                 $("#personalSettingsInfo").css({ 'display': 'table'}); 
+            })
+            
+        })
         
+        </script>
         
-        <table style = "padding:0px; margin-top:0px;border-collapse:collapse;width:100%;">
+        <table id ="idSettingsInfo" style = "padding:0px; margin-top:0px;border-collapse:collapse;width:100%;">
 			<% settings.forEach(function(setting){ %>
             <tr>
 				<td style="margin-top: 0px; list-style: none; width: auto; border: 1px solid black; border-right: none; padding: 15px;border-left:none;"><%= setting%></td>
+            </tr>
+			<% }) %>
+		</table>
+		
+		<table id ="studentsSettingsInfo" style = "padding:0px; margin-top:0px;border-collapse:collapse;width:100%;">
+			<% settings.forEach(function(setting){ %>
+            <tr>
+				<td style="margin-top: 0px; list-style: none; width: auto; border: 1px solid black; border-right: none; padding: 15px;border-left:none;"><%= setting%></td>
+            </tr>
+            <tr>
+				<td style="margin-top: 0px; list-style: none; width: auto; border: 1px solid black; border-right: none; padding: 15px;border-left:none;">POTATO</td>
+            </tr>
+			<% }) %>
+		</table>
+		<table id ="personalSettingsInfo" style = "padding:0px; margin-top:0px;border-collapse:collapse;width:100%;">
+			<% settings.forEach(function(setting){ %>
+            <tr>
+				<td style="margin-top: 0px; list-style: none; width: auto; border: 1px solid black; border-right: none; padding: 15px;border-left:none;"><%= setting%></td>
+            </tr>
+            <tr>
+				<td style="margin-top: 0px; list-style: none; width: auto; border: 1px solid black; border-right: none; padding: 15px;border-left:none;">TOMMATO</td>
             </tr>
 			<% }) %>
 		</table>
